@@ -1,14 +1,14 @@
 <?php
-	session_start();
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "mosv";
-	
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	if($conn->connect_error){
-		die("Connection failed: ". $conn->connect_error);
-	}
+  session_start();
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "mosv";
+  
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  if($conn->connect_error){
+    die("Connection failed: ". $conn->connect_error);
+  }
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +50,7 @@
               <div class="col-md-7">
                 <ul class="list-inline top-contacts">
                   <li>
-                    <i class="fa fa-envelope"></i>mail@freelancemosv.id
+                    <i class="fa fa-envelope"></i> <a href="mailto:imail@freelancemosv.id" class="">mail@freelancemosv.id</a>
                   </li>
                   <li>
                     <i class="fa fa-phone"></i> (031) 3982200
@@ -60,17 +60,15 @@
               <div class="col-md-5">
                 <ul class="list-inline top-data"> 
                 <?php
-                	if(isset($_SESSION["logged"])){
-						echo '
-						<li><p class = "log-top">Selamat datang, '.$_SESSION["name"].'</p></li>
-						<li><a href="logout.php" class="log-top"">Keluar</a></li>';
-					}
-					else{
-						echo '
-	                	<li>
-	                		<a href="#" class="log-top" data-toggle="modal" data-target="#login-modal">Masuk</a>
-	                	</li>';
-					}
+                  if(isset($_SESSION["logged"])){
+                    echo '
+                    <li><div class = "log-top">Selamat datang, '.$_SESSION["name"].'</div></li>
+                    <li><a href="logout.php" class="log-top"">Keluar</a></li>';
+                  }
+                  else{
+                    echo '
+                    <li><a href="#" class="log-top" data-toggle="modal" data-target="#login-modal">Masuk</a></li>';
+                  }
                 ?>
                 </ul>
               </div>
@@ -82,7 +80,7 @@
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-light" id="mainNav" data-toggle="affix">
         <div class="container">
-          <a class="navbar-brand smooth-scroll" href="index.html">
+          <a class="navbar-brand smooth-scroll" href="index.php">
             <img src="img/logo-s.png" alt="logo">
           </a> 
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> 
@@ -90,7 +88,7 @@
           </button>  
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item" ><a class="nav-link smooth-scroll" href="faq.html">Bantuan</a></li> 
+                <li class="nav-item" ><a class="nav-link smooth-scroll" href="faq.php">Bantuan</a></li> 
                 <li class="nav-item dropdown" >
                   <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a> 
                   <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
@@ -104,7 +102,7 @@
                   <i class="search fa fa-search search-btn"></i>
                   <div class="search-open">
                     <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2">
+                      <input type="text" class="form-control" placeholder="Ketikkan Kategori" aria-describedby="basic-addon2">
                       <span class="input-group-addon" id="basic-addon2">Cari</span>
                     </div>
                   </div>
@@ -126,10 +124,7 @@
                           </div> 
                           <div class="col-md-3">
                             <ul class="list-inline top-data">
-                              <li><a href="#" target="_empty"><i class="fa top-social fa-facebook"></i></a></li>
-                              <li><a href="#" target="_empty"><i class="fa top-social fa-twitter"></i></a></li>
-                              <li><a href="#" target="_empty"><i class="fa top-social fa-google-plus"></i></a></li> 
-                              <li><a href="#" class="log-top" data-toggle="modal" data-target="#login-modal">Login</a></li>  
+                              <li><a href="#" class="log-top" data-toggle="modal" data-target="#login-modal">Masuk</a></li>  
                             </ul>
                           </div>
                         </div>
@@ -156,13 +151,13 @@
                       </button>
                   </div>
                   <div id="div-forms">
-                      <form id="login-form">
+                      <form id="login-form" method="post" action="login.php">
                           <h3 class="text-center">Masuk</h3>
                           <div class="modal-body">
                               <label for="username">Username</label> 
-                              <input id="login_username" class="form-control" type="text" placeholder="Enter username " required>
+                              <input id="login_username" class="form-control" type="text" placeholder="Masukkan username " name="user"required>
                               <label for="username">Kata Sandi</label> 
-                              <input id="login_password" class="form-control" type="password" placeholder="Enter password" required>
+                              <input id="login_password" class="form-control" type="password" placeholder="Masukkan kata sandi" name="passwd"required>
                               <div class="checkbox">
                                   <label>
                                       <input type="checkbox"> Ingat saya!
@@ -182,15 +177,22 @@
                           <h3 class="text-center">Daftar</h3>
                           <div class="modal-body"> 
                               <label for="username">Username</label> 
-                              <input id="register_username" class="form-control" type="text" placeholder="Enter username" name="user" required>
+                              <input id="register_username" class="form-control" type="text" placeholder="Masukkan username" name="user" required>
                               <label for="register_email">E-mail</label> 
-                              <input id="register_email" name="email" class="form-control" type="text" placeholder="Enter E-mail" required>
+                              <input id="register_email" name="email" class="form-control" type="text" placeholder="Masukkan E-mail" required>
                               <label for="register_password">Kata Sandi</label> 
-                              <input id="register_password" name="passwd" class="form-control" type="password" placeholder="Password" required>
-                              <label for="register_password">Peran</label> 
-                              <input name ="role" class="form-control" type="radio" placeholder="freelancer" value="freelancer"> Freelancer
-                              <input name="role" class="form-control" type="radio" placeholder="pengusaha" value="pengusaha"> Pengusaha
-                          </div>
+                              <input id="register_password" name="passwd" class="form-control" type="password" placeholder="Masukkan kata sandi" required>
+                              <label for="register_password">Pilih peran:</label>
+                              <div class="checkbox"> 
+                                <label>
+                                  <input type="checkbox" name ="role" value="freelancer" checked="checked"> Freelancer
+                                </label>
+                              </div>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" name="role" value="pengusaha"> Pengusaha
+                                </label>
+                              </div>
                           <div class="modal-footer">
                               <div>
                                   <button type="submit" class="btn btn-general btn-white">Daftar</button>
@@ -222,7 +224,7 @@
                         <span class="wrap"></span></a></span> </h1>        
                       <h3>Rasakan mudahnya kembangkan bisnis dengan bantuan freelancer profesional</h3>
                   </hgroup>
-                  <a href="project.html"> <button class="btn btn-general btn-green wow fadeInUp" role="button">Pekerjakan Kami</button></a>
+                  <a href="project.php"> <button class="btn btn-general btn-green wow fadeInUp" role="button">Pekerjakan Kami</button></a>
                 </div>           
             </div> 
         </div> 
@@ -239,7 +241,7 @@
             <h1 class="wow fadeInUp">KAMI BERKOMITMEN UNTUK MEMBANTU</h1>
             <div class="heading-border"></div>
             <p class="wow fadeInUp" data-wow-delay="0.4s">Selamat datang di Freelance mosv, website paling populer untuk mencari freelancer. Kami menggandeng perusahaan kecil menengah, bisnis start up dan pemilik bisnis dengan freelancer ahli untuk bekerja sama. Sebagai contoh, software development, desain/desain grafis, gambar, penulisan/penerjemahan seperti juga pemasaran online dan video editing.  </p>
-            <div class="title-but"><a href="faq.html"><button class="btn btn-general btn-green" role="button">Ingin Tahu Lebih?</button></a></div>
+            <div class="title-but"><a href="faq.php"><button class="btn btn-general btn-green" role="button">Ingin Tahu Lebih?</button></a></div>
           </div>
         </div>
       </div>  
@@ -492,7 +494,7 @@
                     <li><a href="about.html">About us</a><i class="fa fa-angle-right"></i></li> 
                     <li><a href="project.html">Project</a><i class="fa fa-angle-right"></i></li> 
                     <li><a href="careers.html">Career</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="faq.html">FAQ</a><i class="fa fa-angle-right"></i></li> 
+                    <li><a href="faq.php">FAQ</a><i class="fa fa-angle-right"></i></li> 
                     <li><a href="contact.html">Contact us</a><i class="fa fa-angle-right"></i></li> 
                   </ul>
                 </div>
@@ -525,8 +527,8 @@
                     Jalan Teknik Kimia <br>
                     Departemen Informatika <br>
                     Institut Teknologi sepuluh Nopember <br>
-                    Telp: (031) 398 2200 <br>
-                    Email: <a href="mailto:imail@freelancemosv.id" class="">mail@freelancemosv.id</a>
+                    <i class="fa fa-phone"></i> (031) 3982200<br>
+                    <i class="fa fa-envelope"></i> <a href="mailto:imail@freelancemosv.id" class="">mail@freelancemosv.id</a>
                   </address>  
                   <ul class="list-inline social-icon-f top-data">
                     <li><a href="#" target="_empty"><i class="fa top-social fa-facebook"></i></a></li>
@@ -545,7 +547,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div id="footer-copyrights">
-                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd. <a href="privasi.html"> Kebijakan Privasi</a> <a href="sk.html">Syarat dan Ketentuan</a></p>
+                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
                         </div>
                     </div> 
                 </div>
