@@ -10,23 +10,31 @@
 		die("Connection failed: ". $conn->connect_error);
 	}
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
-		$options = [
-			'cost' => 11,
-		];
+		
 		$pass = $_POST['passwd'];
-		$hash = password_hash($pass, PASSWORD_BCRYPT, $options);
 		$user = $_POST["user"];
 
-		$sql = "select * from user where username='$user' and password='$hash'";
+		$sql = "SELECT * FROM user WHERE username = '".$user."'";
 		//$query = mysqli_query($conn, $sql);
-		$rs = mysqli_query($conn, $sql) or die (mysql_error());
+		$rs = mysqli_query($conn, $sql);
 
-		if($row=mysqli_fetch_assoc($rs)) {
+		while ($row = mysqli_fetch_array($rs)){
+			if(password_verify($pass, $row["password"])){
+				$_SESSION["name"] = $user;
+				$_SESSION["logged"] = true;
+				header('Location:index.php');
+			}
+				else{
+				print '<center>Proses Login GAGAL</center>';
+			}
+		} 
+
+		/*if($rs){
 			$_SESSION["name"] = $user;
 			$_SESSION["logged"] = true;
 			header('Location:index.php');
 		}else {
 		print '<center>Proses Login GAGAL</center>';
-	}
+		}*/
 	}
  ?>
