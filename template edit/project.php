@@ -158,12 +158,12 @@
                           <h3 class="text-center">Masuk</h3>
                           <div class="modal-body">
                               <label for="username">Username</label> 
-                              <input id="login_username" class="form-control" type="text" placeholder="Masukkan username " name="user"required>
+                              <input id="login_username" class="form-control" type="text" placeholder="Masukkan username " name="user" value="<?php if(isset($_COOKIE["member_login"])) { echo $_COOKIE["member_login"]; } ?>" required>
                               <label for="username">Kata Sandi</label> 
-                              <input id="login_password" class="form-control" type="password" placeholder="Masukkan kata sandi" name="passwd"required>
+                              <input id="login_password" class="form-control" type="password" placeholder="Masukkan kata sandi" name="passwd" value="<?php if(isset($_COOKIE["member_password"])) { echo $_COOKIE["member_password"]; } ?>"required>
                               <div class="checkbox">
                                   <label>
-                                      <input type="checkbox"> Ingat saya!
+                                      <input type="checkbox" name="remember"<?php if(isset($_COOKIE["member_login"])) { ?> checked <?php } ?> > Ingat saya!
                                   </label>
                               </div>
                           </div>
@@ -188,12 +188,12 @@
                               <label for="register_password">Pilih peran:</label>
                               <div class="checkbox"> 
                                 <label>
-                                  <input type="checkbox" name ="role" value="freelancer" checked="checked"> Freelancer
+                                  <input type="radio" name ="role" value="freelancer" checked="checked"> Freelancer
                                 </label>
                               </div>
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="role" value="pengusaha"> Pengusaha
+                                  <input type="radio" name="role" value="pengusaha"> Pengusaha
                                 </label>
                               </div>
                           <div class="modal-footer">
@@ -209,7 +209,7 @@
               </div>
           </div>
       </div>
-    </section>     
+    </section>           
     
 <!--====================================================
                        HOME-P
