@@ -100,7 +100,8 @@
                     <a class="dropdown-item"  target="_empty" href="#">Web dan Pemograman</a> 
                     <a class="dropdown-item"  target="_empty" href="#">Penulisan dan Penerjemahan</a> 
                     <a class="dropdown-item"  target="_empty" href="#">Visual dan Audio</a> 
-                   <?php
+                  </div>
+                  <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
                     echo '
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilfree.php">Profil</a></li> ';
@@ -108,7 +109,6 @@
                     echo '
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>
-                  </div>
                 </li>
                 <li>
                   <i class="search fa fa-search search-btn"></i>
