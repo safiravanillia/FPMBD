@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -15,15 +16,20 @@
 		$sql = "SELECT * FROM user WHERE username = '".$user."'";
 		$rs = mysqli_query($conn, $sql);
 		while ($row = mysqli_fetch_array($rs)){
-			if(password_verify($pass, $row["password"])){
+			if(password_verify($pass, $row["password"])&&$row["role"]=="freelancer"){
 				$_SESSION["name"] = $user;
 				$_SESSION["logged"] = true;
+				$_SESSION["free"] = true;
+			}elseif(password_verify($pass, $row["password"])&&$row["role"] == "pengusaha"){
+				$_SESSION["name"] = $user;
+				$_SESSION["logged"] = true;
+				$_SESSION["peng"] = false;
 			}
 
 			if(!empty($_POST["remember"]) && $_SESSION["logged"] == true)   
 			{  
-				setcookie ("member_login",$user,time()+ (10 * 365 * 24 * 60 * 60));setcookie ("member_password",$pass,time()+ (10 * 365 * 24 * 60 * 60));
-				$_SESSION["admin_name"] = $name;
+				setcookie ("member_login",$user,time()+ (10 * 365 * 24 * 60 * 60));
+				setcookie ("member_password",$pass,time()+ (10 * 365 * 24 * 60 * 60));
 			}  elseif (empty($_POST["remember"]) && $_SESSION["logged"] == true)   {  
 				if(isset($_COOKIE["member_login"]))   
 				{  
