@@ -1,5 +1,6 @@
 <?php
   session_start();
+
   $servername = "localhost";
   $username = "root";
   $password = "";
@@ -99,6 +100,14 @@
                     <a class="dropdown-item"  target="_empty" href="#">Web dan Pemograman</a> 
                     <a class="dropdown-item"  target="_empty" href="#">Penulisan dan Penerjemahan</a> 
                     <a class="dropdown-item"  target="_empty" href="#">Visual dan Audio</a> 
+                   <?php
+                  if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
+                    echo '
+                    <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilfree.php">Profil</a></li> ';
+                  } elseif(isset($_SESSION["peng"])&&isset($_SESSION["logged"])){
+                    echo '
+                    <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
+                  }?>
                   </div>
                 </li>
                 <li>
