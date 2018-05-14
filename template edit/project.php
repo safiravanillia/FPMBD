@@ -1,5 +1,6 @@
 <?php
   session_start();
+
   $servername = "localhost";
   $username = "root";
   $password = "";
@@ -65,8 +66,11 @@
                 <?php
                   if(isset($_SESSION["logged"])){
                     echo '
-                    <li><div class = "log-top">Selamat datang, '.$_SESSION["name"].'</div></li>
+                    <li><div class = "log-top">Selamat datang, '.$_SESSION["name"].'!</div></li>
                     <li><a href="logout.php" class="log-top"">Keluar</a></li>';
+                  }elseif (isset($_SESSION["gagal"])) {
+                    echo '
+                    <li><a href="logout.php" class="log-top"> login gagal, coba lagi </a></li>';
                   }
                   else{
                     echo '
@@ -80,7 +84,7 @@
         </div> 
       </div> 
       
-            <!-- Navbar -->
+      <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-light" id="mainNav" data-toggle="affix">
         <div class="container">
           <a class="navbar-brand smooth-scroll" href="index.php">
@@ -100,6 +104,14 @@
                     <a class="dropdown-item"  target="_empty" href="#">Penulisan dan Penerjemahan</a> 
                     <a class="dropdown-item"  target="_empty" href="#">Visual dan Audio</a> 
                   </div>
+                  <?php
+                  if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
+                    echo '
+                    <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilfree.php">Profil</a></li> ';
+                  } elseif(isset($_SESSION["peng"])&&isset($_SESSION["logged"])){
+                    echo '
+                    <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
+                  }?>
                 </li>
                 <li>
                   <i class="search fa fa-search search-btn"></i>
@@ -139,7 +151,7 @@
           </div>
         </div>
       </nav>
-    </header>
+    </header> 
 
 <!--====================================================
                     LOGIN OR REGISTER
@@ -209,7 +221,8 @@
               </div>
           </div>
       </div>
-    </section>           
+    </section>      
+           
     
 <!--====================================================
                        HOME-P
