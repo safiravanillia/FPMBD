@@ -14,6 +14,10 @@
 
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Freelancer -mosv-</title>
+    <link rel="shortcut icon" href="img/favicon-01.png">
+</head>
 
 <body>
     <br>
@@ -26,32 +30,37 @@
             <th>Usia</th>
             <th>Telepon</th>
             <th>Ahli</th>
-            <th>Biodata</th>
+            <th>Deskripsi</th>
+            <th>Portofolio</th>
             <th>Tindakan</th>
       
         </tr>
     </thead>
     <tbody>
 <?php
-
-$sql = "SELECT * FROM freelancer";
+$sql1 = "SELECT * FROM user where username = '".$_SESSION["name"]."' ";
+        $query1 = mysqli_query($conn, $sql1);
+while($free1 = mysqli_fetch_array($query1)){
+$sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
         $query = mysqli_query($conn, $sql);
 
         while($free = mysqli_fetch_array($query)){
             echo "<tr>";
-            echo "<td>".$free['freelancer_id']."</td>";
-            echo "<td>".$free['nama']."</td>";
-            echo "<td>".$free['usia']."</td>";
-            echo "<td>".$free['telepon']."</td>";
-            echo "<td>".$free['ahli']."</td>";
-            echo "<td>".$free['biodata']."</td>";
+            echo "<td>".$free['id']."</td>";
+            echo "<td>".$free['f_nama']."</td>";
+            echo "<td>".$free['f_usia']."</td>";
+            echo "<td>".$free['f_telepon']."</td>";
+            echo "<td>".$free['f_ahli']."</td>";
+            echo "<td>".$free['f_deskripsi']."</td>";
+            echo "<td>".$free['f_portofolio']."</td>";
 
             echo "<td>";
-            echo "<a href='form-edit1.php?id=".$free['freelancer_id']."'>Edit</a> ";
+            echo "<a href='form-edit1.php?id=".$free['id']."'>Edit</a> ";
             echo "</td>";
 
             echo "</tr>";
         }
+}
 ?>
 
 </tbody>
