@@ -13,14 +13,14 @@
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$pass = $_POST['passwd'];
 		$user = $_POST["user"];
-		$sql = "SELECT * FROM user WHERE username = '".$user."'";
+		$sql = "SELECT * FROM user WHERE username = '".$user."' AND password = '".$pass."'";
 		$rs = mysqli_query($conn, $sql);
 		while ($row = mysqli_fetch_array($rs)){
-			if(password_verify($pass, $row["password"])&&$row["role"]=="freelancer"){
+			if($rs&&$row["role"]=="freelancer"){
 				$_SESSION["name"] = $user;
 				$_SESSION["logged"] = true;
 				$_SESSION["free"] = true;
-			}elseif(password_verify($pass, $row["password"])&&$row["role"] == "pengusaha"){
+			}elseif($rs&&$row["role"] == "pengusaha"){
 				$_SESSION["name"] = $user;
 				$_SESSION["logged"] = true;
 				$_SESSION["peng"] = false;
