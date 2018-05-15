@@ -14,6 +14,10 @@
 
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Freelancer -mosv-</title>
+    <link rel="shortcut icon" href="img/favicon-01.png">
+</head>
 <body>
     <br>
 
@@ -28,8 +32,10 @@
     </thead>
     <tbody>
 <?php
-
-$sql = "SELECT * FROM pengusaha";
+$sql1 = "SELECT * FROM user where username = '".$_SESSION["name"]."' ";
+        $query1 = mysqli_query($conn, $sql1);
+while($peng1 = mysqli_fetch_array($query1)){
+$sql = "SELECT * FROM pengusaha where pengusaha_id = '".$peng1['id']."'";
         $query = mysqli_query($conn, $sql);
 
         while($peng = mysqli_fetch_array($query)){
@@ -45,6 +51,7 @@ $sql = "SELECT * FROM pengusaha";
 
             echo "</tr>";
         }
+}
 ?>
 
 </tbody>
