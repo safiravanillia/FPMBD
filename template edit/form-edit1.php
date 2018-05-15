@@ -17,7 +17,7 @@ if( !isset($_GET['id']) ){
 
 $id = $_GET['id'];
 
-$sql = "SELECT * FROM freelancer WHERE freelancer_id=$id";
+$sql = "SELECT * FROM freelancer WHERE id=$id";
 $query = mysqli_query($conn, $sql);
 $free = mysqli_fetch_assoc($query);
 
@@ -36,7 +36,7 @@ if( mysqli_num_rows($query) < 1 ){
     <meta name="author" content="">
 
     <title>Freelancer -mosv-</title>
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="img/favicon-01.png">
 
     <!-- Global Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -91,26 +91,26 @@ if( mysqli_num_rows($query) < 1 ){
   	<div class="row">
   		<div class="col-md-6">
 					<form method="post" action="prosesedit1.php?role=freelancer">
-					<input type="hidden" name="id" value="<?php echo $free['freelancer_id'] ?>" />
+					<input type="hidden" name="id" value="<?php echo $free['id'] ?>" />
 					<div class = "form-group">
 						Nama Terang
-						<input type="text" name="nama" class ="form-control" placeholder="Masukkan nama" value="<?php echo $free['nama'] ?>" required/>
+						<input type="text" name="nama" class ="form-control" placeholder="Masukkan nama" value="<?php echo $free['f_nama'] ?>" required/>
 					</div>
 					<div class = "form-group">
 						Usia
-						<input type="text" name="umur" class ="form-control" placeholder="Masukkan usia" value="<?php echo $free['usia'] ?>" required/>
+						<input type="text" name="umur" class ="form-control" placeholder="Masukkan usia" value="<?php echo $free['f_usia'] ?>" required/>
 					</div>
 					<div class = "form-group">
 						No. Telepon
-						<input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $free['telepon'] ?>" required/>
+						<input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $free['f_telepon'] ?>" required/>
 					</div>
 					<div class = "form-group">
 						Keahlian
-						<input type="text" name="ahli" class ="form-control" placeholder="Masukkan gelar" value="<?php echo $free['ahli'] ?>" required/>
+						<input type="text" name="ahli" class ="form-control" placeholder="Masukkan gelar" value="<?php echo $free['f_ahli'] ?>" required/>
 					</div>
 					<div class = "form-group">
 						Deskripsi <br />
-						<textarea name="bio" rows="10" cols="70" placeholder="Paparkan pengalaman Anda" required><?php echo $free['biodata'] ?></textarea>
+						<textarea name="bio" rows="10" cols="70" placeholder="Paparkan pengalaman Anda" required><?php echo $free['f_deskripsi'] ?></textarea>
 					</div>
 					<div class = "modal-footer">
 						<a href="profilfree.php"><button class="btn btn-general btn-white">Kembali</button></a>
