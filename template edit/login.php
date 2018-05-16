@@ -17,10 +17,12 @@
 		$rs = mysqli_query($conn, $sql);
 		while ($row = mysqli_fetch_array($rs)){
 			if($rs&&$row["role"]=="freelancer"){
+				$_SESSION["role"] = "freelancer";
 				$_SESSION["name"] = $user;
 				$_SESSION["logged"] = true;
 				$_SESSION["free"] = true;
 			}elseif($rs&&$row["role"] == "pengusaha"){
+				$_SESSION["role"] = "pengusaha";
 				$_SESSION["name"] = $user;
 				$_SESSION["logged"] = true;
 				$_SESSION["peng"] = false;
