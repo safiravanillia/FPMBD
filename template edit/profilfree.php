@@ -235,7 +235,7 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
 	</div>
 </div>
 <br />
-<button class = "edit"><?php echo '<a href ="prosesedit1.php?id='.$id.'">';?>Ubah Profil</a></button>
+<button class = "edit"><?php echo '<a href ="form-edit1.php?id='.$id.'">';?>Ubah Profil</a></button>
 
     </body>
 </html>

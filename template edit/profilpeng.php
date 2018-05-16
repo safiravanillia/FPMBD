@@ -230,6 +230,6 @@
 	</div>
 </div>
 <br />
-<button class = "edit"><?php echo '<a href ="prosesedit2.php?id='.$id.'">';?>Ubah Profil</a></button>
+<button class = "edit"><?php echo '<a href ="form-edit2.php?id='.$id.'">';?>Ubah Profil</a></button>
     </body>
 </html>
