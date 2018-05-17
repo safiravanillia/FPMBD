@@ -94,6 +94,7 @@
     	margin : center;
     	font-weight : bold;
     	text-align : center;
+    	cursor : pointer;
     	padding-top :25px;
     	-webkit-transition-duration: 0.4s; /* Safari */
     	transition-duration: 0.4s;
@@ -222,14 +223,37 @@
 </div>
 <div class = "details">
 	<div class = "bar">
-		<div class = "bar-button"><b>Deskripsi Perusahaan</b></div>
-		<div class = "bar-button">Projek Aktif</div>
+		<div class = "bar-button" onclick="openTab('deskripsi', this)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
+		<div class = "bar-button" onclick="openTab('projek', this)">Projek Aktif</div>
 	</div>
-	<div class = "desc">
-		ini isinya
+	<div class = "desc" id="deskripsi">
+		deskripsi
+	</div>
+	<div class = "desc" id="projek">
+		projek
 	</div>
 </div>
 <br />
 <button class = "edit"><?php echo '<a href ="form-edit2.php?id='.$id.'">';?>Ubah Profil</a></button>
     </body>
+
+    <script>
+    function openTab(tabName,elmnt) {
+	    var i, tabcontent, tablinks;
+	    tabcontent = document.getElementsByClassName("desc");
+	    for (i = 0; i < tabcontent.length; i++) {
+	        tabcontent[i].style.display = "none";
+	    }
+	    tablinks = document.getElementsByClassName("bar-button");
+	    for (i = 0; i < tablinks.length; i++) {
+	        tablinks[i].style.backgroundColor = "";
+	    }
+	    document.getElementById(tabName).style.display = "block";
+	    elmnt.style.backgroundColor = color;
+
+	}
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+    </script>
+
 </html>

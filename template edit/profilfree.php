@@ -87,7 +87,7 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
     }
 
     .bar-button{
-        width : 200px;
+        width : 150px;
         height : 100%;
         background-color : white;
         float : right;
@@ -95,6 +95,7 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
         margin : center;
         font-weight : bold;
         text-align : center;
+        cursor : pointer;
         padding-top :25px;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
@@ -342,19 +343,46 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
 </div>
 <div class = "details">
     <div class = "bar">
-        <div class = "bar-button"><b>Review</b></div>
-        <div class = "bar-button">Portofolio</div>
-        <div class = "bar-button">Histori Pekerjaan</div>
+        <div class = "bar-button" onclick="openTab('review', this)"><b>Review</b></div>
+        <div class = "bar-button" onclick="openTab('portofolio', this)">Portofolio</div>
+        <div class = "bar-button" onclick="openTab('histori', this)">Histori Pekerjaan</div>
+        <div class = "bar-button" onclick="openTab('deskripsi', this)"  id="defaultOpen">Deskripsi</div>
     </div>
-    <div class = "desc">
+    <div class = "desc" id="deskripsi">
         <?php echo $description;?>
     </div>
-    <div class = "desc">
-        <img src="images/<?php echo $portofolio; ?>">
+    <div class = "desc" id="portofolio">
+        <img src="images/<?php echo $portofolio;?>">
+    </div>
+    <div class = "desc" id="review">
+    	review
+    </div>
+    <div class = "desc" id="histori">
+    	histori
     </div>
 </div>
 <br />
 <button class = "edit"><?php echo '<a href ="form-edit1.php?id='.$id.'">';?>Ubah Profil</a></button>
 
     </body>
+
+    <script>
+	function openTab(tabName,elmnt) {
+	    var i, tabcontent, tablinks;
+	    tabcontent = document.getElementsByClassName("desc");
+	    for (i = 0; i < tabcontent.length; i++) {
+	        tabcontent[i].style.display = "none";
+	    }
+	    tablinks = document.getElementsByClassName("bar-button");
+	    for (i = 0; i < tablinks.length; i++) {
+	        tablinks[i].style.backgroundColor = "";
+	    }
+	    document.getElementById(tabName).style.display = "block";
+	    elmnt.style.backgroundColor = color;
+
+	}
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+    </script>
+
 </html>
