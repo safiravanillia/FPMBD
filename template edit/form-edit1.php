@@ -112,6 +112,11 @@ if( mysqli_num_rows($query) < 1 ){
 						Deskripsi <br />
 						<textarea name="bio" rows="10" cols="70" placeholder="Paparkan pengalaman Anda" required><?php echo $free['f_deskripsi'] ?></textarea>
 					</div>
+          <div class = "form-group">
+            Portofolio
+            <input id="register_foto" name="foto" class="form-control" type="file" required/>
+            <span><?php echo $free['foto'];?></span>
+          </div>
 					<div class = "modal-footer">
 						<a href="profilfree.php"><button class="btn btn-general btn-white">Kembali</button></a>
 						<input type="submit" class="btn btn-general btn-white" name="simpan" value="Ubah Profil">
