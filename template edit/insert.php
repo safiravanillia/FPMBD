@@ -27,21 +27,22 @@
 		$bio = $_POST["bio"];
 		$hasil = $_FILES['foto']['name'];
 
-		$s = "INSERT INTO freelancer values ('$id', '$nama', '$umur', '$telp', '$ahli', '$bio', $hasil);";
+		$s = "INSERT INTO freelancer values ('$id', '$nama', '$umur', '$telp', '$ahli', '$bio', '$hasil');";
 		move_uploaded_file($_FILES['foto']['tmp_name'],'images/'.$hasil);
+
 	}
 	else if($_GET["role"] == "pengusaha"){
 		$nama = $_POST["nama"];
 		$alamat = $_POST["alamat"];
 		$telp = $_POST["telp"];
 
-		$s = "
-			INSERT INTO pengusaha values ('$id', '$nama', '$alamat', '$telp');
-		";
+		$s = "INSERT INTO pengusaha values ('$id', '$nama', '$alamat', '$telp');";
 	}
 
 	$q = mysqli_query($conn, $s);
 	if($q){
+		mysqli_close();
 		header("location:index.php");
 	}
+
 ?>
