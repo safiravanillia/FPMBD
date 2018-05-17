@@ -19,9 +19,11 @@ if(isset($_POST['simpan'])){
     $nama = $_POST['nama'];
     $alamat = $_POST['alamat'];
     $telepon = $_POST['telp'];
+    $deskripsi = $_POST['deskripsi'];
 
     // buat query update
-    $sql = "UPDATE pengusaha SET nama='$nama',alamat='$alamat', telepon='$telepon' WHERE id=$id";
+    $sql = "UPDATE pengusaha SET nama = '".$nama."', alamat = '".$alamat."', telepon = '".$telepon."' , deskripsi = '".$deskripsi."' WHERE pengusaha_id = ".$id;
+    echo $sql; echo '<br>';
     $query = mysqli_query($conn, $sql);
 
     // apakah query update berhasil?

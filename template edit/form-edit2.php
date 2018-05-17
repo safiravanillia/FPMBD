@@ -105,9 +105,19 @@ if( mysqli_num_rows($query) < 1 ){
             <input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $peng['telepon'] ?>"  required/>
           </div>
           <div class = "form-group">
+          		Deskripsi <br />
+				<textarea name="deskripsi" rows="10" cols="70" placeholder="Paparkan deskripsi perusahaan Anda"></textarea>
+          </div>
+          <div class = "form-group">
+            Gambar Profil
+            <input id="foto" name="foto" class="form-control" type="file"/>
+            <span></span>
+          </div>
+          <div class = "form-group">
             <a href="profilpeng.php"><button class="btn btn-general btn-white">Kembali</button></a>
             <input type="submit" class="btn btn-general btn-white" name="simpan" value="Ubah Profil">
           </div>
+
           </form>
 	 		</div>
 	 	</div>

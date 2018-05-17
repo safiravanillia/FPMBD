@@ -24,6 +24,7 @@
 	            $address = $peng['alamat'];
 	            $number = $peng['telepon'];
 	            $email = $peng1['email'];
+	            $deskripsi = $peng['deskripsi'];
 	        }
 	}
 ?>
@@ -110,11 +111,18 @@
     	border-bottom : 1px solid #e30066;
     }
 
+    .active{
+    	background-color : #f0f0f0;
+    	color : #e30066;
+    	border-bottom : 1px solid #e30066;
+    }
+
     .desc{
     	width : 650px;
     	height : 350px;
     	margin-top : 15px;
-    	margin-left : 25px;
+    	margin-left : 30px;
+    	overflow : auto;
     }
 
     .edit{
@@ -141,6 +149,23 @@
     	text-decoration: none;
     	color: white;
     	display: block;
+    }
+
+    .job-available{
+    	width : 635px;
+    	height : auto;
+    	border-bottom : 1px solid #e30066;
+    }
+
+    .nama{
+    	font-weight : bold;
+    	font-size : 20px;
+    	color : #e30066 ;
+    }
+
+    .kategori{
+    	font-size : 12px;
+    	font-style : italic;
     }
     </style>
   </head>
@@ -215,6 +240,15 @@
 
 <div class = "bio">
 	<div class ="photo">
+		<?php
+			$s = "SELECT picture FROM pengusaha WHERE pengusaha_id = ".$id;
+			$q = mysqli_query($conn, $s);
+			if($row = mysqli_fetch_array($q)){
+				if(!$row["picture"]){
+					echo '<img src = "img/default-user-image.png">';
+				}
+			}
+		?>
 	</div>
 	<p style = "margin-top : 50px; margin-left : 20px;">Nama Perusahaan : <?php echo $compname;?></p> 
 	<p style = "margin-left : 20px;">Alamat : <?php echo $address;?></p>
@@ -223,14 +257,32 @@
 </div>
 <div class = "details">
 	<div class = "bar">
-		<div class = "bar-button" onclick="openTab('deskripsi', this)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
-		<div class = "bar-button" onclick="openTab('projek', this)">Projek Aktif</div>
+		<div class = "bar-button" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
+		<div class = "bar-button" onclick="openTab('projek', this,event)">Projek Aktif</div>
 	</div>
 	<div class = "desc" id="deskripsi">
-		deskripsi
+		<?php
+			echo '<p>'.$deskripsi.'</p>';
+		?>
 	</div>
 	<div class = "desc" id="projek">
-		projek
+		<?php
+			$s = "SELECT pekerjaan.nama, pekerjaan.deskripsi, pekerjaan.kategori
+			FROM pengusaha, pekerjaan 
+			WHERE pengusaha.pengusaha_id = pekerjaan.pengusaha_id AND 
+				pekerjaan.tglbuka < SYSDATE() AND
+				pekerjaan.tgltutup > SYSDATE() AND
+				pengusaha.pengusaha_id = ".$id;
+
+			$q = mysqli_query($conn, $s);
+			while ($row = mysqli_fetch_array($q)){
+				echo '<div class = "job-available">
+						<p class = "nama">'.$row["nama"].'</p>
+						<p>'.$row["deskripsi"].'</p>
+						<p class = "kategori">Kategori : '.$row["kategori"].'</p>
+					  </div>';
+			}
+		?>
 	</div>
 </div>
 <br />
@@ -238,7 +290,7 @@
     </body>
 
     <script>
-    function openTab(tabName,elmnt) {
+    function openTab(tabName,elmnt, evt) {
 	    var i, tabcontent, tablinks;
 	    tabcontent = document.getElementsByClassName("desc");
 	    for (i = 0; i < tabcontent.length; i++) {
@@ -246,10 +298,10 @@
 	    }
 	    tablinks = document.getElementsByClassName("bar-button");
 	    for (i = 0; i < tablinks.length; i++) {
-	        tablinks[i].style.backgroundColor = "";
+	        tablinks[i].className = tablinks[i].className.replace(" active", "");
 	    }
 	    document.getElementById(tabName).style.display = "block";
-	    elmnt.style.backgroundColor = color;
+	    evt.currentTarget.className += " active";
 
 	}
 	// Get the element with id="defaultOpen" and click on it
