@@ -1,5 +1,6 @@
 <?php
 	session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +70,7 @@
   			<?php
   			if($_SESSION["role"] == "freelancer"){
 	 			echo ' 
-					<form method="post" action="insert.php?role=freelancer">
+					<form method="post" action="insert.php?role=freelancer" enctype="multipart/form-data">
 					<div class = "form-group">
 						Nama Terang
 						<input type="text" name="nama" class ="form-control" placeholder="Masukkan nama" required/>
@@ -92,10 +93,10 @@
 					</div>
 					<div class = "form-group">
 						Portofolio
-						<input id="register_foto" name="foto" class="form-control" type="file" required/>
+						<input id="foto" name="foto" class="form-control" type="file" required/>
 					</div>
 					<div class = "modal-footer">
-						<input type="submit" class="btn btn-general btn-white" value="Simpan">
+						<input type="submit" class="btn btn-general btn-white" value="Simpan"/>
 					</div>
 					</form>
 						';
