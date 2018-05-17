@@ -80,15 +80,19 @@
 					</div>
 					<div class = "form-group">
 						No. Telepon
-						<input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" />
+						<input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" required/>
 					</div>
 					<div class = "form-group">
 						Keahlian
-						<input type="text" name="ahli" class ="form-control" placeholder="Masukkan gelar" />
+						<input type="text" name="ahli" class ="form-control" placeholder="Masukkan gelar" required/>
 					</div>
 					<div class = "form-group">
 						Deskripsi <br />
-						<textarea name="bio" rows="10" cols="70" placeholder="Paparkan pengalaman Anda"></textarea>
+						<textarea name="bio" rows="10" cols="70" placeholder="Paparkan pengalaman Anda" required></textarea>
+					</div>
+					<div class = "form-group">
+						Portofolio
+						<input id="register_foto" name="foto" class="form-control" type="file" required/>
 					</div>
 					<div class = "modal-footer">
 						<input type="submit" class="btn btn-general btn-white" value="Simpan">
@@ -98,9 +102,6 @@
 	 		}
 	 		else if($_SESSION["role"] == "pengusaha"){
 	 			echo '
-	 				<br />
-					<h3 align="center">Isi data perusahaanmu!</h3>
-					<br />
 					<form method="post" action="insert.php?role=pengusaha">
 					<div class = "form-group">
 						Nama Perusahaan
@@ -112,7 +113,7 @@
 					</div>
 					<div class = "form-group">
 						No. Telepon
-						<input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" />
+						<input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" required/>
 					</div>
 					<div class = "form-group">
 						<input type="submit" class="btn btn-primary" value="Simpan">
