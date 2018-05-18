@@ -11,22 +11,29 @@ session_start();
   if($conn->connect_error){
     die("Connection failed: ". $conn->connect_error);
   }
-// cek apakah tombol simpan sudah diklik atau blum?
+
 if(isset($_POST['simpan'])){
 
-    // ambil data dari formulir
     $id = $_POST['id'];
     $nama = $_POST['nama'];
     $alamat = $_POST['alamat'];
     $telepon = $_POST['telp'];
     $deskripsi = $_POST['deskripsi'];
+    $foto = $_FILES["foto"]["name"];    
 
-    // buat query update
-    $sql = "UPDATE pengusaha SET nama = '".$nama."', alamat = '".$alamat."', telepon = '".$telepon."' , deskripsi = '".$deskripsi."' WHERE pengusaha_id = ".$id;
-    echo $sql; echo '<br>';
-    $query = mysqli_query($conn, $sql);
+    if(isset($_FILES["foto"])){
+      if(!empty($foto)){      
+        move_uploaded_file($_FILES['foto']['tmp_name'],'foto/'.$foto);
+        $sql = "UPDATE pengusaha SET nama = '$nama', alamat = '$alamat', telepon = '$telepon' , deskripsi = '$deskripsi', picture='$foto' WHERE pengusaha_id = '$id'";
+        echo $sql;
+        $query = mysqli_query($conn, $sql);
+      }else{
+        $sql = "UPDATE pengusaha SET nama = '$nama', alamat = '$alamat', telepon = '$telepon' , deskripsi = '$deskripsi' WHERE pengusaha_id = '$id'";
+        echo $sql;
+        $query = mysqli_query($conn, $sql);
+      }
+    }
 
-    // apakah query update berhasil?
     if($query) {
         header('Location: profilpeng.php');
     } else {
