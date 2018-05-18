@@ -12,12 +12,12 @@
   }
 
   $sql1 = "SELECT * FROM user where username = '".$_SESSION["name"]."' ";
-        $query1 = mysqli_query($conn, $sql1);
-while($free1 = mysqli_fetch_array($query1)){
-$sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
-        $query = mysqli_query($conn, $sql);
+  $query1 = mysqli_query($conn, $sql1);
+  while($free1 = mysqli_fetch_array($query1)){
+    $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
+    $query = mysqli_query($conn, $sql);
 
-        while($free = mysqli_fetch_array($query)){
+    while($free = mysqli_fetch_array($query)){
            $email = $free1['email'];
            $id = $free['id'];
            $name = $free['f_nama'];
@@ -25,8 +25,8 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
            $telpon = $free['f_telepon'];
            $master = $free['f_ahli'];
            $description = $free['f_deskripsi'];
-        }
-}
+    }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -409,10 +409,56 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
     ?>
     </div>
     <div class = "desc" id="review">
-      review
+      <?php
+      $komen = "SELECT pengusaha.nama AS namapengusaha, pekerjaan.nama AS namapekerjaan, review.r_komentar_p AS komentar ,review.`r_tgl` AS tgl ,review.`r_rating` AS rating
+           FROM review, tawar, freelancer, pengusaha, pekerjaan
+           WHERE review.`bid_id`=tawar.`bid_id`
+           AND tawar.`f_id`=freelancer.`id`
+           AND tawar.k_id=pekerjaan.k_id
+           AND pekerjaan.pengusaha_id=pengusaha.pengusaha_id
+           AND freelancer.`id`= '$id'";
+
+      $result = mysqli_query($conn, $komen);
+      while($row = mysqli_fetch_array($result)){
+        echo 'nama perusahaan: '.$row["namapengusaha"].'<br>
+        pekerjaan: '.$row["namapekerjaan"].'<br>
+        review pengusaha: '.$row["komentar"].'<br>
+        tgl: '.$row["tgl"].'<br>
+        rating: '.$row["rating"].'<br><br>
+        ';
+      }  
+      ?>
     </div>
     <div class = "desc" id="histori">
-      histori
+      <?php
+      $jumlah="SELECT COUNT(pekerjaan.`k_id`) AS jum
+      FROM tawar, freelancer, pengusaha, pekerjaan
+      WHERE freelancer.`id`='$id'
+      AND freelancer.`id`=tawar.`f_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`";
+
+      $res = mysqli_query($conn, $jumlah);
+      while($roww = mysqli_fetch_array($res)){
+        echo 'pekerjaan yang pernah diambil: '.$roww["jum"].' pekerjaan<br><br>
+        <b>Berikut adalah pekerjaan yang pernah saya ambil:</b><br>
+        ';
+      }  
+
+      $histori = "SELECT pengusaha.`nama` AS nm_peng, pekerjaan.`nama` AS kerja
+      FROM tawar, freelancer, pengusaha, pekerjaan
+      WHERE freelancer.`id`='$id'
+      AND freelancer.`id`=tawar.`f_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`";
+
+      $result = mysqli_query($conn, $histori);
+      while($row = mysqli_fetch_array($result)){
+        echo 'nama perusahaan: '.$row["nm_peng"].'<br>
+        pekerjaan: '.$row["kerja"].'<br><br>
+        ';
+      }  
+      ?>
     </div>
 </div>
 <br />
