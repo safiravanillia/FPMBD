@@ -25,7 +25,6 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
            $telpon = $free['f_telepon'];
            $master = $free['f_ahli'];
            $description = $free['f_deskripsi'];
-           $portfolio = $free['f_portofolio'];
         }
 }
 ?>
@@ -41,7 +40,7 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
     <meta name="author" content="">
 
     <title>Freelancer -mosv-</title>
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="img/favicon-01.png">
 
     <!-- Global Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -112,7 +111,7 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
     }
 
     .active{
-    	background-color : #f0f0f0;
+      background-color : #f0f0f0;
         color : #e30066;
         border-bottom : 1px solid #e30066;
     }
@@ -152,14 +151,14 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
     }
 
     .nama{
-    	font-weight : bold;
-    	font-size : 20px;
-    	color : #e30066 ;
+      font-weight : bold;
+      font-size : 20px;
+      color : #e30066 ;
     }
 
     .kategori{
-    	font-size : 12px;
-    	font-style : italic;
+      font-size : 12px;
+      font-style : italic;
     }
     </style>
    </head>
@@ -224,10 +223,10 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
                 <li class="nav-item dropdown" >
                   <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a> 
                   <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-                    <a class="dropdown-item"  target="_empty" href="#">Grafis dan Desain</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Web dan Pemograman</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
+                    <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
+                    <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -239,20 +238,18 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
                   }?>
                 </li>
                 <?php
-                	if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
-                		echo '
-                			<li class="nav-item dropdown" >
-			                  <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
-			                  <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-			                    <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
-			                    <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
-			                  </div>
-			                </li>
-                		';
-                	}
-                	else{
-                		echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
-                	}
+                  if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
+                    echo '
+                      <li class="nav-item dropdown" >
+                        <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
+                        <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
+                          <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
+                          <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
+                        </div>
+                      </li>
+                    ';
+                  }
+
                 ?>
                 <li>
                   <i class="search fa fa-search search-btn"></i>
@@ -368,15 +365,15 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
    
 <div class = "bio">
     <div class ="photo">
-    	<?php
-			$s = "SELECT picture FROM freelancer WHERE id = ".$id;
-			$q = mysqli_query($conn, $s);
-			if($row = mysqli_fetch_array($q)){
-				if(!$row["picture"]){
-					echo '<img src = "img/default-user-image.png">';
-				}
-			}
-		?>
+      <?php
+      $s = "SELECT picture FROM freelancer WHERE id = '".$id."'";
+      $q = mysqli_query($conn, $s);
+      if($row = mysqli_fetch_array($q)){
+        if(!$row["picture"]){
+          echo '<img src = "foto/default-user-image.png">';
+        }
+      }
+    ?>
     </div>
     <p style = "margin-top : 20px; margin-left : 20px;">Nama : <?php echo $name;?></p> 
     <p style = "margin-left : 20px;">Usia : <?php echo $usia;?></p>
@@ -387,29 +384,35 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
 <div class = "details">
     <div class = "bar">
         <div class = "bar-button" onclick="openTab('review', this, event)"><b>Review</b></div>
-        <div class = "bar-button" onclick="openTab('portofolio', this, event)">Portofolio</div>
         <div class = "bar-button" onclick="openTab('histori', this, event)">Histori Pekerjaan</div>
+        <div class = "bar-button" onclick="openTab('portofolio', this, event)">Portofolio</div>
         <div class = "bar-button" onclick="openTab('deskripsi', this, event)"  id="defaultOpen">Deskripsi</div>
     </div>
     <div class = "desc" id="deskripsi">
         <?php
-	        if($description == NULL){
-				echo '<p class = "kategori">Deskripsi belum dipaparkan</p>';
-			}
-			else{
-				echo '<p class = "nama">Deskripsi '.$name.'</p>';
-				echo '<p>'.$description.'</p>';
-			}
-		?>
+          if($description == NULL){
+        echo '<p class = "kategori">Deskripsi belum dipaparkan</p>';
+      }
+      else{
+        echo '<p class = "nama">Deskripsi '.$name.'</p>';
+        echo '<p>'.$description.'</p>';
+      }
+    ?>
     </div>
-    <div class = "desc" id="portofolio">
-        <img src="images/<?php echo $portofolio;?>">
+    <div class = 'desc' id='portofolio'>
+    <?php
+      $s = "SELECT * FROM freelancer WHERE id = '".$id."'";
+      $q = mysqli_query($conn, $s);
+      if($row = mysqli_fetch_array($q)){
+        echo "<span><img width='50%' height='50%' src= 'images/".$row['f_portofolio']."'></span>";
+      }
+    ?>
     </div>
     <div class = "desc" id="review">
-    	review
+      review
     </div>
     <div class = "desc" id="histori">
-    	histori
+      histori
     </div>
 </div>
 <br />
@@ -418,21 +421,21 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
     </body>
 
     <script>
-	function openTab(tabName,elmnt, evt) {
-	    var i, tabcontent, tablinks;
-	    tabcontent = document.getElementsByClassName("desc");
-	    for (i = 0; i < tabcontent.length; i++) {
-	        tabcontent[i].style.display = "none";
-	    }
-	    tablinks = document.getElementsByClassName("bar-button");
-	    for (i = 0; i < tablinks.length; i++) {
-	        tablinks[i].className = tablinks[i].className.replace(" active", "");
-	    }
-	    document.getElementById(tabName).style.display = "block";
-	    evt.currentTarget.className += " active";
+  function openTab(tabName,elmnt, evt) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("desc");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("bar-button");
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
 
-	}
-	document.getElementById("defaultOpen").click();
+  }
+  document.getElementById("defaultOpen").click();
     </script>
 
 </html>
