@@ -113,6 +113,22 @@
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>
                 </li>
+                <?php
+                	if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
+                		echo '
+                			<li class="nav-item dropdown" >
+			                  <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
+			                  <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
+			                    <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
+			                    <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
+			                  </div>
+			                </li>
+                		';
+                	}
+                	else{
+                		echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
+                	}
+                ?>
                 <li>
                   <i class="search fa fa-search search-btn"></i>
                   <div class="search-open">
@@ -279,7 +295,7 @@
                 <div class="col-md-5 col-sm-6">
                   <div class="project-p2-desc">
                     <h4>Penulisan dan penerjemahan</h4>
-                    <a href="#" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
+                    <a href="penulisan.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
                   </div>
                 </div>
                 <img src="img/project/pro-8.jpg" class="img-fluid" alt="...">
@@ -290,7 +306,7 @@
                 <div class="col-md-5 col-sm-6">
                   <div class="project-p2-desc">
                     <h4>Visual dan audio</h4>
-                    <a href="#" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
+                    <a href="visual.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
                   </div>
                 </div>
                 <img src="img/project/pro-6.jpg" class="img-fluid" alt="...">
@@ -301,7 +317,7 @@
                 <div class="col-md-5 col-sm-6">
                   <div class="project-p2-desc wow fadeInUp" data-wow-delay="0.6s">
                     <h4>Web dan Pemograman</h4>
-                    <a href="#" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
+                    <a href="pemrograman.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
                   </div>
                 </div>
                 <img src="img/project/pro-7.jpg" class="img-fluid" alt="...">
@@ -312,7 +328,7 @@
                 <div class="col-md-5 col-sm-6">
                   <div class="project-p2-desc wow fadeInUp" data-wow-delay="0.3s">
                     <h4>Grafis dan desain</h4>
-                    <a href="#" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
+                    <a href="desain.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
                   </div>
                 </div>
                 <img src="img/project/pro-3.jpg" class="img-fluid" alt="...">
@@ -421,5 +437,6 @@
     <script src="js/jquery-easing/jquery.easing.min.js"></script> 
     
     <script src="js/custom.js"></script> 
+
   </body>
 </html>

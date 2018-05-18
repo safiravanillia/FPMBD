@@ -110,6 +110,23 @@
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>
                 </li>
+                
+                <?php
+                	if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
+                		echo '
+                			<li class="nav-item dropdown" >
+			                  <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
+			                  <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
+			                    <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
+			                    <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
+			                  </div>
+			                </li>
+                		';
+                	}
+                	else{
+                		echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
+                	}
+                ?>
                 <li>
                   <i class="search fa fa-search search-btn"></i>
                   <div class="search-open">
