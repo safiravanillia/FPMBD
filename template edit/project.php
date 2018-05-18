@@ -119,7 +119,7 @@
                 			<li class="nav-item dropdown" >
 			                  <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
 			                  <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-			                    <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
+			                    <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
 			                    <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
 			                  </div>
 			                </li>
