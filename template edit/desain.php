@@ -10,6 +10,15 @@
   if($conn->connect_error){
     die("Connection failed: ". $conn->connect_error);
   }
+
+  if(isset($_SESSION["name"])){
+  	$name = $_SESSION["name"];
+ 	$sql = "SELECT id FROM user WHERE username = '".$name."'";
+ 	$result = mysqli_query($conn, $sql);
+ 	while($row = mysqli_fetch_array($result)){
+ 		$id = $row["id"];
+ 	}
+  }
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +62,7 @@
     		font-style : italic;
     		font-size : 12px;
     	}
+
     	.tombol{
 	    	width : 70px;
 	    	height : 35px;
@@ -76,7 +86,8 @@
 	    .tombol a{
 	    	text-decoration: none;
 	    	color: white;
-	    	
+	    	display: block;
+	    }
     </style>
 
   </head>
@@ -213,7 +224,7 @@
     </header> 
     <div class = "wadah">
     <?php
-    	$sql = "SELECT pekerjaan.* , pengusaha.nama AS p_nama FROM pekerjaan, pengusaha 
+    	$sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama FROM pekerjaan, pengusaha 
     	WHERE pekerjaan.kategori = 'Grafis dan Desain' AND
     	pekerjaan.pengusaha_id = pengusaha.pengusaha_id";
     	$result = mysqli_query($conn, $sql);
@@ -224,7 +235,7 @@
     			<p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span>      diposting pada <span style = "color:blue">'.$row["tglbuka"].'</span></p>
     			<p>'.$row["deskripsi"].'</p>';
     		if(isset($_SESSION["role"])&&$_SESSION["role"]=="freelancer"){
-    			echo '<button class = "tombol"><a href = "#">Tawar</a></button>';
+    			echo '<button class = "tombol"><a href = "tawar.php?id='.$id.'&k_id='.$row["k_id"].'"">Tawar</a></button>';
     		}
     		echo'
 
