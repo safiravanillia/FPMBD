@@ -53,6 +53,30 @@
     		font-style : italic;
     		font-size : 12px;
     	}
+    	.tombol{
+	    	width : 70px;
+	    	height : 35px;
+	    	background-color : #e08a8a;
+	    	border-radius : 5%;
+	    	margin-bottom : 10px;
+	    	text-align: center;
+	   	 	text-decoration: none;
+	    	border: none;
+	    	outline: none;
+	    	cursor: pointer;
+	    	-webkit-transition-duration: 0.4s; /* Safari */
+	    	transition-duration: 0.4s;
+	    	color : white;
+   		}
+
+    	.tombol:hover{
+    		background-color : #c57575;
+	    }
+
+	    .tombol a{
+	    	text-decoration: none;
+	    	color: white;
+	    	
     </style>
 
   </head>
@@ -198,7 +222,12 @@
     		<div class = "isi">
     			<p class = "judul">'.$row["nama"].'</p>
     			<p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span>      diposting pada <span style = "color:blue">'.$row["tglbuka"].'</span></p>
-    			<p>'.$row["deskripsi"].'</p>
+    			<p>'.$row["deskripsi"].'</p>';
+    		if(isset($_SESSION["role"])&&$_SESSION["role"]=="freelancer"){
+    			echo '<button class = "tombol"><a href = "#">Tawar</a></button>';
+    		}
+    		echo'
+
     		</div>
     		';
     	}

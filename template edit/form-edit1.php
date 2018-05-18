@@ -115,7 +115,7 @@ if( mysqli_num_rows($query) < 1 ){
 			          <div class = "form-group">
 			            Portofolio
 			            <input id="register_foto" name="foto" class="form-control" type="file" />
-			            <!--<span><?php echo $free['foto'];?></span>-->
+			            <span><?php echo $free['foto'];?></span>
 			          </div>
 			          <div class = "form-group">
 			            Gambar Profil (Ukuran 150x150 px)
