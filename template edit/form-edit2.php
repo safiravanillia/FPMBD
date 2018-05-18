@@ -109,8 +109,8 @@ if( mysqli_num_rows($query) < 1 ){
 				<textarea name="deskripsi" rows="10" cols="70" placeholder="Paparkan deskripsi perusahaan Anda"></textarea>
           </div>
           <div class = "form-group">
-            Gambar Profil
-            <input id="foto" name="foto" class="form-control" type="file"/>
+            Gambar Profil (Ukuran 150x150 px)
+            <input id="foto" name="foto" class="form-control" type="file" placeholder="Ukuran 150x150 px"/>
             <span></span>
           </div>
           <div class = "form-group">

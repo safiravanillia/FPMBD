@@ -23,7 +23,8 @@ if(isset($_POST['simpan'])){
     $biodata = $_POST['bio'];
 
     // buat query update
-    $sql = "UPDATE freelancer SET nama='$nama', usia='$usia', telepon='$telepon', ahli='$ahli', biodata='$biodata' WHERE id=$id";
+    $sql = "UPDATE freelancer SET f_nama='$nama', f_usia=$usia, f_telepon=$telepon, f_ahli='$ahli', f_deskripsi='$biodata' WHERE id=$id";
+    echo $sql;
     $query = mysqli_query($conn, $sql);
 
     // apakah query update berhasil?

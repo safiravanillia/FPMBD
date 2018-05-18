@@ -111,11 +111,18 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
         border-bottom : 1px solid #e30066;
     }
 
+    .active{
+    	background-color : #f0f0f0;
+        color : #e30066;
+        border-bottom : 1px solid #e30066;
+    }
+
     .desc{
         width : 650px;
         height : 350px;
         margin-top : 15px;
-        margin-left : 25px;
+        margin-left : 30px;
+        overflow : auto;
     }
 
     .edit{
@@ -142,6 +149,17 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
         text-decoration: none;
         color: white;
         display: block;
+    }
+
+    .nama{
+    	font-weight : bold;
+    	font-size : 20px;
+    	color : #e30066 ;
+    }
+
+    .kategori{
+    	font-size : 12px;
+    	font-style : italic;
     }
     </style>
    </head>
@@ -334,6 +352,15 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
    
 <div class = "bio">
     <div class ="photo">
+    	<?php
+			$s = "SELECT picture FROM freelancer WHERE id = ".$id;
+			$q = mysqli_query($conn, $s);
+			if($row = mysqli_fetch_array($q)){
+				if(!$row["picture"]){
+					echo '<img src = "img/default-user-image.png">';
+				}
+			}
+		?>
     </div>
     <p style = "margin-top : 20px; margin-left : 20px;">Nama : <?php echo $name;?></p> 
     <p style = "margin-left : 20px;">Usia : <?php echo $usia;?></p>
@@ -343,13 +370,21 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
 </div>
 <div class = "details">
     <div class = "bar">
-        <div class = "bar-button" onclick="openTab('review', this)"><b>Review</b></div>
-        <div class = "bar-button" onclick="openTab('portofolio', this)">Portofolio</div>
-        <div class = "bar-button" onclick="openTab('histori', this)">Histori Pekerjaan</div>
-        <div class = "bar-button" onclick="openTab('deskripsi', this)"  id="defaultOpen">Deskripsi</div>
+        <div class = "bar-button" onclick="openTab('review', this, event)"><b>Review</b></div>
+        <div class = "bar-button" onclick="openTab('portofolio', this, event)">Portofolio</div>
+        <div class = "bar-button" onclick="openTab('histori', this, event)">Histori Pekerjaan</div>
+        <div class = "bar-button" onclick="openTab('deskripsi', this, event)"  id="defaultOpen">Deskripsi</div>
     </div>
     <div class = "desc" id="deskripsi">
-        <?php echo $description;?>
+        <?php
+	        if($description == NULL){
+				echo '<p class = "kategori">Deskripsi belum dipaparkan</p>';
+			}
+			else{
+				echo '<p class = "nama">Deskripsi '.$name.'</p>';
+				echo '<p>'.$description.'</p>';
+			}
+		?>
     </div>
     <div class = "desc" id="portofolio">
         <img src="images/<?php echo $portofolio;?>">
@@ -367,7 +402,7 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
     </body>
 
     <script>
-	function openTab(tabName,elmnt) {
+	function openTab(tabName,elmnt, evt) {
 	    var i, tabcontent, tablinks;
 	    tabcontent = document.getElementsByClassName("desc");
 	    for (i = 0; i < tabcontent.length; i++) {
@@ -375,13 +410,12 @@ $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
 	    }
 	    tablinks = document.getElementsByClassName("bar-button");
 	    for (i = 0; i < tablinks.length; i++) {
-	        tablinks[i].style.backgroundColor = "";
+	        tablinks[i].className = tablinks[i].className.replace(" active", "");
 	    }
 	    document.getElementById(tabName).style.display = "block";
-	    elmnt.style.backgroundColor = color;
+	    evt.currentTarget.className += " active";
 
 	}
-	// Get the element with id="defaultOpen" and click on it
 	document.getElementById("defaultOpen").click();
     </script>
 

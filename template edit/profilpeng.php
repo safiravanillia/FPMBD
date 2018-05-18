@@ -262,7 +262,13 @@
 	</div>
 	<div class = "desc" id="deskripsi">
 		<?php
-			echo '<p>'.$deskripsi.'</p>';
+			if($deskripsi == NULL){
+				echo '<p class = "kategori">Deskripsi belum dipaparkan</p>';
+			}
+			else{
+				echo '<p class = "nama">Deskripsi '.$compname.'</p>';
+				echo '<p>'.$deskripsi.'</p>';
+			}
 		?>
 	</div>
 	<div class = "desc" id="projek">
@@ -275,12 +281,17 @@
 				pengusaha.pengusaha_id = ".$id;
 
 			$q = mysqli_query($conn, $s);
-			while ($row = mysqli_fetch_array($q)){
-				echo '<div class = "job-available">
-						<p class = "nama">'.$row["nama"].'</p>
-						<p>'.$row["deskripsi"].'</p>
-						<p class = "kategori">Kategori : '.$row["kategori"].'</p>
-					  </div>';
+			if(mysqli_num_rows($q) > 0){
+				while ($row = mysqli_fetch_array($q)){
+					echo '<div class = "job-available">
+							<p class = "nama">'.$row["nama"].'</p>
+							<p>'.$row["deskripsi"].'</p>
+							<p class = "kategori">Kategori : '.$row["kategori"].'</p>
+						  </div>';
+				}
+			}
+			else {
+				echo '<p class = "nama">Perusahaan belum membuat projek</p>';
 			}
 		?>
 	</div>
