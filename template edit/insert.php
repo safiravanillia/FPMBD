@@ -27,16 +27,24 @@
 		$bio = $_POST["bio"];
 		$hasil = $_FILES['foto']['name'];
 
-		$s = "INSERT INTO freelancer values ('$id', '$nama', '$umur', '$telp', '$ahli', '$bio', '$hasil');";
 		move_uploaded_file($_FILES['foto']['tmp_name'],'images/'.$hasil);
+		$s = "INSERT INTO freelancer(id,f_nama,f_usia,f_telepon,f_ahli,f_deskripsi,f_portofolio) values ('$id', '$nama', '$umur', '$telp', '$ahli', '$bio', '$hasil');";
 
+		$_SESSION["role"] = "freelancer";
+		$_SESSION["name"] = $user;
+		$_SESSION["logged"] = true;
+		$_SESSION["free"] = true;
 	}
 	else if($_GET["role"] == "pengusaha"){
 		$nama = $_POST["nama"];
 		$alamat = $_POST["alamat"];
 		$telp = $_POST["telp"];
 
-		$s = "INSERT INTO pengusaha values ('$id', '$nama', '$alamat', '$telp');";
+		$s = "INSERT INTO pengusaha(pengusaha_id,nama,alamat,telepon) values ('$id', '$nama', '$alamat', '$telp');";
+		$_SESSION["role"] = "pengusaha";
+				$_SESSION["name"] = $user;
+				$_SESSION["logged"] = true;
+				$_SESSION["peng"] = false;
 	}
 
 	$q = mysqli_query($conn, $s);
@@ -44,5 +52,4 @@
 		mysqli_close();
 		header("location:index.php");
 	}
-
 ?>
