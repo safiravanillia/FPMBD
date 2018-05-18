@@ -96,10 +96,10 @@
                 <li class="nav-item dropdown" >
                   <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a> 
                   <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-                    <a class="dropdown-item"  target="_empty" href="#">Grafis dan Desain</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Web dan Pemograman</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
+                    <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
+                    <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -112,20 +112,17 @@
                 </li>
                 
                 <?php
-                	if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
-                		echo '
-                			<li class="nav-item dropdown" >
-			                  <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
-			                  <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-			                    <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
-			                    <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
-			                  </div>
-			                </li>
-                		';
-                	}
-                	else{
-                		echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
-                	}
+                  if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
+                    echo '
+                      <li class="nav-item dropdown" >
+                        <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
+                        <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
+                          <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
+                          <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
+                        </div>
+                      </li>
+                    ';
+                  }
                 ?>
                 <li>
                   <i class="search fa fa-search search-btn"></i>
