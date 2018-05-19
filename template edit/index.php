@@ -306,48 +306,36 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.2s">
-            <h2>Pekerjaan Terpopuler</h2>
+            <h2>Pekerjaan Terbaru</h2>
             <div class="heading-border-light"></div> 
           </div>
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
+              <?php 
+              $sql = "SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi ,pengusaha.`nama` AS peng, pengusaha.`picture` AS foto
+              FROM pekerjaan, pengusaha
+              WHERE pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+              ORDER BY pekerjaan.tglbuka DESC
+              LIMIT 3; ";
+
+              $query = mysqli_query($conn, $sql);
+              while($baru = mysqli_fetch_array($query)){
+        echo '
+        <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
             <div class="desc-comp-offer-cont">
               <div class="thumbnail-blogs">
                   <div class="caption">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img src="img/news/news-11.jpg" class="img-fluid" alt="...">
+                  <img width="50%" height="50%" src= "images/'.$baru["foto"].'" class="img-fluid" alt="...">
               </div>
-              <h3>Business Management</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
+              <h3>'.$baru["kerja"].'</h3>
+              <p class="desc">'.$baru["deskripsi"].'</p>
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
             </div>
+          </div> 
+        ';
+      }   
+            ?>
           </div>          
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.6s">
-            <div class="desc-comp-offer-cont">
-              <div class="thumbnail-blogs">
-                  <div class="caption">
-                    <i class="fa fa-chain"></i>
-                  </div>
-                  <img src="img/news/news-13.jpg" class="img-fluid" alt="...">
-              </div>              
-              <h3>Leadership Development</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.8s">
-            <div class="desc-comp-offer-cont">
-              <div class="thumbnail-blogs">
-                  <div class="caption">
-                    <i class="fa fa-chain"></i>
-                  </div>
-                  <img src="img/news/news-14.jpg" class="img-fluid" alt="...">
-              </div>
-              <h3>Social benefits and services</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -359,48 +347,39 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.2s">
-            <h2>Pekerjaan terbaru</h2>
+            <h2>Pekerjaan Terpopuler</h2>
             <div class="heading-border-light"></div> 
           </div>
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
+              <?php 
+              $sql = "SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto
+              FROM pekerjaan JOIN tawar ON pekerjaan.k_id=tawar.k_id
+              JOIN freelancer ON freelancer.id= tawar.f_id, pengusaha
+              WHERE tawar.b_status ='TERIMA'
+              AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+              GROUP BY pekerjaan.nama
+              ORDER BY COUNT(tawar.f_id) DESC
+              LIMIT 3;";
+
+              $query = mysqli_query($conn, $sql);
+              while($baru = mysqli_fetch_array($query)){
+        echo '
+        <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
             <div class="desc-comp-offer-cont">
               <div class="thumbnail-blogs">
                   <div class="caption">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img src="img/news/news-11.jpg" class="img-fluid" alt="...">
+                  <img width="50%" height="50%" src= "images/'.$baru["foto"].'" class="img-fluid" alt="...">
               </div>
-              <h3>Business Management</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
+              <h3>'.$baru["kerja"].'</h3>
+              <p class="desc">'.$baru["deskripsi"].'</p>
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
             </div>
+          </div> 
+        ';
+      }   
+            ?>
           </div>          
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.6s">
-            <div class="desc-comp-offer-cont">
-              <div class="thumbnail-blogs">
-                  <div class="caption">
-                    <i class="fa fa-chain"></i>
-                  </div>
-                  <img src="img/news/news-13.jpg" class="img-fluid" alt="...">
-              </div>              
-              <h3>Leadership Development</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.8s">
-            <div class="desc-comp-offer-cont">
-              <div class="thumbnail-blogs">
-                  <div class="caption">
-                    <i class="fa fa-chain"></i>
-                  </div>
-                  <img src="img/news/news-14.jpg" class="img-fluid" alt="...">
-              </div>
-              <h3>Social benefits and services</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -595,5 +574,4 @@
     <script src="js/jquery-easing/jquery.easing.min.js"></script> 
     <script src="js/custom.js"></script> 
   </body>
-
 </html>
