@@ -11,6 +11,11 @@
     die("Connection failed: ". $conn->connect_error);
   }
 
+  $conns = new mysqli($servername, $username, $password, $dbname);
+  if($conns->connect_error){
+    die("Connection failed: ". $conns->connect_error);
+  }
+
   $sql1 = "SELECT * FROM user where username = '".$_SESSION["name"]."' ";
   $query1 = mysqli_query($conn, $sql1);
   while($free1 = mysqli_fetch_array($query1)){
@@ -45,6 +50,7 @@
     <!-- Global Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate/animate.min.css">
     <link rel="stylesheet" href="css/owl-carousel/owl.carousel.min.css">
@@ -64,7 +70,7 @@
     }
 
     .details{
-        width : 700px;
+        width : 750px;
         height : 450px;
         margin-left : 90px;
         margin-top : 40px;
@@ -162,35 +168,49 @@
     }
 
     .job-progress{
-    	width : 635px;
-    	height : auto;
-    	border-bottom : 1px solid #e30066;
+      width : 635px;
+      height : auto;
+      border-bottom : 1px solid #e30066;
     }
 
     .status{
-    	width : 100px;
-    	height : auto;
-    	padding : 5px 5px 5px 5px;
-    	text-align : center;
-	    cursor : pointer;
-	    border-radius : 5px;
-	    -webkit-transition-duration: 0.4s; /* Safari */
-	    transition-duration: 0.4s;
-	    background-color : #bc5454;
-	    font-size : 14px;
-	    margin-bottom : 5px;
+      width : 100px;
+      height : auto;
+      padding : 5px 5px 5px 5px;
+      text-align : center;
+      cursor : pointer;
+      border-radius : 5px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      background-color : #bc5454;
+      font-size : 14px;
+      margin-bottom : 5px;
     }
 
     .status:hover{
-    	background-color : #8c3d3d;
+      background-color : #8c3d3d;
     }
 
     .status a{
-    	text-decoration: none;
-      	color: white;
-      	display: block;
+      text-decoration: none;
+        color: white;
+        display: block;
     }
 
+    .komentar{
+      width : 635px;
+      height : auto;
+      border-bottom : 1px solid #e30066;
+    }
+
+    .fromwho{
+      font-size : 12px;
+      font-style : italic;
+    }
+
+    .tanda {
+    color: orange;
+    }
     </style>
    </head>
 
@@ -400,8 +420,10 @@
       $s = "SELECT picture FROM freelancer WHERE id = '".$id."'";
       $q = mysqli_query($conn, $s);
       if($row = mysqli_fetch_array($q)){
-        if(!$row["picture"]){
+        if(empty($row["picture"])){
           echo '<img src = "foto/default-user-image.png">';
+        } else {
+          echo '<img src = "foto/'.$row['picture'].'>';
         }
       }
     ?>
@@ -415,6 +437,7 @@
 <div class = "details">
     <div class = "bar">
         <div class = "bar-button" onclick="openTab('review', this, event)"><b>Review</b></div>
+        <div class = "bar-button" onclick="openTab('selesai', this, event)"><b>Pekerjaan Selesai</b></div>
         <div class = "bar-button" style = "padding-top : 12px;" onclick="openTab('histori', this, event)">Pekerjaan OnProgress</div>
         <div class = "bar-button" onclick="openTab('portofolio', this, event)">Portofolio</div>
         <div class = "bar-button" onclick="openTab('deskripsi', this, event)"  id="defaultOpen">Deskripsi</div>
@@ -439,42 +462,102 @@
       }
     ?>
     </div>
+    <div class = "desc" id="selesai">
+      <?php
+      //run di sql procedure di bawah
+      /*DELIMITER $$
+      CREATE OR REPLACE FUNCTION hitung_kerja(id INT)
+    RETURNS INT
+    DETERMINISTIC
+    BEGIN
+    DECLARE jml INT;
+    SELECT COUNT(pekerjaan.`k_id`)INTO jml
+      FROM tawar, freelancer, pengusaha, pekerjaan
+      WHERE freelancer.`id`=id
+      AND freelancer.`id`=tawar.`f_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+      AND tawar.`b_status` = 'SELESAI';
+    RETURN jml;
+    END$$
+      DELIMITER$$*/
+
+      $jumlah="SELECT DISTINCT hitung_kerja($id) AS jum";
+      $res = mysqli_query($conn, $jumlah);
+      while($row = mysqli_fetch_array($res)){
+        echo '<p style = "font-size : 20px; font-weight : bold;">Total '.$row["jum"].' pekerjaan selesai</p>';
+      }
+
+      //run di sql procedure di bawah
+      /*$DELIMITER $$
+        CREATE OR REPLACE PROCEDURE tampil_kerja(IN id INT)
+        BEGIN
+        SELECT pengusaha.`nama` AS nm_peng, pekerjaan.`nama` AS kerja, tawar.`bid_id`
+      FROM tawar, freelancer, pengusaha, pekerjaan
+      WHERE freelancer.`id`=id
+      AND freelancer.`id`=tawar.`f_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
+      AND tawar.`b_status` = 'SELESAI';
+        END$$
+        DELIMITER$$*/
+
+      $result = mysqli_query($conns, "CALL tampil_kerja($id)");
+      while($row = mysqli_fetch_array($result)){
+        echo '
+          <div class = "job-progress">
+            <div class = "nama">'.$row["kerja"].'</div>
+            <p class = "kategori">Perusahaan terkait : <span style = "font-weight : bold; color : blue;">'.$row["nm_peng"].'</span></p>
+          </div>
+        ';
+      }    
+      ?>
+    </div>
     <div class = "desc" id="review">
       <?php
-      $komen = "SELECT pengusaha.nama AS namapengusaha, pekerjaan.nama AS namapekerjaan, review.r_komentar_p AS komentar ,review.`r_tgl` AS tgl ,review.`r_rating` AS rating
-           FROM review, tawar, freelancer, pengusaha, pekerjaan
-           WHERE review.`bid_id`=tawar.`bid_id`
-           AND tawar.`f_id`=freelancer.`id`
-           AND tawar.k_id=pekerjaan.k_id
-           AND pekerjaan.pengusaha_id=pengusaha.pengusaha_id
-           AND freelancer.`id`= '$id'";
+      $komen = "SELECT pengusaha.nama AS namapengusaha, pekerjaan.nama AS namapekerjaan, review.komentar AS komentar ,review.`tgl` AS tgl ,review.`rating` AS rating
+           FROM review JOIN tawar 
+           ON review.`bid_id`=tawar.`bid_id` JOIN freelancer
+           ON tawar.`f_id`=freelancer.`id` JOIN pekerjaan
+           ON tawar.k_id=pekerjaan.k_id JOIN pengusaha
+           ON pekerjaan.pengusaha_id=pengusaha.pengusaha_id
+           WHERE freelancer.`id`= '$id'";
 
       $result = mysqli_query($conn, $komen);
       while($row = mysqli_fetch_array($result)){
-        echo 'nama perusahaan: '.$row["namapengusaha"].'<br>
-        pekerjaan: '.$row["namapekerjaan"].'<br>
-        review pengusaha: '.$row["komentar"].'<br>
-        tgl: '.$row["tgl"].'<br>
-        rating: '.$row["rating"].'<br><br>
+        $rate= $row["rating"];
+        echo '<div class = "komentar">
+              <div class = "nama">'.$row["namapekerjaan"].'</div>';
+              if($rate==1) {
+                echo' <span class="fa fa-star tanda"></span><br>';
+              }elseif($rate==2) {
+                echo' <span class="fa fa-star tanda"></span>';
+                echo' <span class="fa fa-star tanda"></span><br>';
+              }elseif($rate==3) {
+                echo' <span class="fa fa-star tanda"></span>';
+                echo' <span class="fa fa-star tanda"></span>';
+                echo' <span class="fa fa-star tanda"></span><br>';
+              }elseif($rate==4) {
+                echo' <span class="fa fa-star tanda"></span>';
+                echo' <span class="fa fa-star tanda"></span>';
+                echo' <span class="fa fa-star tanda"></span>';
+                echo' <span class="fa fa-star tanda"></span><br>';
+              }elseif($rate==5) {
+                echo' <span class="fa fa-star tanda"></span>';
+                echo' <span class="fa fa-star tanda"></span>';
+                echo' <span class="fa fa-star tanda"></span>';
+                echo' <span class="fa fa-star tanda"></span>';
+                echo' <span class="fa fa-star tanda"></span><br>';
+              }
+        echo  '<div>'.$row["komentar"].'</div>
+              <p class = "fromwho">Dari <span style="font-weight : bold">'.$row["namapengusaha"].'</span> pada <span style = "color:blue">'.$row["tgl"].'</span></p>
+              </div> 
         ';
-      }  
+      } 
       ?>
     </div>
     <div class = "desc" id="histori">
       <?php
-      $jumlah="SELECT COUNT(pekerjaan.`k_id`) AS jum
-      FROM tawar, freelancer, pengusaha, pekerjaan
-      WHERE freelancer.`id`='$id'
-      AND freelancer.`id`=tawar.`f_id`
-      AND tawar.`k_id`=pekerjaan.`k_id`
-      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
-      AND tawar.`b_status` = 'TERIMA'";
-
-      $res = mysqli_query($conn, $jumlah);
-      while($row = mysqli_fetch_array($res)){
-      	echo '<p style = "font-size : 24px; font-weight : bold;">Pekerjaan sedang diambil : '.$row["jum"].'</p>';
-      }  
-
       $histori = "SELECT pengusaha.`nama` AS nm_peng, pekerjaan.`nama` AS kerja, tawar.`bid_id`
       FROM tawar, freelancer, pengusaha, pekerjaan
       WHERE freelancer.`id`='$id'
@@ -485,15 +568,15 @@
 
       $result = mysqli_query($conn, $histori);
       while($row = mysqli_fetch_array($result)){
-      	echo '
-      		<div class = "job-progress">
-      			<p class = "nama">'.$row["kerja"].'</p>
-      			<p class = "kategori">Perusahaan terkait : <span style = "font-weight : bold; color : blue;">'.$row["nm_peng"].'</span></p>
-      			<div class = "status">
-      			<a href="status.php?bid_id='.$row["bid_id"].'">Ubah Status</a>
-      			</div>
-      		</div>
-      	';
+        echo '
+          <div class = "job-progress">
+            <div class = "nama">'.$row["kerja"].'</div>
+            <p class = "kategori">Perusahaan terkait : <span style = "font-weight : bold; color : blue;">'.$row["nm_peng"].'</span></p>
+            <div class = "status">
+            <a href="status.php?bid_id='.$row["bid_id"].'">Ubah Status</a>
+            </div>
+          </div>
+        ';
       }  
       ?>
     </div>
