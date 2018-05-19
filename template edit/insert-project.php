@@ -11,15 +11,6 @@
     die("Connection failed: ". $conn->connect_error);
   }
 
-  if(isset($_SESSION["name"])){
-  	$name = $_SESSION["name"];
- 	$sql = "SELECT id FROM user WHERE username = '".$name."'";
- 	$result = mysqli_query($conn, $sql);
- 	while($row = mysqli_fetch_array($result)){
- 		$id = $row["id"];
- 	}
-  }
-
 ?>
 
 <!DOCTYPE html>
@@ -219,72 +210,43 @@
 
     <div class = "tempat">
     	<div class = "form-container">
-    		<form method = "post">
+    		<form method = "post" action="insert-projectproses.php">
     			<div class = "form-group">
     				Nama Projek
-    				<input type="text" name="nama" class ="form-control col-5" placeholder="Masukkan nama projek" />
+    				<input type="text" name="nama" class ="form-control col-5" placeholder="Masukkan nama projek" required />
     			</div>
     			<div class = "form-group">
     				Deskripsi Projek
-    				<textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" ></textarea>
+    				<textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" required></textarea>
     			</div>
     			<div class = "form-group">
     				Tanggal Penawaran dibuka
-    				<input type="date" name="tglbuka" class ="form-control col-3" placeholder="Masukkan deskripsi projek" />
+    				<input type="date" name="tglbuka" class ="form-control col-3" placeholder="Masukkan deskripsi projek" required />
     			</div>
     			<div class = "form-group">
     				Tanggal Penawaran ditutup
-    				<input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" />
+    				<input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" required/>
     			</div>
     			<div class = "form-group">
     				Harga minimum penawaran
-    				<input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" />
+    				<input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" required/>
     			</div>
     			<div class = "form-group">
     				Harga maksimum penawaran
-    				<input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum" />
+    				<input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum" required/>
     			</div>
     			<div class = "form-group">
     				Kategori
-    				<input type="radio" name="kategori" class ="form-control" value="Penulisan dan Penerjemahan"> Penulisan dan Penerjemahan
-    				<input type="radio" name="kategori" class ="form-control" value="Visual dan Audio"> Visual dan Audio
-    				<input type="radio" name="kategori" class ="form-control" value="Web dan Pemrograman"> Web dan Pemrograman
-    				<input type="radio" name="kategori" class ="form-control" value="Grafis dan Desain"> Grafis dan Desain
+    				<input type="radio" name="kategori" class ="form-control" value="Penulisan dan Penerjemahan" checked/> Penulisan dan Penerjemahan
+    				<input type="radio" name="kategori" class ="form-control" value="Visual dan Audio"/> Visual dan Audio
+    				<input type="radio" name="kategori" class ="form-control" value="Web dan Pemrograman"/> Web dan Pemrograman
+    				<input type="radio" name="kategori" class ="form-control" value="Grafis dan Desain"/> Grafis dan Desain
     			</div>
     			<div group = form-group>
-    				<input type="submit" class="btn btn-primary" value="Buat Projek">
+            <a href="index.php"><button class="btn btn-general btn-white">Kembali</button></a>
+            <input type="submit" class="btn btn-general btn-white" name="simpan" value="Buat Projek">
     			</div>
     		</form>
-
-    		<?php
-    			if($_SERVER["REQUEST_METHOD"] == "POST"){
-    				//INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`) VALUES ('33', '9', 'hh', 'ghkhgkhgl', '2018-05-02', '2018-05-19', '1450000', '1500000', 'Penulisan dan Penerjemahan');
-
-    				$name = $_POST["nama"];
-    				$description = $_POST["description"];
-    				$tglbuka = $_POST["tglbuka"];
-    				$tgltutup = $_POST["tgltutup"];
-    				$hargamin = $_POST["hargamin"];
-    				$hargamax = $_POST["hargamax"];
-    				$kategori = $_POST["kategori"];
-
-    				//echo $kategori;
-
-    				$sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`) VALUES ('31', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori');";
-    				$result = mysqli_query($conn, $sql);
-    				if($result){
-		  					echo '<div class = "berhasil">
-		  							Projek berhasil dipublish
-		  						</div>';
-		  					echo '<br/><a href = "project.php">Kembali</a>';
-		  				}
-		  				else {
-		  					echo '<div class = "gagal">
-		  							Projek gagal dipublish
-		  						</div>';
-		  				}
-    			}
-    		?>
     	</div>
     </div>
 
