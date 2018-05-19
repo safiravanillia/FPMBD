@@ -10,6 +10,11 @@
   if($conn->connect_error){
     die("Connection failed: ". $conn->connect_error);
   }
+
+  $conns = new mysqli($servername, $username, $password, $dbname);
+  if($conns->connect_error){
+    die("Connection failed: ". $conn->connect_error);
+  }
 ?>
 
 <!DOCTYPE html>
@@ -96,36 +101,33 @@
                 <li class="nav-item dropdown" >
                   <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a> 
                   <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-                    <a class="dropdown-item"  target="_empty" href="#">Grafis dan Desain</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Web dan Pemograman</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
+                    <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
+                    <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
                     echo '
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilfree.php">Profil</a></li> ';
-                  } elseif(isset($_SESSION["peng"])&&isset($_SESSION["logged"])){
+                  } elseif(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&isset($_SESSION["logged"])){
                     echo '
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>
                 </li>
                 
                 <?php
-                	if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
-                		echo '
-                			<li class="nav-item dropdown" >
-			                  <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
-			                  <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-			                    <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
-			                    <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
-			                  </div>
-			                </li>
-                		';
-                	}
-                	else{
-                		echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
-                	}
+                  if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
+                    echo '
+                      <li class="nav-item dropdown" >
+                        <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
+                        <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
+                          <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
+                          <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
+                        </div>
+                      </li>
+                    ';
+                  }
                 ?>
                 <li>
                   <i class="search fa fa-search search-btn"></i>
@@ -269,7 +271,7 @@
           <div class="col-md-12">
             <h1 class="wow fadeInUp">KAMI BERKOMITMEN UNTUK MEMBANTU</h1>
             <div class="heading-border"></div>
-            <p class="wow fadeInUp" data-wow-delay="0.4s">Selamat datang di Freelance mosv, website paling populer untuk mencari freelancer. Kami menggandeng perusahaan kecil menengah, bisnis start up dan pemilik bisnis dengan freelancer ahli untuk bekerja sama. Sebagai contoh, software development, desain/desain grafis, gambar, penulisan/penerjemahan seperti juga pemasaran online dan video editing.  </p>
+            <p class="wow fadeInUp" data-wow-delay="0.4s">Selamat datang di Freelance mosv, website paling populer untuk mencari pekerjaan. Kami menggandeng perusahaan kecil menengah, bisnis start up dan pemilik bisnis dengan freelancer ahli untuk bekerja sama. Sebagai contoh, software development, desain/desain grafis, gambar, penulisan/penerjemahan seperti juga pemasaran online dan video editing.  </p>
             <div class="title-but"><a href="faq.php"><button class="btn btn-general btn-green" role="button">Ingin Tahu Lebih?</button></a></div>
           </div>
         </div>
@@ -309,48 +311,42 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.2s">
-            <h2>Jasa Desain Grafis</h2>
+            <h2>Pekerjaan Terbaru</h2>
             <div class="heading-border-light"></div> 
           </div>
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
+              <?php 
+              //query di run di mysql
+              /*DELIMITER$$
+              CREATE OR REPLACE PROCEDURE implicit_cursor()
+              BEGIN
+              SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi , pengusaha.`picture` AS foto
+              FROM pekerjaan, pengusaha
+              WHERE pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+              ORDER BY pekerjaan.tglbuka DESC
+              LIMIT 3;
+              END$$
+              DELIMITER$$*/
+
+              $query = mysqli_query($conn, "CALL implicit_cursor()");
+              while($baru = mysqli_fetch_array($query)){
+        echo '
+        <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
             <div class="desc-comp-offer-cont">
               <div class="thumbnail-blogs">
                   <div class="caption">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img src="img/news/news-11.jpg" class="img-fluid" alt="...">
+                  <img src= "images/'.$baru["foto"].'" class="img-fluid" alt="...">
               </div>
-              <h3>Business Management</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
+              <h3>'.$baru["kerja"].'</h3>
+              <p class="desc">'.$baru["deskripsi"].'</p>
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
             </div>
+          </div> 
+        ';
+      }
+            ?>
           </div>          
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.6s">
-            <div class="desc-comp-offer-cont">
-              <div class="thumbnail-blogs">
-                  <div class="caption">
-                    <i class="fa fa-chain"></i>
-                  </div>
-                  <img src="img/news/news-13.jpg" class="img-fluid" alt="...">
-              </div>              
-              <h3>Leadership Development</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.8s">
-            <div class="desc-comp-offer-cont">
-              <div class="thumbnail-blogs">
-                  <div class="caption">
-                    <i class="fa fa-chain"></i>
-                  </div>
-                  <img src="img/news/news-14.jpg" class="img-fluid" alt="...">
-              </div>
-              <h3>Social benefits and services</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -362,48 +358,45 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.2s">
-            <h2>Jasa Penulisan Konten</h2>
+            <h2>Pekerjaan Terpopuler</h2>
             <div class="heading-border-light"></div> 
           </div>
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
+              <?php 
+              //query di run di mysql
+              /*DELIMITER$$
+              CREATE OR REPLACE PROCEDURE implicit_cursor1()
+              BEGIN
+              SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto
+              FROM pekerjaan JOIN tawar ON pekerjaan.k_id=tawar.k_id
+              JOIN freelancer ON freelancer.id= tawar.f_id, pengusaha
+              WHERE tawar.b_status ='TERIMA'
+              AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+              GROUP BY pekerjaan.nama
+              ORDER BY COUNT(tawar.f_id) DESC
+              LIMIT 3;
+              END$$
+              DELIMITER$$*/
+
+              $query = mysqli_query($conns, "CALL implicit_cursor1()");
+              while($populer = mysqli_fetch_array($query)){
+        echo '
+        <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
             <div class="desc-comp-offer-cont">
               <div class="thumbnail-blogs">
                   <div class="caption">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img src="img/news/news-11.jpg" class="img-fluid" alt="...">
+                  <img src= "images/'.$populer["foto"].'" class="img-fluid" alt="...">
               </div>
-              <h3>Business Management</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
+              <h3>'.$populer["kerja"].'</h3>
+              <p class="desc">'.$populer["deskripsi"].'</p>
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
             </div>
+          </div> 
+        ';
+      }   
+            ?>
           </div>          
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.6s">
-            <div class="desc-comp-offer-cont">
-              <div class="thumbnail-blogs">
-                  <div class="caption">
-                    <i class="fa fa-chain"></i>
-                  </div>
-                  <img src="img/news/news-13.jpg" class="img-fluid" alt="...">
-              </div>              
-              <h3>Leadership Development</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.8s">
-            <div class="desc-comp-offer-cont">
-              <div class="thumbnail-blogs">
-                  <div class="caption">
-                    <i class="fa fa-chain"></i>
-                  </div>
-                  <img src="img/news/news-14.jpg" class="img-fluid" alt="...">
-              </div>
-              <h3>Social benefits and services</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -598,5 +591,4 @@
     <script src="js/jquery-easing/jquery.easing.min.js"></script> 
     <script src="js/custom.js"></script> 
   </body>
-
 </html>

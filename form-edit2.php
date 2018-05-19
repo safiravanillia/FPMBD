@@ -36,7 +36,7 @@ if( mysqli_num_rows($query) < 1 ){
     <meta name="author" content="">
 
     <title>Freelancer -mosv-</title>
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="img/favicon-01.png">
 
     <!-- Global Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -49,8 +49,8 @@ if( mysqli_num_rows($query) < 1 ){
   </head>
 
   <body id="page-top">
-  	<header>
-  	<!-- Navbar -->
+    <header>
+    <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-light" id="mainNav" data-toggle="affix">
         <div class="container">
           <a class="navbar-brand smooth-scroll" href="#">
@@ -88,9 +88,9 @@ if( mysqli_num_rows($query) < 1 ){
     </section>
 
   <div class="container">
-  	<div class="row">
-  		<div class="col-md-6">
-					<form method="post" action="prosesedit2.php?role=pengusaha">
+    <div class="row">
+      <div class="col-md-6">
+          <form method="post" action="prosesedit2.php?role=pengusaha" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $peng['pengusaha_id'] ?>" />
           <div class = "form-group">
             Nama Perusahaan
@@ -105,13 +105,13 @@ if( mysqli_num_rows($query) < 1 ){
             <input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $peng['telepon'] ?>"  required/>
           </div>
           <div class = "form-group">
-          		Deskripsi <br />
-				<textarea name="deskripsi" rows="10" cols="70" placeholder="Paparkan deskripsi perusahaan Anda"></textarea>
+              Deskripsi <br />
+        <textarea name="deskripsi" rows="10" cols="70" placeholder="Paparkan deskripsi perusahaan Anda"></textarea>
           </div>
           <div class = "form-group">
             Gambar Profil (Ukuran 150x150 px)
             <input id="foto" name="foto" class="form-control" type="file" placeholder="Ukuran 150x150 px"/>
-            <span></span>
+            <span><?php echo $peng['picture'];?></span>
           </div>
           <div class = "form-group">
             <a href="profilpeng.php"><button class="btn btn-general btn-white">Kembali</button></a>
@@ -119,8 +119,8 @@ if( mysqli_num_rows($query) < 1 ){
           </div>
 
           </form>
-	 		</div>
-	 	</div>
-	</div>
+      </div>
+    </div>
+  </div>
   </body>
  </html>

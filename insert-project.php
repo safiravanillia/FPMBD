@@ -11,14 +11,6 @@
     die("Connection failed: ". $conn->connect_error);
   }
 
-  if(isset($_SESSION["name"])){
-  	$name = $_SESSION["name"];
- 	$sql = "SELECT id FROM user WHERE username = '".$name."'";
- 	$result = mysqli_query($conn, $sql);
- 	while($row = mysqli_fetch_array($result)){
- 		$id = $row["id"];
- 	}
-  }
 ?>
 
 <!DOCTYPE html>
@@ -44,52 +36,44 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-    	.wadah{
-    		margin-top : 70px;
-    	}
-    	.isi{
-    		width: 93%;
+    	.tempat{
+    		width : 700px;
     		height : auto;
-    		margin-left : 30px;
-    		margin-bottom : 15px;
-    		border-bottom : 1px solid #e30066;
-    	}
-    	.judul{
-    		font-size : 36px;
-    		color : #e30066;
-    	}
-    	.italic{
-    		font-style : italic;
-    		font-size : 12px;
+    		padding-bottom : 30px;
+    		box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
+    		margin-top : 70px;
+    		margin-left : 130px;
     	}
 
-    	.tombol{
-	    	width : 70px;
-	    	height : 35px;
-	    	background-color : #e08a8a;
-	    	border-radius : 5%;
-	    	margin-bottom : 10px;
-	    	text-align: center;
-	   	 	text-decoration: none;
-	    	border: none;
-	    	outline: none;
-	    	cursor: pointer;
-	    	-webkit-transition-duration: 0.4s; /* Safari */
-	    	transition-duration: 0.4s;
-	    	color : white;
-   		}
+    	.form-container{
+    		margin-left: 50px;
+    		padding-top : 30px;
+    	}
 
-    	.tombol:hover{
-    		background-color : #c57575;
-	    }
+    	.berhasil{
+			width : 300px;
+			height : auto;
+			background-color : #229b60;
+			border-radius : 8px;
+			border-style: solid;
+   		 	border-width: 1px;
+   		 	border-color : #1c7a4c;
+   		 	padding : 15px 15px 15px 15px;
+   		 	margin-top : 10px;
+		}
 
-	    .tombol a{
-	    	text-decoration: none;
-	    	color: white;
-	    	display: block;
-	    }
+		.gagal{
+			width : 300px;
+			height : auto;
+			background-color : #9b2222;
+			border-radius : 8px;
+			border-style: solid;
+   		 	border-width: 1px;
+   		 	border-color : #7a1c1c;
+   		 	padding : 15px 15px 15px 15px;
+   		 	margin-top : 10px;
+		}
     </style>
-
   </head>
 
   <body id="page-top">
@@ -167,6 +151,7 @@
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>
                 </li>
+                
                 <?php
                 	if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
                 		echo '
@@ -222,27 +207,48 @@
         </div>
       </nav>
     </header> 
-    <div class = "wadah">
-    <?php
-    	$sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama FROM pekerjaan, pengusaha 
-    	WHERE pekerjaan.kategori = 'Penulisan dan Penerjemahan' AND
-    	pekerjaan.pengusaha_id = pengusaha.pengusaha_id";
-    	$result = mysqli_query($conn, $sql);
-    	while($row = mysqli_fetch_array($result)){
-    		echo '
-    		<div class = "isi">
-    			<p class = "judul">'.$row["nama"].'</p>
-    			<p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span>      diposting pada <span style = "color:blue">'.$row["tglbuka"].'</span></p>
-    			<p>'.$row["deskripsi"].'</p>';
-    		if(isset($_SESSION["role"])&&$_SESSION["role"]=="freelancer"){
-    			echo '<button class = "tombol"><a href = "tawar.php?id='.$id.'&k_id='.$row["k_id"].'"">Tawar</a></button>';
-    		}
-    		echo'
 
-    		</div>
-    		';
-    	}
-    ?>
+    <div class = "tempat">
+    	<div class = "form-container">
+    		<form method = "post" action="insert-projectproses.php">
+    			<div class = "form-group">
+    				Nama Projek
+    				<input type="text" name="nama" class ="form-control col-5" placeholder="Masukkan nama projek" required />
+    			</div>
+    			<div class = "form-group">
+    				Deskripsi Projek
+    				<textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" required></textarea>
+    			</div>
+    			<div class = "form-group">
+    				Tanggal Penawaran dibuka
+    				<input type="date" name="tglbuka" class ="form-control col-3" placeholder="Masukkan deskripsi projek" required />
+    			</div>
+    			<div class = "form-group">
+    				Tanggal Penawaran ditutup
+    				<input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" required/>
+    			</div>
+    			<div class = "form-group">
+    				Harga minimum penawaran
+    				<input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" required/>
+    			</div>
+    			<div class = "form-group">
+    				Harga maksimum penawaran
+    				<input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum" required/>
+    			</div>
+    			<div class = "form-group">
+    				Kategori
+    				<input type="radio" name="kategori" class ="form-control" value="Penulisan dan Penerjemahan" checked/> Penulisan dan Penerjemahan
+    				<input type="radio" name="kategori" class ="form-control" value="Visual dan Audio"/> Visual dan Audio
+    				<input type="radio" name="kategori" class ="form-control" value="Web dan Pemrograman"/> Web dan Pemrograman
+    				<input type="radio" name="kategori" class ="form-control" value="Grafis dan Desain"/> Grafis dan Desain
+    			</div>
+    			<div group = form-group>
+            <a href="index.php"><button class="btn btn-general btn-white">Kembali</button></a>
+            <input type="submit" class="btn btn-general btn-white" name="simpan" value="Buat Projek">
+    			</div>
+    		</form>
+    	</div>
     </div>
-   </body>
+
+    </body>
 </html>

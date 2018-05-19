@@ -49,8 +49,8 @@ if( mysqli_num_rows($query) < 1 ){
   </head>
 
   <body id="page-top">
-  	<header>
-  	<!-- Navbar -->
+    <header>
+    <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-light" id="mainNav" data-toggle="affix">
         <div class="container">
           <a class="navbar-brand smooth-scroll" href="#">
@@ -88,47 +88,47 @@ if( mysqli_num_rows($query) < 1 ){
     </section>
 
   <div class="container">
-  	<div class="row">
-  		<div class="col-md-6">
-					<form method="post" action="prosesedit1.php?role=freelancer">
-					<input type="hidden" name="id" value="<?php echo $free['id'] ?>" />
-					<div class = "form-group">
-						Nama Terang
-						<input type="text" name="nama" class ="form-control" placeholder="Masukkan nama" value="<?php echo $free['f_nama'] ?>" required/>
-					</div>
-					<div class = "form-group">
-						Usia
-						<input type="text" name="umur" class ="form-control" placeholder="Masukkan usia" value="<?php echo $free['f_usia'] ?>" required/>
-					</div>
-					<div class = "form-group">
-						No. Telepon
-						<input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $free['f_telepon'] ?>" required/>
-					</div>
-					<div class = "form-group">
-						Keahlian
-						<input type="text" name="ahli" class ="form-control" placeholder="Masukkan gelar" value="<?php echo $free['f_ahli'] ?>" required/>
-					</div>
-					<div class = "form-group">
-						Deskripsi <br />
-						<textarea name="bio" rows="10" cols="70" placeholder="Paparkan pengalaman Anda" required><?php echo $free['f_deskripsi'] ?></textarea>
-					</div>
-			          <div class = "form-group">
-			            Portofolio
-			            <input id="register_foto" name="foto" class="form-control" type="file" />
-			            <!--<span><?php echo $free['foto'];?></span>-->
-			          </div>
-			          <div class = "form-group">
-			            Gambar Profil (Ukuran 150x150 px)
-			            <input id="foto" name="foto" class="form-control" type="file" placeholder="Ukuran 150x150 px"/>
-			            <span></span>
-			          </div>
-					<div class = "modal-footer">
-						<a href="profilfree.php"><button class="btn btn-general btn-white">Kembali</button></a>
-						<input type="submit" class="btn btn-general btn-white" name="simpan" value="Ubah Profil">
-					</div>
-					</form>
-	 		</div>
-	 	</div>
-	</div>
+    <div class="row">
+      <div class="col-md-6">
+          <form method="post" action="prosesedit1.php?role=freelancer" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="<?php echo $free['id'] ?>" />
+          <div class = "form-group">
+            Nama Terang
+            <input type="text" name="nama" class ="form-control" placeholder="Masukkan nama" value="<?php echo $free['f_nama'] ?>" required/>
+          </div>
+          <div class = "form-group">
+            Usia
+            <input type="text" name="umur" class ="form-control" placeholder="Masukkan usia" value="<?php echo $free['f_usia'] ?>" required/>
+          </div>
+          <div class = "form-group">
+            No. Telepon
+            <input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $free['f_telepon'] ?>" required/>
+          </div>
+          <div class = "form-group">
+            Keahlian
+            <input type="text" name="ahli" class ="form-control" placeholder="Masukkan gelar" value="<?php echo $free['f_ahli'] ?>" required/>
+          </div>
+          <div class = "form-group">
+            Deskripsi <br />
+            <textarea name="bio" rows="10" cols="70" placeholder="Paparkan pengalaman Anda" required><?php echo $free['f_deskripsi'] ?></textarea>
+          </div>
+                <div class = "form-group">
+                  Portofolio
+                  <input id="register_porto" name="porto" class="form-control" type="file" />
+                  <span><?php echo $free['f_portofolio'];?></span>
+                </div>
+                <div class = "form-group">
+                  Gambar Profil (Ukuran 150x150 px)
+                  <input id="register_foto" name="foto" class="form-control" type="file" placeholder="Ukuran 150x150 px"/>
+                  <span><?php echo $free['picture'];?></span>
+                </div>
+          <div class = "modal-footer">
+            <a href="profilfree.php"><button class="btn btn-general btn-white">Kembali</button></a>
+            <input type="submit" class="btn btn-general btn-white" name="simpan" value="Ubah Profil">
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
   </body>
  </html>

@@ -13,20 +13,21 @@
 
   $sql1 = "SELECT * FROM user where username = '".$_SESSION["name"]."' ";
         $query1 = mysqli_query($conn, $sql1);
-	while($peng1 = mysqli_fetch_array($query1)){
-	$sql = "SELECT * FROM pengusaha where pengusaha_id = '".$peng1['id']."'";
-	        $query = mysqli_query($conn, $sql);
+  while($peng1 = mysqli_fetch_array($query1)){
+  $sql = "SELECT * FROM pengusaha where pengusaha_id = '".$peng1['id']."'";
+          $query = mysqli_query($conn, $sql);
 
-	        while($peng = mysqli_fetch_array($query)){
-	            
-	            $id = $peng['pengusaha_id'];
-	            $compname = $peng['nama'];
-	            $address = $peng['alamat'];
-	            $number = $peng['telepon'];
-	            $email = $peng1['email'];
-	            $deskripsi = $peng['deskripsi'];
-	        }
-	}
+          while($peng = mysqli_fetch_array($query)){
+              
+              $id = $peng['pengusaha_id'];
+              $compname = $peng['nama'];
+              $address = $peng['alamat'];
+              $number = $peng['telepon'];
+              $email = $peng1['email'];
+              $deskripsi = $peng['deskripsi'];
+          }
+  }
+  //echo 'ahsjah';  echo $id;
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +41,7 @@
     <meta name="author" content="">
 
     <title>Freelancer -mosv-</title>
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="img/favicon-01.png">
 
     <!-- Global Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -54,124 +55,192 @@
 
     <style>
     .bio{
-    	width : 300px;
-    	height : 450px;
-    	background-color : #a34e4e;
-    	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    	margin-left : 130px;
-    	margin-top : 40px;
-    	float : left;
-    	color : white;
+      width : 300px;
+      height : 450px;
+      background-color : #a34e4e;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin-left : 130px;
+      margin-top : 40px;
+      float : left;
+      color : white;
     }
 
     .details{
-    	width : 700px;
-    	height : 450px;
-    	margin-left : 90px;
-    	margin-top : 40px;
-    	box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
-    	float : left;
+      width : 700px;
+      height : 450px;
+      margin-left : 90px;
+      margin-top : 40px;
+      box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
+      float : left;
     }
 
     .photo{
-    	width : 150px;
-    	height : 150px;
-    	background-color : white;
-    	margin-left : 70px;
-    	margin-top : 50px;
-    	border-radius : 50%;
+      width : 150px;
+      height : 150px;
+      background-color : white;
+      margin-left : 70px;
+      margin-top : 50px;
+      border-radius : 50%;
     }
 
     .bar{
-    	height : 70px;
+      height : 70px;
     }
 
     .bar-button{
-    	width : 200px;
-    	height : 100%;
-    	background-color : white;
-    	float : right;
-    	color : #808282;
-    	margin : center;
-    	font-weight : bold;
-    	text-align : center;
-    	cursor : pointer;
-    	padding-top :25px;
-    	-webkit-transition-duration: 0.4s; /* Safari */
-    	transition-duration: 0.4s;
+      width : 200px;
+      height : 100%;
+      background-color : white;
+      float : right;
+      color : #808282;
+      margin : center;
+      font-weight : bold;
+      text-align : center;
+      cursor : pointer;
+      padding-top :25px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
     }
 
     .bio p{
-    	color : white;
+      color : white;
     }
 
     .bar-button:hover{
-    	background-color : #f0f0f0;
-    	color : #e30066;
-    	border-bottom : 1px solid #e30066;
+      background-color : #f0f0f0;
+      color : #e30066;
+      border-bottom : 1px solid #e30066;
     }
 
     .active{
-    	background-color : #f0f0f0;
-    	color : #e30066;
-    	border-bottom : 1px solid #e30066;
+      background-color : #f0f0f0;
+      color : #e30066;
+      border-bottom : 1px solid #e30066;
     }
 
     .desc{
-    	width : 650px;
-    	height : 350px;
-    	margin-top : 15px;
-    	margin-left : 30px;
-    	overflow : auto;
+      width : 650px;
+      height : 350px;
+      margin-top : 15px;
+      margin-left : 30px;
+      overflow : auto;
     }
 
     .edit{
-    	width : 120px;
-    	height : 50px;
-    	background-color : #e08a8a;
-    	margin-top : 10px;
-    	margin-left : 130px;
-    	text-align: center;
-   	 	text-decoration: none;
-    	border: none;
-    	outline: none;
-    	cursor: pointer;
-    	-webkit-transition-duration: 0.4s; /* Safari */
-    	transition-duration: 0.4s;
-    	color : white;
+      width : 120px;
+      height : 50px;
+      background-color : #e08a8a;
+      margin-top : 10px;
+      margin-left : 130px;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      color : white;
     }
 
     .edit:hover{
-    	background-color : #c57575;
+      background-color : #c57575;
     }
 
     .edit a{
-    	text-decoration: none;
-    	color: white;
-    	display: block;
+      text-decoration: none;
+      color: white;
+      display: block;
     }
 
     .job-available{
-    	width : 635px;
-    	height : auto;
-    	border-bottom : 1px solid #e30066;
+      width : 635px;
+      height : auto;
+      border-bottom : 1px solid #e30066;
     }
 
     .nama{
-    	font-weight : bold;
-    	font-size : 20px;
-    	color : #e30066 ;
+      font-weight : bold;
+      font-size : 20px;
+      color : #e30066 ;
     }
 
     .kategori{
-    	font-size : 12px;
-    	font-style : italic;
+      font-size : 12px;
+      font-style : italic;
+    }
+
+    .penawar{
+    	width : 100px;
+    	height : auto;
+    	padding : 5px 5px 5px 5px;
+    	text-align : center;
+	    cursor : pointer;
+	    border-radius : 5px;
+	    -webkit-transition-duration: 0.4s; /* Safari */
+	    transition-duration: 0.4s;
+	    background-color : #bc5454;
+	    font-size : 14px;
+	    margin-bottom : 5px;
+    }
+
+    .penawar:hover{
+    	background-color : #8c3d3d;
+    }
+
+    .penawar a{
+    	text-decoration: none;
+      	color: white;
+      	display: block;
     }
     </style>
   </head>
 
-<body id = "page-top">
-<nav class="navbar navbar-expand-lg navbar-light" id="mainNav" data-toggle="affix">
+<!--====================================================
+                         HEADER
+======================================================--> 
+
+    <header>
+
+      <!-- Top Navbar  -->
+      <div class="top-menubar">
+        <div class="topmenu">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-7">
+                <ul class="list-inline top-contacts">
+                  <li>
+                    <i class="fa fa-envelope"></i> <a href="mailto:imail@freelancemosv.id" class="">mail@freelancemosv.id</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-phone"></i> (031) 3982200
+                  </li>
+                </ul>
+              </div> 
+              <div class="col-md-5">
+                <ul class="list-inline top-data"> 
+                <?php
+                  if(isset($_SESSION["logged"])){
+                    echo '
+                    <li><div class = "log-top">Selamat datang, '.$_SESSION["name"].'!</div></li>
+                    <li><a href="logout.php" class="log-top"">Keluar</a></li>';
+                  }elseif (isset($_SESSION["gagal"])) {
+                    echo '
+                    <li><a href="logout.php" class="log-top"> login gagal, coba lagi </a></li>';
+                  }
+                  else{
+                    echo '
+                    <li><a href="#" class="log-top" data-toggle="modal" data-target="#login-modal">Masuk</a></li>';
+                  }
+                ?>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div> 
+      
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light" id="mainNav" data-toggle="affix">
         <div class="container">
           <a class="navbar-brand smooth-scroll" href="index.php">
             <img src="img/logo-s.png" alt="logo">
@@ -185,10 +254,10 @@
                 <li class="nav-item dropdown" >
                   <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a> 
                   <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-                    <a class="dropdown-item"  target="_empty" href="#">Grafis dan Desain</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Web dan Pemograman</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
+                    <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
+                    <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -200,26 +269,26 @@
                   }?>
                 </li>
                 <?php
-                	if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
-                		echo '
-                			<li class="nav-item dropdown" >
-			                  <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
-			                  <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-			                    <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
-			                    <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
-			                  </div>
-			                </li>
-                		';
-                	}
-                	else{
-                		echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
-                	}
+                  if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
+                    echo '
+                      <li class="nav-item dropdown" >
+                        <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
+                        <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
+                          <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
+                          <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
+                        </div>
+                      </li>
+                    ';
+                  }
+                  else{
+                    echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
+                  }
                 ?>
                 <li>
                   <i class="search fa fa-search search-btn"></i>
                   <div class="search-open">
                     <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Ketikkan Kategori" aria-describedby="basic-addon2">
+                      <input type="text" class="form-control" placeholder="Ketikkan Pekerjaan" aria-describedby="basic-addon2">
                       <span class="input-group-addon" id="basic-addon2">Cari</span>
                     </div>
                   </div>
@@ -253,64 +322,72 @@
           </div>
         </div>
       </nav>
+    </header> 
 
 <div class = "bio">
-	<div class ="photo">
-		<?php
-			$s = "SELECT picture FROM pengusaha WHERE pengusaha_id = ".$id;
-			$q = mysqli_query($conn, $s);
-			if($row = mysqli_fetch_array($q)){
-				if(!$row["picture"]){
-					echo '<img src = "img/default-user-image.png">';
-				}
-			}
-		?>
-	</div>
-	<p style = "margin-top : 50px; margin-left : 20px;">Nama Perusahaan : <?php echo $compname;?></p> 
-	<p style = "margin-left : 20px;">Alamat : <?php echo $address;?></p>
-	<p style = "margin-left : 20px">No. Telp : <?php echo $number;?></p>
-	<p style = "margin-left : 20px">E-mail : <?php echo $email;?></p>
+  <div class ="photo">
+    <?php
+      $s = "SELECT picture FROM pengusaha WHERE pengusaha_id = ".$id;
+      //echo $s;
+      $q = mysqli_query($conn, $s);
+      if($row = mysqli_fetch_array($q)){
+        if(!$row["picture"]){
+          echo '<img src = "foto/default-user-image.png">';
+        }
+        else{
+        	echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:150px;height:150px;">';
+        }
+      }
+    ?>
+  </div>
+  <p style = "margin-top : 50px; margin-left : 20px;">Nama Perusahaan : <?php echo $compname;?></p> 
+  <p style = "margin-left : 20px;">Alamat : <?php echo $address;?></p>
+  <p style = "margin-left : 20px">No. Telp : <?php echo $number;?></p>
+  <p style = "margin-left : 20px">E-mail : <?php echo $email;?></p>
 </div>
 <div class = "details">
-	<div class = "bar">
-		<div class = "bar-button" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
-		<div class = "bar-button" onclick="openTab('projek', this,event)">Projek Aktif</div>
-	</div>
-	<div class = "desc" id="deskripsi">
-		<?php
-			if($deskripsi == NULL){
-				echo '<p class = "kategori">Deskripsi belum dipaparkan</p>';
-			}
-			else{
-				echo '<p class = "nama">Deskripsi '.$compname.'</p>';
-				echo '<p>'.$deskripsi.'</p>';
-			}
-		?>
-	</div>
-	<div class = "desc" id="projek">
-		<?php
-			$s = "SELECT pekerjaan.nama, pekerjaan.deskripsi, pekerjaan.kategori
-			FROM pengusaha, pekerjaan 
-			WHERE pengusaha.pengusaha_id = pekerjaan.pengusaha_id AND 
-				pekerjaan.tglbuka < SYSDATE() AND
-				pekerjaan.tgltutup > SYSDATE() AND
-				pengusaha.pengusaha_id = ".$id;
+  <div class = "bar">
+    <div class = "bar-button" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
+    <div class = "bar-button" onclick="openTab('projek', this,event)">Projek Aktif</div>
+  </div>
+  <div class = "desc" id="deskripsi">
+    <?php
+      if($deskripsi == NULL){
+        echo '<p class = "kategori">Deskripsi belum dipaparkan</p>';
+      }
+      else{
+        echo '<p class = "nama">Deskripsi '.$compname.'</p>';
+        echo '<p>'.$deskripsi.'</p>';
+      }
+    ?>
+  </div>
+  <div class = "desc" id="projek">
+    <?php
+      $s = "SELECT pekerjaan.k_id, pekerjaan.nama, pekerjaan.deskripsi, pekerjaan.kategori
+      FROM pengusaha, pekerjaan 
+      WHERE pengusaha.pengusaha_id = pekerjaan.pengusaha_id AND 
+        pekerjaan.tglbuka < SYSDATE() AND
+        pekerjaan.tgltutup > SYSDATE() AND
+        pengusaha.pengusaha_id = ".$id;
 
-			$q = mysqli_query($conn, $s);
-			if(mysqli_num_rows($q) > 0){
-				while ($row = mysqli_fetch_array($q)){
-					echo '<div class = "job-available">
-							<p class = "nama">'.$row["nama"].'</p>
-							<p>'.$row["deskripsi"].'</p>
-							<p class = "kategori">Kategori : '.$row["kategori"].'</p>
-						  </div>';
-				}
-			}
-			else {
-				echo '<p class = "nama">Perusahaan belum membuat projek</p>';
-			}
-		?>
-	</div>
+      $q = mysqli_query($conn, $s);
+      if(mysqli_num_rows($q) > 0){
+        while ($row = mysqli_fetch_array($q)){
+          echo '<div class = "job-available">
+              <p class = "nama">'.$row["nama"].'</p>
+              <p>'.$row["deskripsi"].'</p>
+              <p class = "kategori">Kategori : '.$row["kategori"].'</p>
+              <div class = "penawar">
+              	<a href = "penawar.php?k_id='.$row["k_id"].'">Lihat Penawar</a>
+              </div>
+              </div>';
+        }
+      }
+      else {
+        echo '<p class = "nama">Perusahaan belum membuat projek</p>';
+      }
+    ?>
+  </div>
 </div>
 <br />
 <button class = "edit"><?php echo '<a href ="form-edit2.php?id='.$id.'">';?>Ubah Profil</a></button>
@@ -318,21 +395,21 @@
 
     <script>
     function openTab(tabName,elmnt, evt) {
-	    var i, tabcontent, tablinks;
-	    tabcontent = document.getElementsByClassName("desc");
-	    for (i = 0; i < tabcontent.length; i++) {
-	        tabcontent[i].style.display = "none";
-	    }
-	    tablinks = document.getElementsByClassName("bar-button");
-	    for (i = 0; i < tablinks.length; i++) {
-	        tablinks[i].className = tablinks[i].className.replace(" active", "");
-	    }
-	    document.getElementById(tabName).style.display = "block";
-	    evt.currentTarget.className += " active";
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("desc");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("bar-button");
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
 
-	}
-	// Get the element with id="defaultOpen" and click on it
-	document.getElementById("defaultOpen").click();
+  }
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
     </script>
 
 </html>
