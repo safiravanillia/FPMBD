@@ -10,6 +10,11 @@
   if($conn->connect_error){
     die("Connection failed: ". $conn->connect_error);
   }
+
+  $conns = new mysqli($servername, $username, $password, $dbname);
+  if($conns->connect_error){
+    die("Connection failed: ". $conn->connect_error);
+  }
 ?>
 
 <!DOCTYPE html>
@@ -266,7 +271,7 @@
           <div class="col-md-12">
             <h1 class="wow fadeInUp">KAMI BERKOMITMEN UNTUK MEMBANTU</h1>
             <div class="heading-border"></div>
-            <p class="wow fadeInUp" data-wow-delay="0.4s">Selamat datang di Freelance mosv, website paling populer untuk mencari fpekerjaan. Kami menggandeng perusahaan kecil menengah, bisnis start up dan pemilik bisnis dengan freelancer ahli untuk bekerja sama. Sebagai contoh, software development, desain/desain grafis, gambar, penulisan/penerjemahan seperti juga pemasaran online dan video editing.  </p>
+            <p class="wow fadeInUp" data-wow-delay="0.4s">Selamat datang di Freelance mosv, website paling populer untuk mencari pekerjaan. Kami menggandeng perusahaan kecil menengah, bisnis start up dan pemilik bisnis dengan freelancer ahli untuk bekerja sama. Sebagai contoh, software development, desain/desain grafis, gambar, penulisan/penerjemahan seperti juga pemasaran online dan video editing.  </p>
             <div class="title-but"><a href="faq.php"><button class="btn btn-general btn-green" role="button">Ingin Tahu Lebih?</button></a></div>
           </div>
         </div>
@@ -310,13 +315,19 @@
             <div class="heading-border-light"></div> 
           </div>
               <?php 
-              $sql = "SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi ,pengusaha.`nama` AS peng, pengusaha.`picture` AS foto
+              //query di run di mysql
+              /*DELIMITER$$
+              CREATE OR REPLACE PROCEDURE implicit_cursor()
+              BEGIN
+              SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi , pengusaha.`picture` AS foto
               FROM pekerjaan, pengusaha
               WHERE pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
               ORDER BY pekerjaan.tglbuka DESC
-              LIMIT 3; ";
+              LIMIT 3;
+              END$$
+              DELIMITER$$*/
 
-              $query = mysqli_query($conn, $sql);
+              $query = mysqli_query($conn, "CALL implicit_cursor()");
               while($baru = mysqli_fetch_array($query)){
         echo '
         <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
@@ -325,7 +336,7 @@
                   <div class="caption">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img width="50%" height="50%" src= "images/'.$baru["foto"].'" class="img-fluid" alt="...">
+                  <img src= "images/'.$baru["foto"].'" class="img-fluid" alt="...">
               </div>
               <h3>'.$baru["kerja"].'</h3>
               <p class="desc">'.$baru["deskripsi"].'</p>
@@ -333,7 +344,7 @@
             </div>
           </div> 
         ';
-      }   
+      }
             ?>
           </div>          
         </div>
@@ -351,17 +362,23 @@
             <div class="heading-border-light"></div> 
           </div>
               <?php 
-              $sql = "SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto
+              //query di run di mysql
+              /*DELIMITER$$
+              CREATE OR REPLACE PROCEDURE implicit_cursor1()
+              BEGIN
+              SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto
               FROM pekerjaan JOIN tawar ON pekerjaan.k_id=tawar.k_id
               JOIN freelancer ON freelancer.id= tawar.f_id, pengusaha
               WHERE tawar.b_status ='TERIMA'
               AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
               GROUP BY pekerjaan.nama
               ORDER BY COUNT(tawar.f_id) DESC
-              LIMIT 3;";
+              LIMIT 3;
+              END$$
+              DELIMITER$$*/
 
-              $query = mysqli_query($conn, $sql);
-              while($baru = mysqli_fetch_array($query)){
+              $query = mysqli_query($conns, "CALL implicit_cursor1()");
+              while($populer = mysqli_fetch_array($query)){
         echo '
         <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
             <div class="desc-comp-offer-cont">
@@ -369,10 +386,10 @@
                   <div class="caption">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img width="50%" height="50%" src= "images/'.$baru["foto"].'" class="img-fluid" alt="...">
+                  <img src= "images/'.$populer["foto"].'" class="img-fluid" alt="...">
               </div>
-              <h3>'.$baru["kerja"].'</h3>
-              <p class="desc">'.$baru["deskripsi"].'</p>
+              <h3>'.$populer["kerja"].'</h3>
+              <p class="desc">'.$populer["deskripsi"].'</p>
               <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
             </div>
           </div> 
