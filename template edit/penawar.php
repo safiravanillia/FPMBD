@@ -61,16 +61,40 @@
 				padding : 20px 20px 20px 20px;
 				border-bottom : 1px solid #e30066;
 			}
-		</style>
 
+			.job-available{
+      width : 635px;
+      height : auto;
+      border-bottom : 1px solid #e30066;
+    }
+
+    .nama{
+      font-weight : bold;
+      font-size : 20px;
+      color : #e30066 ;
+    }
+		</style>
 	</head>
 
 	<body>
-		<div class = "badan">
+		<section id="contact-p1" class="contact-p1">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="contact-p1-cont">
+              <h3><br>LIST PENAWAR</h3>
+              <div class="heading-border-light"></div> 
+            </div>
+          </div> 
+        </div>
+      </div>
+    </section>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6">
 					<?php
 						$kerja = $_GET["k_id"];
-						$sql = "
-							SELECT tawar.*, freelancer.`f_nama`, freelancer.`f_ahli`, freelancer.`f_deskripsi`
+						$sql = "SELECT tawar.*, freelancer.`f_nama`, freelancer.`f_ahli`, freelancer.`f_deskripsi`
 							FROM pekerjaan, freelancer, tawar
 							WHERE pekerjaan.`k_id` = tawar.`k_id` AND
 								tawar.`f_id` = freelancer.`id` AND
@@ -80,21 +104,45 @@
 						$result = mysqli_query($conn, $sql);
 						if($result){
 							while($row = mysqli_fetch_array($result)){
+								
 								echo '
 								<div class = "penawar">
-									<p>Nama Penawar : '.$row["f_nama"].'</p>
-									<p>Keahlian : '.$row["f_ahli"].'</p>
-									<p>Deskripsi penawar :</p>
-									'.$row["f_deskripsi"].'
-									<p>Jasa disewa dengan harga : '.$row["harga"].'</p>
-									<p>Status : '.$row["b_status"].'</p>
-									<a href="status.php?bid_id='.$row["bid_id"].'" class="btn btn-primary">Ubah Status</a>
+									<div class="nama">'.$row["f_nama"].'</div>
+									<table class="table">
+									<tr>
+									<td>Keahlian </td>
+									<td> '.$row["f_ahli"].' </td>
+									
+									</tr>
+
+									<tr>
+									<td>Deskripsi Penawar</td>
+									<td>'.$row["f_deskripsi"].' </td>
+									</tr>
+
+
+									<tr>
+									<td>Permintaan Bayaran</td>
+									<td>'.$row["harga"].' </td>
+									</tr>
+
+									<tr>
+									<td>Status</td>
+									<td>'.$row["b_status"].' </td>
+									</tr>
+
+									</table>
+									<br><a href="status.php?bid_id='.$row["bid_id"].'" class="btn btn-general btn-white">Ubah Status</a>
 								</div>
 								';
 							}
 						}		
 					?>
-			
-		</div>
+				<div class = "modal-footer">
+            <a href="profilpeng.php"><button class="btn btn-general btn-white">Kembali</button></a>
+          </div>
+	</div>
+</div>
+</div>
 	</body>
 </html>
