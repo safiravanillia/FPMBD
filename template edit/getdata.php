@@ -77,11 +77,11 @@
 					</div>
 					<div class = "form-group">
 						Usia
-						<input type="text" name="umur" class ="form-control" placeholder="Masukkan usia" required/>
+						<input type="number" name="umur" class ="form-control" placeholder="Masukkan usia" required/>
 					</div>
 					<div class = "form-group">
 						No. Telepon
-						<input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" required/>
+						<input type="number" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" required/>
 					</div>
 					<div class = "form-group">
 						Keahlian
@@ -93,7 +93,7 @@
 					</div>
 					<div class = "form-group">
 						Portofolio
-						<input id="foto" name="foto" class="form-control" type="file" required/>
+						<input id="porto" name="porto" class="form-control" type="file" required/>
 					</div>
 					<div class = "modal-footer">
 						<input type="submit" class="btn btn-general btn-white" value="Simpan"/>
@@ -114,7 +114,7 @@
 					</div>
 					<div class = "form-group">
 						No. Telepon
-						<input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" required/>
+						<input type="number" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" required/>
 					</div>
 					<div class = "form-group">
 						<input type="submit" class="btn btn-primary" value="Simpan">
