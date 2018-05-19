@@ -63,7 +63,7 @@
         height : 450px;
         background-color : #a34e4e;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        margin-left : 130px;
+        margin-left : 80px;
         margin-top : 40px;
         float : left;
         color : white;
@@ -72,7 +72,7 @@
     .details{
         width : 750px;
         height : 450px;
-        margin-left : 90px;
+        margin-left : 50px;
         margin-top : 40px;
         box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
         float : left;
@@ -383,7 +383,7 @@
                               <label for="username">Username</label> 
                               <input id="register_username" class="form-control" type="text" placeholder="Masukkan username" name="user" required>
                               <label for="register_email">E-mail</label> 
-                              <input id="register_email" name="email" class="form-control" type="text" placeholder="Masukkan E-mail" required>
+                              <input id="register_email" name="email" class="form-control" type="email" placeholder="Masukkan E-mail" required>
                               <label for="register_password">Kata Sandi</label> 
                               <input id="register_password" name="passwd" class="form-control" type="password" placeholder="Masukkan kata sandi" required>
                               <label for="register_password">Pilih peran:</label>
@@ -585,7 +585,6 @@
 <button class = "edit"><?php echo '<a href ="form-edit1.php?id='.$id.'">';?>Ubah Profil</a></button>
 
     </body>
-
     <script>
   function openTab(tabName,elmnt, evt) {
       var i, tabcontent, tablinks;
