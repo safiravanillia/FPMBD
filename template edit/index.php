@@ -105,7 +105,7 @@
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
                     echo '
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilfree.php">Profil</a></li> ';
-                  } elseif(isset($_SESSION["peng"])&&isset($_SESSION["logged"])){
+                  } elseif(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&isset($_SESSION["logged"])){
                     echo '
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>
@@ -266,7 +266,7 @@
           <div class="col-md-12">
             <h1 class="wow fadeInUp">KAMI BERKOMITMEN UNTUK MEMBANTU</h1>
             <div class="heading-border"></div>
-            <p class="wow fadeInUp" data-wow-delay="0.4s">Selamat datang di Freelance mosv, website paling populer untuk mencari freelancer. Kami menggandeng perusahaan kecil menengah, bisnis start up dan pemilik bisnis dengan freelancer ahli untuk bekerja sama. Sebagai contoh, software development, desain/desain grafis, gambar, penulisan/penerjemahan seperti juga pemasaran online dan video editing.  </p>
+            <p class="wow fadeInUp" data-wow-delay="0.4s">Selamat datang di Freelance mosv, website paling populer untuk mencari fpekerjaan. Kami menggandeng perusahaan kecil menengah, bisnis start up dan pemilik bisnis dengan freelancer ahli untuk bekerja sama. Sebagai contoh, software development, desain/desain grafis, gambar, penulisan/penerjemahan seperti juga pemasaran online dan video editing.  </p>
             <div class="title-but"><a href="faq.php"><button class="btn btn-general btn-green" role="button">Ingin Tahu Lebih?</button></a></div>
           </div>
         </div>
@@ -306,7 +306,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.2s">
-            <h2>Jasa Desain Grafis</h2>
+            <h2>Pekerjaan Terpopuler</h2>
             <div class="heading-border-light"></div> 
           </div>
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
@@ -359,7 +359,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.2s">
-            <h2>Jasa Penulisan Konten</h2>
+            <h2>Pekerjaan terbaru</h2>
             <div class="heading-border-light"></div> 
           </div>
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
