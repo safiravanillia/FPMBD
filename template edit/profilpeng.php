@@ -167,6 +167,30 @@
       font-size : 12px;
       font-style : italic;
     }
+
+    .penawar{
+    	width : 100px;
+    	height : auto;
+    	padding : 5px 5px 5px 5px;
+    	text-align : center;
+	    cursor : pointer;
+	    border-radius : 5px;
+	    -webkit-transition-duration: 0.4s; /* Safari */
+	    transition-duration: 0.4s;
+	    background-color : #bc5454;
+	    font-size : 14px;
+	    margin-bottom : 5px;
+    }
+
+    .penawar:hover{
+    	background-color : #8c3d3d;
+    }
+
+    .penawar a{
+    	text-decoration: none;
+      	color: white;
+      	display: block;
+    }
     </style>
   </head>
 
@@ -334,7 +358,7 @@
   </div>
   <div class = "desc" id="projek">
     <?php
-      $s = "SELECT pekerjaan.nama, pekerjaan.deskripsi, pekerjaan.kategori
+      $s = "SELECT pekerjaan.k_id, pekerjaan.nama, pekerjaan.deskripsi, pekerjaan.kategori
       FROM pengusaha, pekerjaan 
       WHERE pengusaha.pengusaha_id = pekerjaan.pengusaha_id AND 
         pekerjaan.tglbuka < SYSDATE() AND
@@ -348,6 +372,9 @@
               <p class = "nama">'.$row["nama"].'</p>
               <p>'.$row["deskripsi"].'</p>
               <p class = "kategori">Kategori : '.$row["kategori"].'</p>
+              <div class = "penawar">
+              	<a href = "penawar.php?k_id='.$row["k_id"].'">Lihat Penawar</a>
+              </div>
               </div>';
         }
       }

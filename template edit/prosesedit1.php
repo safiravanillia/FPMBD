@@ -41,7 +41,7 @@ if(isset($_POST['simpan'])){
         echo $sql;
         $query = mysqli_query($conn, $sql);
       }else{
-        $sql = "UPDATE freelancer SET f_nama='$nama', f_usia=$usia, f_telepon=$telepon, f_ahli='$ahli', f_deskripsi='$biodata' WHERE id=$'id'";
+        $sql = "UPDATE freelancer SET f_nama='$nama', f_usia=$usia, f_telepon=$telepon, f_ahli='$ahli', f_deskripsi='$biodata' WHERE id='$id'";
         echo $sql;
         $query = mysqli_query($conn, $sql);
       }

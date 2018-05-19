@@ -93,7 +93,7 @@
 					</div>
 					<div class = "form-group">
 						Portofolio
-						<input id="porto" name="porto" class="form-control" type="file" required/>
+						<input id="porto" name="porto" class="form-control" type="file"/>
 					</div>
 					<div class = "modal-footer">
 						<input type="submit" class="btn btn-general btn-white" value="Simpan"/>

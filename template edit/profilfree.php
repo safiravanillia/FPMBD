@@ -160,6 +160,37 @@
       font-size : 12px;
       font-style : italic;
     }
+
+    .job-progress{
+    	width : 635px;
+    	height : auto;
+    	border-bottom : 1px solid #e30066;
+    }
+
+    .status{
+    	width : 100px;
+    	height : auto;
+    	padding : 5px 5px 5px 5px;
+    	text-align : center;
+	    cursor : pointer;
+	    border-radius : 5px;
+	    -webkit-transition-duration: 0.4s; /* Safari */
+	    transition-duration: 0.4s;
+	    background-color : #bc5454;
+	    font-size : 14px;
+	    margin-bottom : 5px;
+    }
+
+    .status:hover{
+    	background-color : #8c3d3d;
+    }
+
+    .status a{
+    	text-decoration: none;
+      	color: white;
+      	display: block;
+    }
+
     </style>
    </head>
 
@@ -384,7 +415,7 @@
 <div class = "details">
     <div class = "bar">
         <div class = "bar-button" onclick="openTab('review', this, event)"><b>Review</b></div>
-        <div class = "bar-button" onclick="openTab('histori', this, event)">Histori Pekerjaan</div>
+        <div class = "bar-button" style = "padding-top : 12px;" onclick="openTab('histori', this, event)">Pekerjaan OnProgress</div>
         <div class = "bar-button" onclick="openTab('portofolio', this, event)">Portofolio</div>
         <div class = "bar-button" onclick="openTab('deskripsi', this, event)"  id="defaultOpen">Deskripsi</div>
     </div>
@@ -436,27 +467,33 @@
       WHERE freelancer.`id`='$id'
       AND freelancer.`id`=tawar.`f_id`
       AND tawar.`k_id`=pekerjaan.`k_id`
-      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`";
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+      AND tawar.`b_status` = 'TERIMA'";
 
       $res = mysqli_query($conn, $jumlah);
-      while($roww = mysqli_fetch_array($res)){
-        echo 'pekerjaan yang pernah diambil: '.$roww["jum"].' pekerjaan<br><br>
-        <b>Berikut adalah pekerjaan yang pernah saya ambil:</b><br>
-        ';
+      while($row = mysqli_fetch_array($res)){
+      	echo '<p style = "font-size : 24px; font-weight : bold;">Pekerjaan sedang diambil : '.$row["jum"].'</p>';
       }  
 
-      $histori = "SELECT pengusaha.`nama` AS nm_peng, pekerjaan.`nama` AS kerja
+      $histori = "SELECT pengusaha.`nama` AS nm_peng, pekerjaan.`nama` AS kerja, tawar.`bid_id`
       FROM tawar, freelancer, pengusaha, pekerjaan
       WHERE freelancer.`id`='$id'
       AND freelancer.`id`=tawar.`f_id`
       AND tawar.`k_id`=pekerjaan.`k_id`
-      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`";
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
+      AND tawar.`b_status` = 'TERIMA'";
 
       $result = mysqli_query($conn, $histori);
       while($row = mysqli_fetch_array($result)){
-        echo 'nama perusahaan: '.$row["nm_peng"].'<br>
-        pekerjaan: '.$row["kerja"].'<br><br>
-        ';
+      	echo '
+      		<div class = "job-progress">
+      			<p class = "nama">'.$row["kerja"].'</p>
+      			<p class = "kategori">Perusahaan terkait : <span style = "font-weight : bold; color : blue;">'.$row["nm_peng"].'</span></p>
+      			<div class = "status">
+      			<a href="status.php?bid_id='.$row["bid_id"].'">Ubah Status</a>
+      			</div>
+      		</div>
+      	';
       }  
       ?>
     </div>
