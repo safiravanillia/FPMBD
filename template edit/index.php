@@ -210,7 +210,7 @@
                               <label for="username">Username</label> 
                               <input id="register_username" class="form-control" type="text" placeholder="Masukkan username" name="user" required>
                               <label for="register_email">E-mail</label> 
-                              <input id="register_email" name="email" class="form-control" type="text" placeholder="Masukkan E-mail" required>
+                              <input id="register_email" name="email" class="form-control" type="email" placeholder="Masukkan E-mail" required>
                               <label for="register_password">Kata Sandi</label> 
                               <input id="register_password" name="passwd" class="form-control" type="password" placeholder="Masukkan kata sandi" required>
                               <label for="register_password">Pilih peran:</label>
@@ -336,7 +336,7 @@
                   <div class="caption">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img src= "images/'.$baru["foto"].'" class="img-fluid" alt="...">
+                  <img src ="data:image/jpeg;base64,'.base64_encode($baru["foto"]).'"class="img-fluid" alt="...">
               </div>
               <h3>'.$baru["kerja"].'</h3>
               <p class="desc">'.$baru["deskripsi"].'</p>
@@ -366,11 +366,10 @@
               /*DELIMITER$$
               CREATE OR REPLACE PROCEDURE implicit_cursor1()
               BEGIN
-              SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto
+              SELECT DISTINCT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto
               FROM pekerjaan JOIN tawar ON pekerjaan.k_id=tawar.k_id
               JOIN freelancer ON freelancer.id= tawar.f_id, pengusaha
-              WHERE tawar.b_status ='TERIMA'
-              AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+              WHERE pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
               GROUP BY pekerjaan.nama
               ORDER BY COUNT(tawar.f_id) DESC
               LIMIT 3;
@@ -386,7 +385,7 @@
                   <div class="caption">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img src= "images/'.$populer["foto"].'" class="img-fluid" alt="...">
+                  <img src ="data:image/jpeg;base64,'.base64_encode($populer["foto"]).'"class="img-fluid" alt="...">
               </div>
               <h3>'.$populer["kerja"].'</h3>
               <p class="desc">'.$populer["deskripsi"].'</p>
