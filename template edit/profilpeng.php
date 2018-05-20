@@ -27,6 +27,7 @@
               $deskripsi = $peng['deskripsi'];
           }
   }
+  //echo 'ahsjah';  echo $id;
 ?>
 
 <!DOCTYPE html>
@@ -327,10 +328,14 @@
   <div class ="photo">
     <?php
       $s = "SELECT picture FROM pengusaha WHERE pengusaha_id = ".$id;
+      //echo $s;
       $q = mysqli_query($conn, $s);
       if($row = mysqli_fetch_array($q)){
         if(!$row["picture"]){
           echo '<img src = "foto/default-user-image.png">';
+        }
+        else{
+        	echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:150px;height:150px;">';
         }
       }
     ?>

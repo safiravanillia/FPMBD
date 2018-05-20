@@ -423,7 +423,7 @@
         if(empty($row["picture"])){
           echo '<img src = "foto/default-user-image.png">';
         } else {
-          echo '<img src = "foto/'.$row['picture'].'>';
+          echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:150px;height:150px;">';
         }
       }
     ?>
@@ -458,7 +458,7 @@
       $s = "SELECT * FROM freelancer WHERE id = '".$id."'";
       $q = mysqli_query($conn, $s);
       if($row = mysqli_fetch_array($q)){
-        echo "<span><img width='50%' height='50%' src= 'images/".$row['f_portofolio']."'></span>";
+        echo '<span><img src ="data:image/jpeg;base64,'.base64_encode($row['f_portofolio']).'"></span>';
       }
     ?>
     </div>
@@ -482,7 +482,7 @@
     END$$
       DELIMITER$$*/
 
-      $jumlah="SELECT DISTINCT hitung_kerja($id) AS jum";
+      $jumlah= "SELECT DISTINCT hitung_kerja($id) AS jum";
       $res = mysqli_query($conn, $jumlah);
       while($row = mysqli_fetch_array($res)){
         echo '<p style = "font-size : 20px; font-weight : bold;">Total '.$row["jum"].' pekerjaan selesai</p>';
