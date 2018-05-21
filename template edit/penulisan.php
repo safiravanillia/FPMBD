@@ -153,10 +153,10 @@
                 <li class="nav-item dropdown" >
                   <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a> 
                   <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-                    <a class="dropdown-item"  target="_empty" href="#">Grafis dan Desain</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Web dan Pemograman</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
+                    <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
+                    <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -222,6 +222,15 @@
         </div>
       </nav>
     </header> 
+    <!--====================================================
+                       HOME-P
+======================================================-->
+    <div id="home-p" class="home-p pages-head4 text-center">
+      <div class="container">
+        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Penulisan dan Penerjemahan</h1>
+      </div><!--/end container-->
+    </div> 
+
     <div class = "wadah">
     <?php
     	$sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama FROM pekerjaan, pengusaha 
@@ -244,5 +253,114 @@
     	}
     ?>
     </div>
+    <!--====================================================
+                      FOOTER
+======================================================--> 
+    <footer> 
+        <div id="footer-s1" class="footer-s1">
+          <div class="footer">
+            <div class="container">
+              <div class="row">
+                <!-- About Us -->
+                <div class="col-md-3 col-sm-6 ">
+                  <div><img src="img/logo-w.png" alt="" class="img-fluid"></div>
+                  <ul class="list-unstyled comp-desc-f">
+                  </ul><br> 
+                </div>
+                <!-- End About Us -->
+
+                <!-- Recent News -->
+                <div class="col-md-3 col-sm-6 ">
+                  <div class="heading-footer"><h2>Useful Links</h2></div>
+                  <ul class="list-unstyled link-list">
+                    <li><a href="about.html">About us</a><i class="fa fa-angle-right"></i></li> 
+                    <li><a href="project.html">Project</a><i class="fa fa-angle-right"></i></li> 
+                    <li><a href="careers.html">Career</a><i class="fa fa-angle-right"></i></li> 
+                    <li><a href="faq.html">FAQ</a><i class="fa fa-angle-right"></i></li> 
+                    <li><a href="contact.html">Contact us</a><i class="fa fa-angle-right"></i></li> 
+                  </ul>
+                </div>
+                <!-- End Recent list -->
+
+                <!-- Recent Blog Entries -->
+                <div class="col-md-3 col-sm-6 ">
+                  <div class="heading-footer"><h2>Unggahan Terbaru</h2></div>
+                  <ul class="list-unstyled thumb-list">
+                    <li>
+                      <div class="overflow-h">
+                        <a href="#">Praesent ut consectetur diam.</a>
+                        <small>02 OCT, 2017</small>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="overflow-h">
+                        <a href="#">Maecenas pharetra tellus et fringilla.</a>
+                        <small>02 OCT, 2017</small>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- End Recent Blog Entries -->
+
+                <!-- Latest Tweets -->
+                <div class="col-md-3 col-sm-6">
+                  <div class="heading-footer"><h2>Kunjungi Kami</h2></div>
+                  <address class="address-details-f">
+                    Jalan Teknik Kimia <br>
+                    Departemen Informatika <br>
+                    Institut Teknologi sepuluh Nopember <br>
+                    <i class="fa fa-phone"></i> (031) 3982200<br>
+                    <i class="fa fa-envelope"></i> <a href="mailto:imail@freelancemosv.id" class="">mail@freelancemosv.id</a>
+                  </address>  
+                  <ul class="list-inline social-icon-f top-data">
+                    <li><a href="#" target="_empty"><i class="fa top-social fa-facebook"></i></a></li>
+                    <li><a href="#" target="_empty"><i class="fa top-social fa-twitter"></i></a></li>
+                    <li><a href="#" target="_empty"><i class="fa top-social fa-google-plus"></i></a></li> 
+                  </ul>
+                </div>
+                <!-- End Latest Tweets -->
+              </div>
+            </div><!--/container -->
+          </div> 
+        </div>
+
+        <div id="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="footer-copyrights">
+                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </footer>
+
+    <!--Global JavaScript -->
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/popper/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/wow/wow.min.js"></script>
+    <script src="js/owl-carousel/owl.carousel.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery-easing/jquery.easing.min.js"></script> 
+    <script src="js/custom.js"></script>
+    <script>
+        if( jQuery(".toggle .toggle-title").hasClass('active') ){
+                jQuery(".toggle .toggle-title.active").closest('.toggle').find('.toggle-inner').show();
+            }
+            jQuery(".toggle .toggle-title").click(function(){
+                if( jQuery(this).hasClass('active') ){
+                    jQuery(this).removeClass("active").closest('.toggle').find('.toggle-inner').slideUp(200);
+                }
+                else{   jQuery(this).addClass("active").closest('.toggle').find('.toggle-inner').slideDown(200);
+                }
+            });
+    </script> 
    </body>
 </html>
