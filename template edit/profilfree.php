@@ -420,7 +420,7 @@
       $s = "SELECT picture FROM freelancer WHERE id = '".$id."'";
       $q = mysqli_query($conn, $s);
       if($row = mysqli_fetch_array($q)){
-        if(empty($row["picture"])){
+        if(!$row["picture"]){
           echo '<img src = "foto/default-user-image.png">';
         } else {
           echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:150px;height:150px;">';
@@ -583,7 +583,48 @@
 </div>
 <br />
 <button class = "edit"><?php echo '<a href ="form-edit1.php?id='.$id.'">';?>Ubah Profil</a></button>
+<!--====================================================
+                      FOOTER
+======================================================--> 
+    <footer> 
+        <div id="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="footer-copyrights">
+                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </footer>
 
+    <!--Global JavaScript -->
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/popper/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/wow/wow.min.js"></script>
+    <script src="js/owl-carousel/owl.carousel.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery-easing/jquery.easing.min.js"></script> 
+    <script src="js/custom.js"></script>
+    <script>
+        if( jQuery(".toggle .toggle-title").hasClass('active') ){
+                jQuery(".toggle .toggle-title.active").closest('.toggle').find('.toggle-inner').show();
+            }
+            jQuery(".toggle .toggle-title").click(function(){
+                if( jQuery(this).hasClass('active') ){
+                    jQuery(this).removeClass("active").closest('.toggle').find('.toggle-inner').slideUp(200);
+                }
+                else{   jQuery(this).addClass("active").closest('.toggle').find('.toggle-inner').slideDown(200);
+                }
+            });
+    </script> 
     </body>
     <script>
   function openTab(tabName,elmnt, evt) {
