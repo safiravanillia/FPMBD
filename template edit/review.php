@@ -94,7 +94,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirim'])){
 	$komentar = $_POST["komen"];
     $rate = $_POST["rating"];
 
-    $sql = "INSERT INTO `review` VALUES ('', '$bid', '$komentar', 'SYSDATE', '$rate');";
+    $sql = "INSERT INTO `review` VALUES ('', '$bid', '$komentar', NOW(), '$rate');";
     $result = mysqli_query($conn, $sql);
     if($result){
     	header('Location: profilpeng.php');
