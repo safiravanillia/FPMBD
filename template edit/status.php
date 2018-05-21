@@ -132,19 +132,20 @@
 				if($_SERVER["REQUEST_METHOD"]=="POST"){
 					$status = $_POST["role"];
 					$sql = "UPDATE tawar SET b_status = '".$status."' WHERE bid_id = ".$bid;
-					//echo $sql;
 					$result = mysqli_query($conn, $sql);
+					while ($row = mysqli_fetch_array($query)){
+						$status = $row["b_status"];
+					}
 					if($result){
 						echo '<div class = "berhasil">Status berhasil di ubah</div>';
-						if($_SESSION["role"]=="pengusaha")
+						if($_SESSION["role"]=="pengusaha" &&$status=="TERIMA" ){
+							echo '<a href = "review.php?bid_id='.$_GET["bid_id"].'">Kembali</a>';
+						}elseif($_SESSION["role"]=="pengusaha" &&$status=="TOLAK" ){
 							echo '<a href = "profilpeng.php">Kembali</a>';
-						else{
+						}else{
 							echo '<a href = "profilfree.php">Kembali</a>';
 						}
-						
-
-					}
-					else{
+					}else{
 						echo '<div class = "gagal">Perubahan gagal</div>';
 					}
 				}
