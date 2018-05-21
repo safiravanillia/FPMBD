@@ -170,27 +170,27 @@
     }
 
     .penawar{
-    	width : 100px;
-    	height : auto;
-    	padding : 5px 5px 5px 5px;
-    	text-align : center;
-	    cursor : pointer;
-	    border-radius : 5px;
-	    -webkit-transition-duration: 0.4s; /* Safari */
-	    transition-duration: 0.4s;
-	    background-color : #bc5454;
-	    font-size : 14px;
-	    margin-bottom : 5px;
+      width : 100px;
+      height : auto;
+      padding : 5px 5px 5px 5px;
+      text-align : center;
+      cursor : pointer;
+      border-radius : 5px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      background-color : #bc5454;
+      font-size : 14px;
+      margin-bottom : 5px;
     }
 
     .penawar:hover{
-    	background-color : #8c3d3d;
+      background-color : #8c3d3d;
     }
 
     .penawar a{
-    	text-decoration: none;
-      	color: white;
-      	display: block;
+      text-decoration: none;
+        color: white;
+        display: block;
     }
     </style>
   </head>
@@ -335,7 +335,7 @@
           echo '<img src = "foto/default-user-image.png">';
         }
         else{
-        	echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:150px;height:150px;">';
+          echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:150px;height:150px;">';
         }
       }
     ?>
@@ -378,7 +378,7 @@
               <p>'.$row["deskripsi"].'</p>
               <p class = "kategori">Kategori : '.$row["kategori"].'</p>
               <div class = "penawar">
-              	<a href = "penawar.php?k_id='.$row["k_id"].'">Lihat Penawar</a>
+                <a href = "penawar.php?k_id='.$row["k_id"].'">Lihat Penawar</a>
               </div>
               </div>';
         }
@@ -391,6 +391,48 @@
 </div>
 <br />
 <button class = "edit"><?php echo '<a href ="form-edit2.php?id='.$id.'">';?>Ubah Profil</a></button>
+<!--====================================================
+                      FOOTER
+======================================================--> 
+    <footer> 
+        <div id="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="footer-copyrights">
+                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </footer>
+
+    <!--Global JavaScript -->
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/popper/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/wow/wow.min.js"></script>
+    <script src="js/owl-carousel/owl.carousel.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery-easing/jquery.easing.min.js"></script> 
+    <script src="js/custom.js"></script>
+    <script>
+        if( jQuery(".toggle .toggle-title").hasClass('active') ){
+                jQuery(".toggle .toggle-title.active").closest('.toggle').find('.toggle-inner').show();
+            }
+            jQuery(".toggle .toggle-title").click(function(){
+                if( jQuery(this).hasClass('active') ){
+                    jQuery(this).removeClass("active").closest('.toggle').find('.toggle-inner').slideUp(200);
+                }
+                else{   jQuery(this).addClass("active").closest('.toggle').find('.toggle-inner').slideDown(200);
+                }
+            });
+    </script> 
     </body>
 
     <script>
