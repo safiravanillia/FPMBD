@@ -137,10 +137,11 @@
                 <li class="nav-item dropdown" >
                   <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a> 
                   <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-                    <a class="dropdown-item"  target="_empty" href="#">Grafis dan Desain</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Web dan Pemograman</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
+                    <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
+                    <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
+                  </div>
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -249,6 +250,36 @@
     		</form>
     	</div>
     </div>
+<!--====================================================
+                      FOOTER
+======================================================--> 
+    <footer> 
+        <div id="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="footer-copyrights">
+                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </footer>
 
+    <!-- Bootstrap core JavaScript -->
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/popper/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/wow/wow.min.js"></script>
+    <script src="js/owl-carousel/owl.carousel.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery-easing/jquery.easing.min.js"></script> 
+    
+    <script src="js/custom.js"></script> 
     </body>
 </html>
