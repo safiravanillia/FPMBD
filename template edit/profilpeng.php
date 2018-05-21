@@ -274,7 +274,7 @@
                       <li class="nav-item dropdown" >
                         <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
                         <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-                          <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
+                          <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
                           <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
                         </div>
                       </li>
@@ -347,8 +347,9 @@
 </div>
 <div class = "details">
   <div class = "bar">
-    <div class = "bar-button" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
+    <div class = "bar-button" onclick="openTab('selesai', this, event)"><b>Pekerjaan Selesai</b></div>
     <div class = "bar-button" onclick="openTab('projek', this,event)">Projek Aktif</div>
+    <div class = "bar-button" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
   </div>
   <div class = "desc" id="deskripsi">
     <?php
@@ -388,6 +389,54 @@
       }
     ?>
   </div>
+  <div class = "desc" id="selesai">
+      <?php
+      $jumlah= "SELECT COUNT(tawar.`bid_id`) AS jum
+      FROM tawar, freelancer, pengusaha, pekerjaan
+      WHERE pengusaha.`pengusaha_id`='$id'
+      AND freelancer.`id`=tawar.`f_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+      AND tawar.`b_status` = 'SELESAI';";
+      $res = mysqli_query($conn, $jumlah);
+      while($row = mysqli_fetch_array($res)){
+        echo '<p style = "font-size : 20px; font-weight : bold;">Total '.$row["jum"].' pekerjaan selesai</p>';
+      }
+
+      $kerja="SELECT freelancer.`f_nama` AS nm_free, pekerjaan.`nama` AS kerja, tawar.`bid_id` AS tawar
+      FROM tawar, freelancer, pengusaha, pekerjaan
+      WHERE pengusaha.`pengusaha_id`='$id'
+      AND freelancer.`id`=tawar.`f_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
+      
+      AND tawar.`b_status` = 'SELESAI';";
+
+      $result = mysqli_query($conn, $kerja);
+      while($row = mysqli_fetch_array($result)){
+        echo '
+          <div class = "job-available">
+            <div class = "nama">'.$row["kerja"].'</div>
+            <p class = "kategori">Freelancer : <span style = "font-weight : bold; color : blue;">'.$row["nm_free"].'</span></p>
+            <div class = "penawar">
+                <a href = "review.php?bid_id='.$row["tawar"].'">Beri Review</a>
+              </div>
+          </div>
+        ';
+      } 
+        while($row = mysqli_fetch_array($result)){
+        echo '
+          <div class = "job-available">
+            <div class = "nama">'.$row["kerja"].'</div>
+            <p class = "kategori">Freelancer : <span style = "font-weight : bold; color : blue;">'.$row["nm_free"].'</span></p>
+            <div class = "penawar">
+                <a href = "hapus.php?bid_id='.$row["tawar"].'">Hapus Review</a>
+              </div>
+          </div>
+        ';
+      }
+      ?>
+    </div>
 </div>
 <br />
 <button class = "edit"><?php echo '<a href ="form-edit2.php?id='.$id.'">';?>Ubah Profil</a></button>
