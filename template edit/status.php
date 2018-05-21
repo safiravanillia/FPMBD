@@ -139,7 +139,7 @@
 					if($result){
 						echo '<div class = "berhasil">Status berhasil di ubah</div>';
 						if($_SESSION["role"]=="pengusaha"){
-							echo '<a href = "review.php?bid_id='.$_GET["bid_id"].'">Kembali</a>';
+							echo '<a href = "profilpeng.php">Kembali</a>';
 						}else{
 							echo '<a href = "profilfree.php">Kembali</a>';
 						}
