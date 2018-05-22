@@ -347,9 +347,9 @@
 <div class = "details">
   <div class = "bar">
     <div class = "bar-button" onclick="openTab('trigger', this, event)"><b>Log Review</b></div>
-    <div class = "bar-button" onclick="openTab('selesai', this, event)"><b>Projek Terselesaikan</b></div>
+    <div class = "bar-button" style="padding-top : 10px" onclick="openTab('selesai', this, event)"><b>Projek Terselesaikan oleh Freelancer</b></div>
     <div class = "bar-button" onclick="openTab('projek', this,event)">Projek Aktif</div>
-    <div class = "bar-button" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
+    <div class = "bar-button" style="padding-top : 10px;" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
   </div>
   <div class = "desc" id="deskripsi">
     <?php

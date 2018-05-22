@@ -144,6 +144,7 @@
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
         color : white;
+        margin-bottom : 50px;
     }
 
     .edit:hover{
@@ -564,7 +565,15 @@
       AND freelancer.`id`=tawar.`f_id`
       AND tawar.`k_id`=pekerjaan.`k_id`
       AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
-      AND tawar.`b_status` = 'TERIMA'";
+      AND tawar.`b_status` = 'TERIMA'
+      UNION
+      SELECT pengusaha.`nama` AS nm_peng, pekerjaan.`nama` AS kerja, tawar.`bid_id`
+      FROM tawar, freelancer, pengusaha, pekerjaan
+      WHERE freelancer.`id`='$id'
+      AND freelancer.`id`=tawar.`f_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
+      AND tawar.`b_status` = 'PROGRESS'";
 
       $result = mysqli_query($conn, $histori);
       while($row = mysqli_fetch_array($result)){

@@ -76,6 +76,10 @@
         padding : 15px 15px 15px 15px;
         margin-top : 10px;
     }
+
+    .ha{
+    	color : #e30066;
+    }
     </style>
   </head>
 
@@ -211,39 +215,60 @@
       </nav>
     </header> 
 
+
+
     <div class = "tempat">
+    <h2 class="ha">Buat Projek Baru Perusahaanmu!</h2>
       <div class = "form-container">
-        <form method = "post">
+        <form method = "post" enctype='multipart/form-data'>
           <div class = "form-group">
-            Nama Projek
+            <span style="color:#e30066">Nama Projek</span>
             <input type="text" name="nama" class ="form-control col-5" placeholder="Masukkan nama projek" />
           </div>
           <div class = "form-group">
-            Deskripsi Projek
+            <span style="color:#e30066">Deskripsi Projek</span>
             <textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" ></textarea>
           </div>
           <div class = "form-group">
-            Tanggal Penawaran dibuka
+            <span style="color:#e30066">Tanggal Penawaran dibuka</span>
             <input type="date" name="tglbuka" class ="form-control col-3" placeholder="Masukkan deskripsi projek" />
           </div>
           <div class = "form-group">
-            Tanggal Penawaran ditutup
+            <span style="color:#e30066">Tanggal Penawaran ditutup</span>
             <input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" />
           </div>
           <div class = "form-group">
-            Harga minimum penawaran
+            <span style="color:#e30066">Harga minimum Penawaran</span>
             <input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" />
           </div>
           <div class = "form-group">
-            Harga maksimum penawaran
+            <span style="color:#e30066">Harga maksimum Penawaran</span>
             <input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum" />
           </div>
+          <label for="kategori" style="color:#e30066">Katgeori:</label>
+                <div class="checkbox"> 
+                	<label>
+                    <input type="radio" name ="kategori" value="Penulisan dan Penerjemahan" checked="checked"> Penulisan dan Penerjemahan
+                	</label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                    <input type="radio" name="kategori" value="Visual dan Audio"> Visual dan Audio
+                	</label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                    <input type="radio" name="kategori" value="Web dan Pemrograman"> Web dan Pemrograman
+                	</label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                    <input type="radio" name="kategori" value="Grafis dan Desain"> Grafis dan Desain
+                	</label>
+                </div>
           <div class = "form-group">
-            Kategori
-            <input type="radio" name="kategori" class ="form-control" value="Penulisan dan Penerjemahan"/> Penulisan dan Penerjemahan
-            <input type="radio" name="kategori" class ="form-control" value="Visual dan Audio"/> Visual dan Audio
-            <input type="radio" name="kategori" class ="form-control" value="Web dan Pemrograman"/> Web dan Pemrograman
-            <input type="radio" name="kategori" class ="form-control" value="Grafis dan Desain"/> Grafis dan Desain
+            <span style="color:#e30066">Gambar</span>
+            <input name="picture" class="form-control" type="file" accept="image/png,image/jpeg"/>
           </div>
           <div group = form-group>
             <input type="submit" class="btn btn-general btn-white" value="Buat Projek">
@@ -259,8 +284,20 @@
             $hargamin = $_POST["hargamin"];
             $hargamax = $_POST["hargamax"];
             $kategori = $_POST["kategori"];
-            //echo $kategori;
-            $sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori');";
+
+            if(isset($_FILES["picture"])){
+            	//echo "ahi";
+            	$picture = addslashes($_FILES["picture"]["name"]);
+            	$temp = addslashes(file_get_contents($_FILES["picture"]["tmp_name"]));
+    			$type = addslashes($_FILES["picture"]["type"]);
+
+    			$sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`, `picture`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori' , '$temp');";
+            }
+            else{
+            	$sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori');";
+            }
+           // echo $sql;
+            
             $result = mysqli_query($conn, $sql);
             if($result){
                 echo '<div class = "berhasil">

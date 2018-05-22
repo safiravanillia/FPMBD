@@ -106,12 +106,13 @@ if( mysqli_num_rows($query) < 1 ){
           </div>
           <div class = "form-group">
               Deskripsi <br />
-        <textarea name="deskripsi" rows="10" cols="70" placeholder="Paparkan deskripsi perusahaan Anda"></textarea>
+        		<textarea name="deskripsi" rows="10" cols="70" placeholder="Paparkan deskripsi perusahaan Anda"><?php echo $peng['deskripsi']?></textarea>
+        	 
           </div>
           <div class = "form-group">
             Gambar Profil (Ukuran 150x150 px)
-            <input id="foto" name="foto" class="form-control" type="file" placeholder="Ukuran 150x150 px"/>
-            <span><?php echo $peng['picture'];?></span>
+            <input id="foto" name="foto" class="form-control" type="file" placeholder="Ukuran 150x150 px" value="<?php echo $peng['picture'];?>"/>
+            <span></span>
           </div>
           <div class = "form-group">
             <a href="profilpeng.php"><button class="btn btn-general btn-white">Kembali</button></a>

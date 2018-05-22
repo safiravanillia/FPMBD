@@ -46,6 +46,8 @@
     <style>
     	.wadah{
     		margin-top : 70px;
+    		margin-left : 120px;
+    		margin-bottom : 70px;
     	}
     	.isi{
     		width: 93%;
@@ -55,8 +57,9 @@
     		border-bottom : 1px solid #e30066;
     	}
     	.judul{
-    		font-size : 36px;
+    		font-size : 24px;
     		color : #e30066;
+    		text-align : center;
     	}
     	.italic{
     		font-style : italic;
@@ -69,11 +72,13 @@
 	    	background-color : #e08a8a;
 	    	border-radius : 5%;
 	    	margin-bottom : 10px;
+	    	margin-left : 100px;
 	    	text-align: center;
 	   	 	text-decoration: none;
 	    	border: none;
 	    	outline: none;
 	    	cursor: pointer;
+	    	padding-top: 3px;
 	    	-webkit-transition-duration: 0.4s; /* Safari */
 	    	transition-duration: 0.4s;
 	    	color : white;
@@ -87,6 +92,32 @@
 	    	text-decoration: none;
 	    	color: white;
 	    	display: block;
+	    }
+
+	    .box{
+	    	width: 300px;
+	    	height : auto;
+	    	padding-bottom : 10px;
+	    	padding-right : 30px;
+	    	border-radius : 15px;
+	    	border : 2px solid #e30066;
+	    	float : left;
+	    	margin-right : 30px;
+	    	margin-left : 30px;
+	    	margin-bottom : 60px;
+	    }
+
+	    .box:hover{
+	    	transition: transform 0.5s ease;
+			transform: scale(1.1);
+	    }
+
+	    .description{
+	    	width : 300px;
+	    	height : auto;
+	    	padding-bottom : 20px;
+	    	background-color : #e30066
+	    	color : white;
 	    }
     </style>
 
@@ -240,12 +271,23 @@
     	$result = mysqli_query($conn, $sql);
     	while($row = mysqli_fetch_array($result)){
     		echo '
-    		<div class = "isi">
-    			<p class = "judul">'.$row["nama"].'</p>
-    			<p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
-    			<p>'.$row["deskripsi"].'</p>';
+    			<div class = "box">';
+    		if(!$row["picture"]){
+          		echo '<img src = "foto/no_image_available.jpg" style="width : 296px; height : 296px">';
+       		} else {
+          		echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:296px;height:296px;">';
+        	}
+        	echo '
+        			<div class = "description">
+        				<p class = "judul">'.$row["nama"].'</p>
+        				<p>'.$row["deskripsi"].'</p>
+    					<p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
+        			</div>
+        	';
     		if(isset($_SESSION["role"])&&$_SESSION["role"]=="freelancer"){
     			echo '<button class = "tombol"><a href = "tawar.php?id='.$id.'&k_id='.$row["k_id"].'"">Tawar</a></button>';
+    		}else if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&$id == $row["pengusaha_id"]){
+    			echo '<button class = "tombol" style="width : 100px;height : auto; padding-bottom : 3px;"><a href = "change-project.php?k_id='.$row["k_id"].'"">Ubah Detil Projek</a></button>';
     		}
     		echo'
 
@@ -258,7 +300,7 @@
                       FOOTER
 ======================================================--> 
 
-        <div id="footer-bottom">
+        <!--<div id="footer-bottom">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">

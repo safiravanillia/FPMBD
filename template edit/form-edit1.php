@@ -114,8 +114,8 @@ if( mysqli_num_rows($query) < 1 ){
           </div>
                 <div class = "form-group">
                   Portofolio
-                  <input id="register_porto" name="porto" class="form-control" type="file" />
-                  <span><?php echo $free['f_portofolio'];?></span>
+                  <input id="register_porto" name="porto" class="form-control" type="file" value="<?php echo $free['f_portofolio'];?>" />
+                  <span></span>
                 </div>
                 <div class = "form-group">
                   Gambar Profil (Ukuran 150x150 px)
