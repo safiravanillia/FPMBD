@@ -237,13 +237,14 @@
     <?php
     	$sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama FROM pekerjaan, pengusaha 
     	WHERE pekerjaan.kategori = 'Web dan Pemrograman' AND
-    	pekerjaan.pengusaha_id = pengusaha.pengusaha_id";
+    	pekerjaan.pengusaha_id = pengusaha.pengusaha_id
+      AND pekerjaan.`tgltutup` >= NOW()";
     	$result = mysqli_query($conn, $sql);
     	while($row = mysqli_fetch_array($result)){
     		echo '
     		<div class = "isi">
     			<p class = "judul">'.$row["nama"].'</p>
-    			<p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span>      diposting pada <span style = "color:blue">'.$row["tglbuka"].'</span></p>
+    			<p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
     			<p>'.$row["deskripsi"].'</p>';
     		if(isset($_SESSION["role"])&&$_SESSION["role"]=="freelancer"){
     			echo '<button class = "tombol"><a href = "tawar.php?id='.$id.'&k_id='.$row["k_id"].'"">Tawar</a></button>';
@@ -258,73 +259,6 @@
     <!--====================================================
                       FOOTER
 ======================================================--> 
-    <footer> 
-        <div id="footer-s1" class="footer-s1">
-          <div class="footer">
-            <div class="container">
-              <div class="row">
-                <!-- About Us -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div><img src="img/logo-w.png" alt="" class="img-fluid"></div>
-                  <ul class="list-unstyled comp-desc-f">
-                  </ul><br> 
-                </div>
-                <!-- End About Us -->
-
-                <!-- Recent News -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Useful Links</h2></div>
-                  <ul class="list-unstyled link-list">
-                    <li><a href="about.html">About us</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="project.html">Project</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="careers.html">Career</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="faq.html">FAQ</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="contact.html">Contact us</a><i class="fa fa-angle-right"></i></li> 
-                  </ul>
-                </div>
-                <!-- End Recent list -->
-
-                <!-- Recent Blog Entries -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Unggahan Terbaru</h2></div>
-                  <ul class="list-unstyled thumb-list">
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Praesent ut consectetur diam.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Maecenas pharetra tellus et fringilla.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <!-- End Recent Blog Entries -->
-
-                <!-- Latest Tweets -->
-                <div class="col-md-3 col-sm-6">
-                  <div class="heading-footer"><h2>Kunjungi Kami</h2></div>
-                  <address class="address-details-f">
-                    Jalan Teknik Kimia <br>
-                    Departemen Informatika <br>
-                    Institut Teknologi sepuluh Nopember <br>
-                    <i class="fa fa-phone"></i> (031) 3982200<br>
-                    <i class="fa fa-envelope"></i> <a href="mailto:imail@freelancemosv.id" class="">mail@freelancemosv.id</a>
-                  </address>  
-                  <ul class="list-inline social-icon-f top-data">
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-facebook"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-twitter"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-google-plus"></i></a></li> 
-                  </ul>
-                </div>
-                <!-- End Latest Tweets -->
-              </div>
-            </div><!--/container -->
-          </div> 
-        </div>
 
         <div id="footer-bottom">
             <div class="container">
