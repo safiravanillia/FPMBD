@@ -1,6 +1,5 @@
 <?php
   session_start();
-
   $servername = "localhost";
   $username = "root";
   $password = "";
@@ -10,7 +9,14 @@
   if($conn->connect_error){
     die("Connection failed: ". $conn->connect_error);
   }
-
+  if(isset($_SESSION["name"])){
+    $name = $_SESSION["name"];
+  $sql = "SELECT id FROM user WHERE username = '".$name."'";
+  $result = mysqli_query($conn, $sql);
+  while($row = mysqli_fetch_array($result)){
+    $id = $row["id"];
+  }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -36,48 +42,44 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-    	.tempat{
-    		width : 700px;
-    		height : auto;
-    		padding-bottom : 30px;
-    		box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
-    		margin-top : 70px;
-    		margin-left : 130px;
-    	}
-
-    	.form-container{
-    		margin-left: 50px;
-    		padding-top : 30px;
-    	}
-
-    	.berhasil{
-			width : 300px;
-			height : auto;
-			background-color : #229b60;
-			border-radius : 8px;
-			border-style: solid;
-   		 	border-width: 1px;
-   		 	border-color : #1c7a4c;
-   		 	padding : 15px 15px 15px 15px;
-   		 	margin-top : 10px;
-		}
-
-		.gagal{
-			width : 300px;
-			height : auto;
-			background-color : #9b2222;
-			border-radius : 8px;
-			border-style: solid;
-   		 	border-width: 1px;
-   		 	border-color : #7a1c1c;
-   		 	padding : 15px 15px 15px 15px;
-   		 	margin-top : 10px;
-		}
+      .tempat{
+        width : 700px;
+        height : auto;
+        padding-bottom : 30px;
+        box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
+        margin-top : 70px;
+        margin-left : 130px;
+      }
+      .form-container{
+        margin-left: 50px;
+        padding-top : 30px;
+      }
+      .berhasil{
+      width : 300px;
+      height : auto;
+      background-color : #229b60;
+      border-radius : 8px;
+      border-style: solid;
+        border-width: 1px;
+        border-color : #1c7a4c;
+        padding : 15px 15px 15px 15px;
+        margin-top : 10px;
+    }
+    .gagal{
+      width : 300px;
+      height : auto;
+      background-color : #9b2222;
+      border-radius : 8px;
+      border-style: solid;
+        border-width: 1px;
+        border-color : #7a1c1c;
+        padding : 15px 15px 15px 15px;
+        margin-top : 10px;
+    }
     </style>
   </head>
 
   <body id="page-top">
-
 
 <!--====================================================
                          HEADER
@@ -152,6 +154,7 @@
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>
                 </li>
+                
                 <?php
                   if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
                     echo '
@@ -172,7 +175,7 @@
                   <i class="search fa fa-search search-btn"></i>
                   <div class="search-open">
                     <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Ketikkan Kategori" aria-describedby="basic-addon2">
+                      <input type="text" class="form-control" placeholder="Ketikkan Pekerjaan" aria-describedby="basic-addon2">
                       <span class="input-group-addon" id="basic-addon2">Cari</span>
                     </div>
                   </div>
@@ -209,47 +212,72 @@
     </header> 
 
     <div class = "tempat">
-    	<div class = "form-container">
-    		<form method = "post" action="insert-projectproses.php">
-    			<div class = "form-group">
-    				Nama Projek
-    				<input type="text" name="nama" class ="form-control col-5" placeholder="Masukkan nama projek" required />
-    			</div>
-    			<div class = "form-group">
-    				Deskripsi Projek
-    				<textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" required></textarea>
-    			</div>
-    			<div class = "form-group">
-    				Tanggal Penawaran dibuka
-    				<input type="date" name="tglbuka" class ="form-control col-3" placeholder="Masukkan deskripsi projek" required />
-    			</div>
-    			<div class = "form-group">
-    				Tanggal Penawaran ditutup
-    				<input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" required/>
-    			</div>
-    			<div class = "form-group">
-    				Harga minimum penawaran
-    				<input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" required/>
-    			</div>
-    			<div class = "form-group">
-    				Harga maksimum penawaran
-    				<input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum" required/>
-    			</div>
-    			<div class = "form-group">
-    				Kategori
-    				<input type="radio" name="kategori" class ="form-control" value="Penulisan dan Penerjemahan" checked/> Penulisan dan Penerjemahan
-    				<input type="radio" name="kategori" class ="form-control" value="Visual dan Audio"/> Visual dan Audio
-    				<input type="radio" name="kategori" class ="form-control" value="Web dan Pemrograman"/> Web dan Pemrograman
-    				<input type="radio" name="kategori" class ="form-control" value="Grafis dan Desain"/> Grafis dan Desain
-    			</div>
-    			<div group = form-group>
-            <a href="index.php"><button class="btn btn-general btn-white">Kembali</button></a>
-            <input type="submit" class="btn btn-general btn-white" name="simpan" value="Buat Projek">
-    			</div>
-    		</form>
-    	</div>
+      <div class = "form-container">
+        <form method = "post">
+          <div class = "form-group">
+            Nama Projek
+            <input type="text" name="nama" class ="form-control col-5" placeholder="Masukkan nama projek" />
+          </div>
+          <div class = "form-group">
+            Deskripsi Projek
+            <textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" ></textarea>
+          </div>
+          <div class = "form-group">
+            Tanggal Penawaran dibuka
+            <input type="date" name="tglbuka" class ="form-control col-3" placeholder="Masukkan deskripsi projek" />
+          </div>
+          <div class = "form-group">
+            Tanggal Penawaran ditutup
+            <input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" />
+          </div>
+          <div class = "form-group">
+            Harga minimum penawaran
+            <input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" />
+          </div>
+          <div class = "form-group">
+            Harga maksimum penawaran
+            <input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum" />
+          </div>
+          <div class = "form-group">
+            Kategori
+            <input type="radio" name="kategori" class ="form-control" value="Penulisan dan Penerjemahan"/> Penulisan dan Penerjemahan
+            <input type="radio" name="kategori" class ="form-control" value="Visual dan Audio"/> Visual dan Audio
+            <input type="radio" name="kategori" class ="form-control" value="Web dan Pemrograman"/> Web dan Pemrograman
+            <input type="radio" name="kategori" class ="form-control" value="Grafis dan Desain"/> Grafis dan Desain
+          </div>
+          <div group = form-group>
+            <input type="submit" class="btn btn-general btn-white" value="Buat Projek">
+          </div>
+        </form>
+
+        <?php
+          if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $name = $_POST["nama"];
+            $description = $_POST["description"];
+            $tglbuka = $_POST["tglbuka"];
+            $tgltutup = $_POST["tgltutup"];
+            $hargamin = $_POST["hargamin"];
+            $hargamax = $_POST["hargamax"];
+            $kategori = $_POST["kategori"];
+            //echo $kategori;
+            $sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori');";
+            $result = mysqli_query($conn, $sql);
+            if($result){
+                echo '<div class = "berhasil">
+                    Projek berhasil dipublish
+                  </div>';
+                echo '<br/><a href = "project.php">Kembali</a>';
+              }
+              else {
+                echo '<div class = "gagal">
+                    Projek gagal dipublish
+                  </div>';
+              }
+          }
+        ?>
+      </div>
     </div>
-<!--====================================================
+    <!--====================================================
                       FOOTER
 ======================================================--> 
     <footer> 
@@ -269,16 +297,11 @@
         </a>
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
+    </body>
+     <!--Global JavaScript -->
     <script src="js/jquery/jquery.min.js"></script>
     <script src="js/popper/popper.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/wow/wow.min.js"></script>
     <script src="js/owl-carousel/owl.carousel.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="js/jquery-easing/jquery.easing.min.js"></script> 
-    
-    <script src="js/custom.js"></script> 
-    </body>
 </html>
