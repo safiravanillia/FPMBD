@@ -119,6 +119,11 @@
         background-color : #e30066
         color : white;
       }
+
+      .jumlah{
+      font-size : 12px;
+      font-style : italic;
+    }
       
       img {
         border-radius: 15px;
@@ -270,10 +275,13 @@
 
 
     <?php
-      $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama FROM pekerjaan, pengusaha 
-      WHERE pekerjaan.kategori = 'Web dan Pemrograman' AND
-      pekerjaan.pengusaha_id = pengusaha.pengusaha_id
-      AND pekerjaan.`tgltutup` >= NOW()";
+      $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama,  COUNT(tawar.f_id) AS jum
+FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
+LEFT JOIN tawar ON pekerjaan.k_id=tawar.k_id
+LEFT JOIN freelancer ON freelancer.id= tawar.f_id
+WHERE pekerjaan.kategori = 'Web dan Pemrograman' 
+AND pekerjaan.`tgltutup` >= NOW()
+GROUP BY pekerjaan.nama;";
       $result = mysqli_query($conn, $sql);
       while($row = mysqli_fetch_array($result)){
         echo '
@@ -286,6 +294,7 @@
           echo '
               <div class = "description">
                 <p class = "judul">'.$row["nama"].'</p>
+                <p class = "jumlah">Penawar : '.$row["jum"].'</p>
                 <p>'.$row["deskripsi"].'</p>
               <p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
               </div>
