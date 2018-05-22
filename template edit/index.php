@@ -208,11 +208,11 @@
                           <h3 class="text-center">Daftar</h3>
                           <div class="modal-body"> 
                               <label for="username">Username</label> 
-                              <input id="register_username" class="form-control" type="text" placeholder="Masukkan username" name="user" required>
+                              <input id="register_username" class="form-control" type="text" placeholder="Masukkan username" name="user" required/>
                               <label for="register_email">E-mail</label> 
-                              <input id="register_email" name="email" class="form-control" type="email" placeholder="Masukkan E-mail" required>
+                              <input id="register_email" name="email" class="form-control" type="email" placeholder="Masukkan E-mail" required/>
                               <label for="register_password">Kata Sandi</label> 
-                              <input id="register_password" name="passwd" class="form-control" type="password" placeholder="Masukkan kata sandi" required>
+                              <input id="register_password" name="passwd" class="form-control" type="password" placeholder="Masukkan kata sandi" required/>
                               <label for="register_password">Pilih peran:</label>
                               <div class="checkbox"> 
                                 <label>
@@ -319,7 +319,7 @@
               /*DELIMITER$$
               CREATE OR REPLACE PROCEDURE implicit_cursor()
               BEGIN
-              SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi , pengusaha.`picture` AS foto
+              SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi , pengusaha.`picture` AS foto, pekerjaan.kategori AS kategori
               FROM pekerjaan, pengusaha
               WHERE pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
               ORDER BY pekerjaan.tglbuka DESC
@@ -339,10 +339,18 @@
                   <img src ="data:image/jpeg;base64,'.base64_encode($baru["foto"]).'"class="img-fluid" alt="...">
               </div>
               <h3>'.$baru["kerja"].'</h3>
-              <p class="desc">'.$baru["deskripsi"].'</p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
-            </div>
-          </div> 
+              <p class="desc">'.$baru["deskripsi"].'</p>';
+              if($baru["kategori"]=="Visual dan Audio"){
+                echo '<a href="visual.php"><i class="fa fa-arrow-circle-o-right"></i> '.$baru["kategori"].'</a>';
+              }elseif($baru["kategori"]=="Penulisan dan Penerjemahan"){
+                echo '<a href="penulisan.php"><i class="fa fa-arrow-circle-o-right"></i> '.$baru["kategori"].'</a>';
+              }elseif($baru["kategori"]=="Web dan Pemrograman"){
+                echo '<a href="pemrograman.php"><i class="fa fa-arrow-circle-o-right"></i> '.$baru["kategori"].'</a>';
+              }else{
+                echo '<a href="desain.php"><i class="fa fa-arrow-circle-o-right"></i> '.$baru["kategori"].'</a>';
+              }
+            echo '</div>';
+          echo '</div> 
         ';
       }
             ?>
@@ -366,7 +374,7 @@
               /*DELIMITER$$
               CREATE OR REPLACE PROCEDURE implicit_cursor1()
               BEGIN
-              SELECT DISTINCT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto
+              SELECT DISTINCT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto, pekerjaan.kategori AS kategori
               FROM pekerjaan JOIN tawar ON pekerjaan.k_id=tawar.k_id
               JOIN freelancer ON freelancer.id= tawar.f_id, pengusaha
               WHERE pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
@@ -388,10 +396,18 @@
                   <img src ="data:image/jpeg;base64,'.base64_encode($populer["foto"]).'"class="img-fluid" alt="...">
               </div>
               <h3>'.$populer["kerja"].'</h3>
-              <p class="desc">'.$populer["deskripsi"].'</p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
-            </div>
-          </div> 
+              <p class="desc">'.$populer["deskripsi"].'</p>';
+              if($populer["kategori"]=="Visual dan Audio"){
+                echo '<a href="visual.php"><i class="fa fa-arrow-circle-o-right"></i> '.$populer["kategori"].'</a>';
+              }elseif($populer["kategori"]=="Penulisan dan Penerjemahan"){
+                echo '<a href="penulisan.php"><i class="fa fa-arrow-circle-o-right"></i> '.$populer["kategori"].'</a>';
+              }elseif($populer["kategori"]=="Web dan Pemrograman"){
+                echo '<a href="pemrograman.php"><i class="fa fa-arrow-circle-o-right"></i> '.$populer["kategori"].'</a>';
+              }else{
+                echo '<a href="desain.php"><i class="fa fa-arrow-circle-o-right"></i> '.$populer["kategori"].'</a>';
+              }
+            echo '</div>';
+          echo '</div> 
         ';
       }   
             ?>
