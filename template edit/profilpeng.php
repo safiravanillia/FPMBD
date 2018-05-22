@@ -18,7 +18,6 @@
           $query = mysqli_query($conn, $sql);
 
           while($peng = mysqli_fetch_array($query)){
-              
               $id = $peng['pengusaha_id'];
               $compname = $peng['nama'];
               $address = $peng['alamat'];
@@ -65,7 +64,7 @@
     }
 
     .details{
-      width : 700px;
+      width : 750px;
       height : 450px;
       margin-left : 50px;
       margin-top : 40px;
@@ -346,7 +345,8 @@
 </div>
 <div class = "details">
   <div class = "bar">
-    <div class = "bar-button" onclick="openTab('trigger', this, event)"><b>Log Review</b></div>
+    <div class = "bar-button" onclick="openTab('trigger2', this, event)"><b>Log Tawar</b></div>    
+    <div class = "bar-button" onclick="openTab('trigger1', this, event)"><b>Log Review</b></div>
     <div class = "bar-button" style="padding-top : 10px" onclick="openTab('selesai', this, event)"><b>Projek Terselesaikan oleh Freelancer</b></div>
     <div class = "bar-button" onclick="openTab('projek', this,event)">Projek Aktif</div>
     <div class = "bar-button" style="padding-top : 10px;" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
@@ -456,7 +456,7 @@
       }
       ?>
     </div>
-    <div class = "desc" id="trigger">
+    <div class = "desc" id="trigger1">
       <?php
       //run di sql yang komen
       /*CREATE TABLE `log_review` (
@@ -503,6 +503,63 @@ DELIMITER$$*/
             <p>Tanggal kirim: '.$row["Dikirim"].'<br>
             Tanggal ubah: '.$row["Diubah"].'<br>
             Tindakan: '.$row["Tindakan"].'</p>
+          </div>
+          ';
+      }
+      ?>
+    </div>
+    <div class = "desc" id="trigger2">
+      <?php
+      //run di sql yang komen
+      /*CREATE TABLE `log_tawar` (
+  `bid_id` INT(11) ,
+  `k_id` INT(11) ,
+  `f_id` INT(11) ,
+  `harga` INT(11) ,
+  `b_status` VARCHAR(30) ,
+  `tgl_perubahan` DATE,
+  `status` VARCHAR(200)
+);
+
+-- insert data
+DELIMITER$$
+CREATE OR REPLACE TRIGGER log_insert_tawar
+AFTER INSERT ON tawar
+FOR EACH ROW
+BEGIN
+  INSERT INTO log_tawar VALUES (new.bid_id, new.k_id, new.f_id,new.harga,new.b_status, SYSDATE(), 'INSERT');
+END$$
+DELIMITER$$
+
+INSERT INTO `tawar` VALUES (31, 4, 6, 'TUNGGU');
+
+-- update data
+DELIMITER$$
+CREATE OR REPLACE TRIGGER log_update_tawar
+AFTER UPDATE ON tawar
+FOR EACH ROW
+BEGIN
+  INSERT INTO log_tawar VALUES (old.bid_id, old.k_id, old.f_id,old.harga,old.b_status, SYSDATE(), 'OLD UPDATE');
+  INSERT INTO log_tawar VALUES (new.bid_id, new.k_id, new.f_id,new.harga,new.b_status, SYSDATE(), 'NEW UPDATE');
+END$$
+DELIMITER$$*/
+
+      $jumlah= "SELECT log_tawar.bid_id AS id, pekerjaan.`nama` AS kerja, log_tawar.`harga` AS harga, log_tawar.`b_status` 
+      AS status, log_tawar.`tgl_perubahan` AS tgl, log_tawar.`status` AS tindakan
+      FROM log_tawar, pekerjaan, pengusaha
+      WHERE log_tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+      AND pengusaha.`pengusaha_id`='$id';";
+      $res = mysqli_query($conn, $jumlah);
+      while($row = mysqli_fetch_array($res)){
+        echo '
+          <div class = "job-available">
+            <div class = "nama">'.$row["kerja"].'</div>
+            <p class = "kategori">ID Tawar : <span style = "font-weight : bold; color : blue;">'.$row["id"].'</span></p>
+            <p>Permintaan bayaran: '.$row["harga"].'<br>
+            Status: '.$row["status"].'<br>
+            Tanggal ubah: '.$row["tgl"].'<br>
+            Tindakan: '.$row["tindakan"].'</p>
           </div>
           ';
       }
