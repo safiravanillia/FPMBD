@@ -12,12 +12,12 @@
   }
 
   if(isset($_SESSION["name"])){
-  	$name = $_SESSION["name"];
- 	$sql = "SELECT id FROM user WHERE username = '".$name."'";
- 	$result = mysqli_query($conn, $sql);
- 	while($row = mysqli_fetch_array($result)){
- 		$id = $row["id"];
- 	}
+    $name = $_SESSION["name"];
+  $sql = "SELECT id FROM user WHERE username = '".$name."'";
+  $result = mysqli_query($conn, $sql);
+  while($row = mysqli_fetch_array($result)){
+    $id = $row["id"];
+  }
   }
 ?>
 
@@ -44,81 +44,85 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-    	.wadah{
-    		margin-top : 70px;
-    		margin-left : 120px;
-    		margin-bottom : 70px;
-    	}
-    	.isi{
-    		width: 93%;
-    		height : auto;
-    		margin-left : 30px;
-    		margin-bottom : 15px;
-    		border-bottom : 1px solid #e30066;
-    	}
-    	.judul{
-    		font-size : 24px;
-    		color : #e30066;
-    		text-align : center;
-    	}
-    	.italic{
-    		font-style : italic;
-    		font-size : 12px;
-    	}
+      .wadah{
+        margin-top : 70px;
+        margin-left : 120px;
+        margin-bottom : 70px;
+      }
+      .isi{
+        width: 93%;
+        height : auto;
+        margin-left : 30px;
+        margin-bottom : 15px;
+        border-bottom : 1px solid #e30066;
+      }
+      .judul{
+        font-size : 24px;
+        color : #e30066;
+        text-align : center;
+      }
+      .italic{
+        font-style : italic;
+        font-size : 12px;
+      }
 
-    	.tombol{
-	    	width : 70px;
-	    	height : 35px;
-	    	background-color : #e08a8a;
-	    	border-radius : 5%;
-	    	margin-bottom : 10px;
-	    	margin-left : 100px;
-	    	text-align: center;
-	   	 	text-decoration: none;
-	    	border: none;
-	    	outline: none;
-	    	cursor: pointer;
-	    	padding-top: 3px;
-	    	-webkit-transition-duration: 0.4s; /* Safari */
-	    	transition-duration: 0.4s;
-	    	color : white;
-   		}
+      .tombol{
+        width : 70px;
+        height : 35px;
+        background-color : #e08a8a;
+        border-radius : 5%;
+        margin-bottom : 10px;
+        margin-left : 100px;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding-top: 3px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        color : white;
+      }
 
-    	.tombol:hover{
-    		background-color : #c57575;
-	    }
+      .tombol:hover{
+        background-color : #c57575;
+      }
 
-	    .tombol a{
-	    	text-decoration: none;
-	    	color: white;
-	    	display: block;
-	    }
+      .tombol a{
+        text-decoration: none;
+        color: white;
+        display: block;
+      }
 
-	    .box{
-	    	width: 300px;
-	    	height : auto;
-	    	padding-bottom : 10px;
-	    	padding-right : 30px;
-	    	border-radius : 15px;
-	    	border : 2px solid #e30066;
-	    	float : left;
-	    	margin-right : 30px;
-	    	margin-left : 30px;
-	    	margin-bottom : 60px;
-	    }
+      .box{
+        width: 300px;
+        height : auto;
+        padding-bottom : 10px;
+        padding-right : 30px;
+        border-radius : 15px;
+        border : 2px solid #e30066;
+        float : left;
+        margin-right : 30px;
+        margin-left : 30px;
+        margin-bottom : 60px;
+      }
 
-	    .box:hover{
-	    	transition: transform 0.5s ease;
-			transform: scale(1.1);
-	    }
+      .box:hover{
+        transition: transform 0.5s ease;
+      transform: scale(1.1);
+      }
 
-	    .description{
-	    	width : 300px;
-	    	height : auto;
-	    	padding-bottom : 20px;
-	    	background-color : #e30066
-	    	color : white;
-	    }
+      .description{
+        width : 300px;
+        height : auto;
+        padding-bottom : 20px;
+        background-color : #e30066
+        color : white;
+      }
+
+      img {
+        border-radius: 15px;
+      }
     </style>
 
   </head>
@@ -199,20 +203,20 @@
                   }?>
                 </li>
                 <?php
-                	if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
-                		echo '
-                			<li class="nav-item dropdown" >
-			                  <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
-			                  <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-			                    <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
-			                    <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
-			                  </div>
-			                </li>
-                		';
-                	}
-                	else{
-                		echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
-                	}
+                  if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
+                    echo '
+                      <li class="nav-item dropdown" >
+                        <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
+                        <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
+                          <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
+                          <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
+                        </div>
+                      </li>
+                    ';
+                  }
+                  else{
+                    echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
+                  }
                 ?>
                 <li>
                   <i class="search fa fa-search search-btn"></i>
@@ -264,35 +268,35 @@
 
     <div class = "wadah">
     <?php
-    	$sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama FROM pekerjaan, pengusaha 
+      $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama FROM pekerjaan, pengusaha 
       WHERE pekerjaan.kategori = 'Visual dan Audio' 
       AND pekerjaan.pengusaha_id = pengusaha.pengusaha_id
       AND pekerjaan.`tgltutup` >= NOW()";
-    	$result = mysqli_query($conn, $sql);
-    	while($row = mysqli_fetch_array($result)){
-    		echo '
-    			<div class = "box">';
-    		if(!$row["picture"]){
-          		echo '<img src = "foto/no_image_available.jpg" style="width : 296px; height : 296px">';
-       		} else {
-          		echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:296px;height:296px;">';
-        	}
-        	echo '
-        			<div class = "description">
-        				<p class = "judul">'.$row["nama"].'</p>
-        				<p>'.$row["deskripsi"].'</p>
-    					<p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
-        			</div>
-        	';
-    		if(isset($_SESSION["role"])&&$_SESSION["role"]=="freelancer"){
-    			echo '<button class = "tombol"><a href = "tawar.php?id='.$id.'&k_id='.$row["k_id"].'"">Tawar</a></button>';
-    		}else if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&$id == $row["pengusaha_id"]){
-    			echo '<button class = "tombol" style="width : 100px;height : auto; padding-bottom : 3px;"><a href = "change-project.php?k_id='.$row["k_id"].'"">Ubah Detil Projek</a></button>';
-    		}
-    		echo'
-    		</div>
-    		';
-    	}
+      $result = mysqli_query($conn, $sql);
+      while($row = mysqli_fetch_array($result)){
+        echo '
+          <div class = "box">';
+        if(!$row["picture"]){
+              echo '<img src = "foto/no_image_available.jpg" style="width : 296px; height : 296px">';
+          } else {
+              echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:296px;height:296px;">';
+          }
+          echo '
+              <div class = "description">
+                <p class = "judul">'.$row["nama"].'</p>
+                <p>'.$row["deskripsi"].'</p>
+              <p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
+              </div>
+          ';
+        if(isset($_SESSION["role"])&&$_SESSION["role"]=="freelancer"){
+          echo '<button class = "tombol"><a href = "tawar.php?id='.$id.'&k_id='.$row["k_id"].'"">Tawar</a></button>';
+        }else if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&$id == $row["pengusaha_id"]){
+          echo '<button class = "tombol" style="width : 100px;height : auto; padding-bottom : 3px;"><a href = "change-project.php?k_id='.$row["k_id"].'"">Ubah Detil Projek</a></button>';
+        }
+        echo'
+        </div>
+        ';
+      }
     ?>
     </div>
     <!--====================================================
