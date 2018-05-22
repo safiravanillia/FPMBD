@@ -119,7 +119,12 @@
         background-color : #e30066
         color : white;
       }
-      
+
+      .jumlah{
+      font-size : 12px;
+      font-style : italic;
+    }
+
       img {
         border-radius: 15px;
       }
@@ -191,7 +196,7 @@
                     <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
                     <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
                     <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a>  
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -256,24 +261,26 @@
           </div>
         </div>
       </nav>
-    </header>
+    </header> 
 <!--====================================================
                        HOME-P
 ======================================================-->
     <div id="home-p" class="home-p pages-head4 text-center">
       <div class="container">
-        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Web dan Pemrograman</h1>
+        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Grafis dan Desain</h1>
       </div><!--/end container-->
     </div> 
 
+
     <div class = "wadah">
-
-
     <?php
-      $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama FROM pekerjaan, pengusaha 
-      WHERE pekerjaan.kategori = 'Web dan Pemrograman' AND
-      pekerjaan.pengusaha_id = pengusaha.pengusaha_id
-      AND pekerjaan.`tgltutup` >= NOW()";
+      $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama,  COUNT(tawar.f_id) AS jum
+FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
+LEFT JOIN tawar ON pekerjaan.k_id=tawar.k_id
+LEFT JOIN freelancer ON freelancer.id= tawar.f_id
+WHERE pekerjaan.kategori = 'Grafis dan Desain' 
+AND pekerjaan.`tgltutup` >= NOW()
+GROUP BY pekerjaan.nama;";
       $result = mysqli_query($conn, $sql);
       while($row = mysqli_fetch_array($result)){
         echo '
@@ -286,6 +293,7 @@
           echo '
               <div class = "description">
                 <p class = "judul">'.$row["nama"].'</p>
+                <p class = "jumlah">Penawar : '.$row["jum"].'</p>
                 <p>'.$row["deskripsi"].'</p>
               <p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
               </div>
@@ -306,21 +314,6 @@
                       FOOTER
 ======================================================--> 
 
-        <!--<div id="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="footer-copyrights">
-                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        </div>
-        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
-            <i class="fa fa-angle-up"></i>
-        </a>
-    </footer>
 
     <!--Global JavaScript -->
     <script src="js/jquery/jquery.min.js"></script>
