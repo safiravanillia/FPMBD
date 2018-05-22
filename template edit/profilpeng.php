@@ -27,7 +27,6 @@
               $deskripsi = $peng['deskripsi'];
           }
   }
-  //echo 'ahsjah';  echo $id;
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +58,7 @@
       height : 450px;
       background-color : #a34e4e;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      margin-left : 130px;
+      margin-left : 80px;
       margin-top : 40px;
       float : left;
       color : white;
@@ -68,7 +67,7 @@
     .details{
       width : 700px;
       height : 450px;
-      margin-left : 90px;
+      margin-left : 50px;
       margin-top : 40px;
       box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
       float : left;
@@ -88,7 +87,7 @@
     }
 
     .bar-button{
-      width : 200px;
+      width : 150px;
       height : 100%;
       background-color : white;
       float : right;
@@ -347,7 +346,8 @@
 </div>
 <div class = "details">
   <div class = "bar">
-    <div class = "bar-button" onclick="openTab('selesai', this, event)"><b>Pekerjaan Selesai</b></div>
+    <div class = "bar-button" onclick="openTab('trigger', this, event)"><b>Log Review</b></div>
+    <div class = "bar-button" onclick="openTab('selesai', this, event)"><b>Projek Terselesaikan</b></div>
     <div class = "bar-button" onclick="openTab('projek', this,event)">Projek Aktif</div>
     <div class = "bar-button" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
   </div>
@@ -453,6 +453,58 @@
             </div>
           ';
         }
+      }
+      ?>
+    </div>
+    <div class = "desc" id="trigger">
+      <?php
+      //run di sql yang komen
+      /*CREATE TABLE `log_review` (
+  `r_id` INT(11),
+  `bid_id` INT(11),
+  `komentar` VARCHAR(500) ,
+  `tgl` DATE,
+  `rating` INT(11),
+  `tgl_perubahan` DATE,
+  `status` VARCHAR(10)
+);
+
+-- Insert new data
+DELIMITER$$
+CREATE OR REPLACE TRIGGER log_insert_review
+AFTER INSERT ON review
+FOR EACH ROW
+BEGIN
+  INSERT INTO log_review VALUES (new.r_id, new.bid_id, new.komentar,new.tgl,new.rating, SYSDATE(), 'INSERT');
+END$$
+DELIMITER$$
+
+-- delete data
+DELIMITER$$
+CREATE OR REPLACE TRIGGER log_del_review
+AFTER DELETE ON review
+FOR EACH ROW
+BEGIN
+  INSERT INTO log_review VALUES (old.r_id, old.bid_id, old.komentar,old.tgl,old.rating, SYSDATE(), 'DELETE');
+END$$
+DELIMITER$$*/
+
+      $jumlah= "SELECT r_id AS ID_review, komentar AS Review, tgl AS Dikirim, tgl_perubahan AS Diubah, STATUS AS Tindakan
+      FROM log_review, tawar, pekerjaan
+      WHERE tawar.`bid_id`=log_review.`bid_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`='$id';";
+      $res = mysqli_query($conn, $jumlah);
+      while($row = mysqli_fetch_array($res)){
+        echo '
+          <div class = "job-available">
+            <div class = "nama">'.$row["Review"].'</div>
+            <p class = "kategori">ID Review : <span style = "font-weight : bold; color : blue;">'.$row["ID_review"].'</span></p>
+            <p>Tanggal kirim: '.$row["Dikirim"].'<br>
+            Tanggal ubah: '.$row["Diubah"].'<br>
+            Tindakan: '.$row["Tindakan"].'</p>
+          </div>
+          ';
       }
       ?>
     </div>
