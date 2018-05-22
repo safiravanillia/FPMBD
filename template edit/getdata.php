@@ -71,31 +71,31 @@
   			if($_SESSION["role"] == "freelancer"){
 	 			echo ' 
 					<form method="post" action="insert.php?role=freelancer" enctype="multipart/form-data">
-					<div class = "form-group">
+					<div class = "form-group" style="color:#e30066">
 						Nama Terang
 						<input type="text" name="nama" class ="form-control" placeholder="Masukkan nama" required/>
 					</div>
-					<div class = "form-group">
+					<div class = "form-group" style="color:#e30066">
 						Usia
-						<input type="number" name="umur" class ="form-control" placeholder="Masukkan usia" required/>
+						<input type="number" name="umur" class ="form-control col-4" placeholder="Masukkan usia" required/>
 					</div>
-					<div class = "form-group">
+					<div class = "form-group" style="color:#e30066">
 						No. Telepon
-						<input type="number" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" required/>
+						<input type="number" name="telp" class ="form-control col-3 col-4" placeholder="Masukkan telepon" required/>
 					</div>
-					<div class = "form-group">
+					<div class = "form-group" style="color:#e30066">
 						Keahlian
 						<input type="text" name="ahli" class ="form-control" placeholder="Masukkan gelar" required/>
 					</div>
-					<div class = "form-group">
+					<div class = "form-group" style="color:#e30066">
 						Deskripsi <br />
-						<textarea name="bio" rows="10" cols="70" placeholder="Paparkan pengalaman Anda" required></textarea>
+						<textarea name="bio" rows="10" cols="70" placeholder="Paparkan pengalaman Anda" required/></textarea>
 					</div>
-					<div class = "form-group">
+					<div class = "form-group" style="color:#e30066">
 						Portofolio
-						<input id="porto" name="porto" class="form-control" type="file"/>
+						<input id="porto" name="porto" class="form-control col-5" type="file"/>
 					</div>
-					<div class = "modal-footer">
+					<div class = "modal-footer" style="color:#e30066">
 						<input type="submit" class="btn btn-general btn-white" value="Simpan"/>
 					</div>
 					</form>
@@ -104,20 +104,20 @@
 	 		else if($_SESSION["role"] == "pengusaha"){
 	 			echo '
 					<form method="post" action="insert.php?role=pengusaha">
-					<div class = "form-group">
+					<div class = "form-group" style="color:#e30066">
 						Nama Perusahaan
 						<input type="text" name="nama" class ="form-control" placeholder="Masukkan nama" required/>
 					</div>
-					<div class = "form-group">
+					<div class = "form-group" style="color:#e30066">
 						Alamat
 						<input type="text" name="alamat" class ="form-control" placeholder="Masukkan alamat lengkap" required/>
 					</div>
-					<div class = "form-group">
+					<div class = "form-group" style="color:#e30066">
 						No. Telepon
-						<input type="number" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" required/>
+						<input type="number" name="telp" class ="form-control col-3" placeholder="Masukkan nomor telepon" required/>
 					</div>
-					<div class = "form-group">
-						<input type="submit" class="btn btn-primary" value="Simpan">
+					<div class = "form-group" style="color:#e30066">
+						<input type="submit" class="btn btn-general btn-white" value="Simpan">
 					</div>
 					</form>
 	 			';
