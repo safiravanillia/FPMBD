@@ -416,7 +416,7 @@ LEFT JOIN pengusaha
 ON pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
 LEFT JOIN freelancer
 ON freelancer.`id`=tawar.`f_id`
-WHERE pengusaha.`pengusaha_id`=3
+WHERE pengusaha.`pengusaha_id`='$id'
 AND tawar.`b_status` = 'SELESAI';";
 
       $result = mysqli_query($conn, $kerja);
