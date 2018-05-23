@@ -407,31 +407,27 @@
         echo '<p style = "font-size : 20px; font-weight : bold;">Total '.$row["jum"].' pekerjaan selesai</p>';
       }
 
-      $kerja="SELECT freelancer.`f_nama` AS nm_free, pekerjaan.`nama` AS kerja, tawar.`bid_id` AS tawar
-      FROM tawar, freelancer, pengusaha, pekerjaan
-      WHERE pengusaha.`pengusaha_id`='$id'
-      AND freelancer.`id`=tawar.`f_id`
-      AND tawar.`k_id`=pekerjaan.`k_id`
-      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
-      AND tawar.`b_status` = 'SELESAI';";
+      $kerja="SELECT freelancer.`f_nama` AS nm_free, pekerjaan.`nama` AS kerja, tawar.`bid_id` AS tawar, review.`komentar` as komen
+FROM tawar LEFT JOIN review
+ON tawar.`bid_id`=review.`bid_id`
+LEFT JOIN pekerjaan
+ON tawar.`k_id`=pekerjaan.`k_id`
+LEFT JOIN pengusaha
+ON pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
+LEFT JOIN freelancer
+ON freelancer.`id`=tawar.`f_id`
+WHERE pengusaha.`pengusaha_id`=3
+AND tawar.`b_status` = 'SELESAI';";
 
-      $cek="SELECT review.`komentar` AS komen
-      FROM tawar, freelancer, pengusaha, pekerjaan,review
-      WHERE pengusaha.`pengusaha_id`='$id'
-      AND freelancer.`id`=tawar.`f_id`
-      AND tawar.`k_id`=pekerjaan.`k_id`
-      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
-      AND review.`bid_id`=tawar.`bid_id`
-      AND tawar.`b_status` = 'SELESAI';";
-      $result1 = mysqli_query($conn, $cek);
+      $result = mysqli_query($conn, $kerja);
+      while($row = mysqli_fetch_array($result)){
+        $nm_pk=$row["kerja"];
+        $free=$row["nm_free"];
+        $idtawar=$row["tawar"];
+        $komen=$row["komen"];
 
-      if(mysqli_num_rows($result1)== 0){
-        $result = mysqli_query($conn, $kerja);
-        while($row = mysqli_fetch_array($result)){
-          $nm_pk=$row["kerja"];
-          $free=$row["nm_free"];
-          $idtawar=$row["tawar"];
-          echo '
+        if($komen== NULL){
+        echo '
           <div class = "job-available">
             <div class = "nama">'.$nm_pk.'</div>
             <p class = "kategori">Freelancer : <span style = "font-weight : bold; color : blue;">'.$free.'</span></p>
@@ -440,13 +436,7 @@
               </div>
           </div>
           ';
-        } 
-      }else{
-        $result = mysqli_query($conn, $kerja);
-        while($row = mysqli_fetch_array($result)){
-          $nm_pk=$row["kerja"];
-          $free=$row["nm_free"];
-          $idtawar=$row["tawar"];
+        } else{
           echo '
            <div class = "job-available">
             <div class = "nama">'.$nm_pk.'</div>
