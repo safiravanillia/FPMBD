@@ -67,6 +67,7 @@
         margin-top : 40px;
         float : left;
         color : white;
+        border-radius : 15px;
     }
 
     .details{
@@ -76,6 +77,7 @@
         margin-top : 40px;
         box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
         float : left;
+        border-radius : 15px;
     }
 
     .photo{
@@ -98,6 +100,7 @@
         float : right;
         color : #808282;
         margin : center;
+        border-radius : 15px;
         font-weight : bold;
         text-align : center;
         cursor : pointer;
@@ -135,10 +138,11 @@
         height : 50px;
         background-color : #e08a8a;
         margin-top : 10px;
-        margin-left : 130px;
+        margin-left : 160px;
         text-align: center;
         text-decoration: none;
         border: none;
+        border-radius : 15px;
         outline: none;
         cursor: pointer;
         -webkit-transition-duration: 0.4s; /* Safari */
@@ -429,6 +433,20 @@
       }
     ?>
     </div>
+    <?php
+      $s = "SELECT freelancer.`f_nama` ,ROUND(AVG(review.`rating`),1) AS rating 
+           FROM review JOIN tawar 
+           ON review.`bid_id`=tawar.`bid_id` JOIN freelancer
+           ON tawar.`f_id`=freelancer.`id` JOIN pekerjaan
+           ON tawar.k_id=pekerjaan.k_id JOIN pengusaha
+           ON pekerjaan.pengusaha_id=pengusaha.pengusaha_id
+           WHERE freelancer.`id`= '$id'
+           GROUP BY freelancer.`f_nama`";
+      $q = mysqli_query($conn, $s);
+      if($row = mysqli_fetch_array($q)){
+        echo ' <p style = "margin-top : 20px; margin-left : 80px;">Nilai Freelancer : '.$row["rating"].'</p>';
+      }
+    ?>
     <p style = "margin-top : 20px; margin-left : 20px;">Nama : <?php echo $name;?></p> 
     <p style = "margin-left : 20px;">Usia : <?php echo $usia;?></p>
     <p style = "margin-left : 20px">Keahlian : <?php echo $master;?></p>
@@ -465,7 +483,7 @@
     </div>
     <div class = "desc" id="selesai">
       <?php
-      //run di sql procedure di bawah
+      //run di sql function di bawah
       /*DELIMITER $$
       CREATE OR REPLACE FUNCTION hitung_kerja(id INT)
     RETURNS INT
