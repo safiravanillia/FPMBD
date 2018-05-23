@@ -61,6 +61,7 @@
       margin-top : 40px;
       float : left;
       color : white;
+      border-radius : 15px;
     }
 
     .details{
@@ -70,6 +71,7 @@
       margin-top : 40px;
       box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
       float : left;
+      border-radius : 15px;
     }
 
     .photo{
@@ -94,6 +96,7 @@
       margin : center;
       font-weight : bold;
       text-align : center;
+      border-radius : 15px;
       cursor : pointer;
       padding-top :25px;
       -webkit-transition-duration: 0.4s; /* Safari */
@@ -129,10 +132,11 @@
       height : 50px;
       background-color : #e08a8a;
       margin-top : 10px;
-      margin-left : 130px;
+      margin-left : 160px;
       text-align: center;
       text-decoration: none;
       border: none;
+      border-radius: 15px;
       outline: none;
       cursor: pointer;
       -webkit-transition-duration: 0.4s; /* Safari */
@@ -567,7 +571,7 @@ DELIMITER$$*/
     </div>
 </div>
 <br />
-<button class = "edit"><?php echo '<a href ="form-edit2.php?id='.$id.'">';?>Ubah Profil</a></button>
+<button class = "btn btn-general edit"><?php echo '<a href ="form-edit2.php?id='.$id.'">';?>Ubah Profil</a></button>
 <!--====================================================
                       FOOTER
 ======================================================--> 
