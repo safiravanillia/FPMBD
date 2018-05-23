@@ -104,39 +104,61 @@
 						$result = mysqli_query($conn, $sql);
 						if($result){
 							while($row = mysqli_fetch_array($result)){
-								
-								echo '
+								$nama=$row["f_nama"];
+								$ahli=$row["f_ahli"];
+								$desk=$row["f_deskripsi"];
+								$harga=$row["harga"];
+								$status=$row["b_status"];
+							}
+						}
+						$jum="SELECT ROUND(AVG(review.`rating`),1) AS rating 
+           				FROM review JOIN tawar 
+          				ON review.`bid_id`=tawar.`bid_id` JOIN freelancer
+           				ON tawar.`f_id`=freelancer.`id` JOIN pekerjaan
+           				ON tawar.k_id=pekerjaan.k_id 
+           				WHERE freelancer.`f_nama`='$nama'";
+
+           				$result = mysqli_query($conn, $jum);
+						if($result){
+							while($row = mysqli_fetch_array($result)){
+								$rate=$row["rating"];
+							}
+						}
+
+						echo '
 								<div class = "penawar">
-									<div class="nama">'.$row["f_nama"].'</div>
+									<div class="nama">'.$nama.'</div>
 									<table class="table">
 									<tr>
+									<td>Penilaian </td>
+									<td> '.$rate.' </td>
+
+									<tr>
 									<td>Keahlian </td>
-									<td> '.$row["f_ahli"].' </td>
+									<td> '.$ahli.' </td>
 									
 									</tr>
 
 									<tr>
 									<td>Deskripsi Penawar</td>
-									<td>'.$row["f_deskripsi"].' </td>
+									<td>'.$desk.' </td>
 									</tr>
 
 
 									<tr>
 									<td>Permintaan Bayaran</td>
-									<td>'.$row["harga"].' </td>
+									<td>'.$harga.' </td>
 									</tr>
 
 									<tr>
 									<td>Status</td>
-									<td>'.$row["b_status"].' </td>
+									<td>'.$status.' </td>
 									</tr>
 
 									</table>
 									<br><a href="status.php?bid_id='.$row["bid_id"].'" class="btn btn-general btn-white">Ubah Status</a>
 								</div>
-								';
-							}
-						}		
+								';		
 					?>
 				<div class = "modal-footer">
             <a href="profilpeng.php"><button class="btn btn-general btn-white">Kembali</button></a>
