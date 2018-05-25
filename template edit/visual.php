@@ -45,6 +45,9 @@
 
     <style>
       .wadah{
+      	width : 1300px;
+      	height : auto;
+      	padding-bottom : 50px;
         margin-top : 70px;
         margin-left : 120px;
         margin-bottom : 70px;
@@ -127,6 +130,30 @@
 
       img {
         border-radius: 15px;
+      }
+
+      .price-range{
+      	width : 900px;
+      	height : 100px;
+      	background-color : white;
+      	margin-top : 70px;
+        margin-left : 200px;
+      }
+
+      .pricing{
+      	width : 280px;
+      	height : 80px;
+      	background-color : white;
+      	float : left;
+      	padding-top : 10px;
+      	padding-left : 30px;
+      	margin-left : 80px;
+      }
+
+      .price-submit{
+      	margin-left : 60px;
+      	margin-top : 25px;
+      	float : left;
       }
     </style>
 
@@ -262,26 +289,57 @@
         </div>
       </nav>
     </header> 
-<!--====================================================
+    <!--====================================================
                        HOME-P
 ======================================================-->
     <div id="home-p" class="home-p pages-head4 text-center">
       <div class="container">
-        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Visual dan Audio</h1>
+        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Penulisan dan Penerjemahan</h1>
       </div><!--/end container-->
     </div> 
 
+     <form method="post">
+	    <div class = "price-range">
+	    	<div class = "pricing">
+	    		Harga Minimum : 
+	    		<input type="number" name="hargamin" class ="form-control" placeholder="Harga minimum" />
+	    	</div>
+
+	    	<div class = "pricing">
+	    		Harga Maximum : 
+	    		<input type="number" name="hargamax" class ="form-control" placeholder="Harga maximum" />
+	    	</div>
+	    	<div class = "price-submit">
+	    		
+		            <input type="submit" class="btn btn-general btn-white" value="Cari">
+		        
+	    	</div>
+	    </div>
+    </form>
+
     <div class = "wadah">
     <?php
-      $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama,  COUNT(tawar.f_id) AS jum
+     if($_SERVER["REQUEST_METHOD"] == "post"){
+	  	echo 'hai dalam';
+	  	$min = $_POST["hargamin"];
+	  	$max = $_POST["hargamax"];
+	  	$sql = 'CALL price_range($min, $max, "Visual dan Audio");';
+	  }
+	  else{
+	  	//echo 'hello';
+	  	$sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
 FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
-LEFT JOIN tawar ON pekerjaan.k_id=tawar.k_id
-LEFT JOIN freelancer ON freelancer.id= tawar.f_id
 WHERE pekerjaan.kategori = 'Visual dan Audio' 
-AND pekerjaan.`tgltutup` >= NOW()
-GROUP BY pekerjaan.nama;";
+AND pekerjaan.`tgltutup` >= NOW();";
+	  }
+
       $result = mysqli_query($conn, $sql);
       while($row = mysqli_fetch_array($result)){
+      	$s = "SELECT jumlah_penawar(".$row["k_id"].") AS jum;";
+      	$r = mysqli_query($conn, $s);
+      	while($baris = mysqli_fetch_array($r)){
+      		$jum = $baris["jum"];
+      	}
         echo '
           <div class = "box">';
         if(!$row["picture"]){
@@ -292,7 +350,7 @@ GROUP BY pekerjaan.nama;";
           echo '
               <div class = "description">
                 <p class = "judul">'.$row["nama"].'</p>
-                <p class = "jumlah">Penawar : '.$row["jum"].'</p>
+                <p class = "jumlah">Penawar : '.$jum.'</p>
                 <p>'.$row["deskripsi"].'</p>
               <p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
               </div>
@@ -303,6 +361,7 @@ GROUP BY pekerjaan.nama;";
           echo '<button class = "tombol" style="width : 100px;height : auto; padding-bottom : 3px;"><a href = "change-project.php?k_id='.$row["k_id"].'"">Ubah Detil Projek</a></button>';
         }
         echo'
+
         </div>
         ';
       }
@@ -350,6 +409,5 @@ GROUP BY pekerjaan.nama;";
                 }
             });
     </script> 
-  
    </body>
 </html>

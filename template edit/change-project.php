@@ -19,6 +19,11 @@
     $id = $row["id"];
   }
   }
+
+  	$k_id = $_GET['k_id'];
+  	$sql = "SELECT * FROM pekerjaan WHERE pengusaha_id=$id and k_id=$k_id";
+	$query = mysqli_query($conn, $sql);
+	$user = mysqli_fetch_assoc($query);
 ?>
 
 <!DOCTYPE html>
@@ -44,128 +49,54 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-      .wadah{
-      	width : 1300px;
-      	height : auto;
-      	padding-bottom : 50px;
-        margin-top : 70px;
-        margin-left : 120px;
-        margin-bottom : 70px;
-      }
-      .isi{
-        width: 93%;
-        height : auto;
-        margin-left : 30px;
-        margin-bottom : 15px;
-        border-bottom : 1px solid #e30066;
-      }
-      .judul{
-        font-size : 24px;
-        color : #e30066;
-        text-align : center;
-      }
-      .italic{
-        font-style : italic;
-        font-size : 12px;
-      }
-
-      .tombol{
-        width : 70px;
-        height : 35px;
-        background-color : #e08a8a;
-        border-radius : 5%;
-        margin-bottom : 10px;
-        margin-left : 100px;
-        text-align: center;
-        text-decoration: none;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding-top: 3px;
-        -webkit-transition-duration: 0.4s; /* Safari */
-        transition-duration: 0.4s;
-        color : white;
-      }
-
-      .tombol:hover{
-        background-color : #c57575;
-      }
-
-      .tombol a{
-        text-decoration: none;
-        color: white;
-        display: block;
-      }
-
-      .box{
-        width: 300px;
-        height : auto;
-        padding-bottom : 10px;
-        padding-right : 30px;
-        border-radius : 15px;
-        border : 2px solid #e30066;
-        float : left;
-        margin-right : 30px;
-        margin-left : 30px;
-        margin-bottom : 60px;
-      }
-
-      .box:hover{
-        transition: transform 0.5s ease;
-      transform: scale(1.1);
-      }
-
-      .description{
-        width : 300px;
-        height : auto;
-        padding-bottom : 20px;
-        background-color : #e30066
-        color : white;
-      }
-
-      .jumlah{
-      font-size : 12px;
-      font-style : italic;
+    .big{
+    	width : 100%;
+    	height : auto;
+    	padding-bottom : 100px;
     }
 
-      img {
-        border-radius: 15px;
-      }
+    .form-container{
+    	margin : auto;
+    	width : 800px;
+    	height : auto;
+    	padding-bottom : 50px;
+    }
 
-      .price-range{
-      	width : 900px;
-      	height : 100px;
-      	background-color : white;
-      	margin-top : 70px;
-        margin-left : 200px;
-      }
+    h2{
+    	color : #e30066;
+    	text-align : center;
+  		margin-top : 70px;
+  		margin-bottom : 50px;
+    }
 
-      .pricing{
-      	width : 280px;
-      	height : 80px;
-      	background-color : white;
-      	float : left;
-      	padding-top : 10px;
-      	padding-left : 30px;
-      	margin-left : 80px;
-      }
+    .berhasil{
+      width : 300px;
+      height : auto;
+      background-color : #229b60;
+      border-radius : 8px;
+      border-style: solid;
+        border-width: 1px;
+        border-color : #1c7a4c;
+        padding : 15px 15px 15px 15px;
+        margin-top : 10px;
+    }
+    .gagal{
+      width : 300px;
+      height : auto;
+      background-color : #9b2222;
+      border-radius : 8px;
+      border-style: solid;
+        border-width: 1px;
+        border-color : #7a1c1c;
+        padding : 15px 15px 15px 15px;
+        margin-top : 10px;
+    }
 
-      .price-submit{
-      	margin-left : 60px;
-      	margin-top : 25px;
-      	float : left;
-      }
     </style>
-
   </head>
 
-  <body id="page-top">
-
-<!--====================================================
-                         HEADER
-======================================================--> 
-
-    <header>
+  <body>
+  <header>
 
       <!-- Top Navbar  -->
       <div class="top-menubar">
@@ -223,7 +154,7 @@
                     <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
                     <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
                     <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a>  
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -289,105 +220,83 @@
         </div>
       </nav>
     </header> 
-    <!--====================================================
-                       HOME-P
-======================================================-->
-    <div id="home-p" class="home-p pages-head4 text-center">
-      <div class="container">
-        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Penulisan dan Penerjemahan</h1>
-      </div><!--/end container-->
-    </div> 
 
-     <form method="post">
-	    <div class = "price-range">
-	    	<div class = "pricing">
-	    		Harga Minimum : 
-	    		<input type="number" name="hargamin" class ="form-control" placeholder="Harga minimum" />
-	    	</div>
+    <div class = "big">
+    	<h2>Ubah Detil Projek</h2>
+    	<div class = "form-container">
+    		<form method = "post" enctype='multipart/form-data'>
+    			<div class = "form-group">
+           			<span style="color:#e30066">Nama Projek</span>
+            		<p style ="font-weight : bold; margin-left : 50px; font-size : 32px;"><?php echo $user['nama']?></p>
+          		</div>
+          		<div class = "form-group">
+		            <span style="color:#e30066">Deskripsi Projek</span> <br/>
+		            <textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" style="margin-left : 50px"><?php echo $user['deskripsi']?></textarea>
+		        </div>
+		        <div class = "form-group">
+		            <span style="color:#e30066">Tanggal Penawaran ditutup</span>
+		            <input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" style="margin-left : 50px" value='<?php echo $user['tgltutup']?>'/>
+		        </div>
+		        <div class = "form-group">
+		            <span style="color:#e30066">Harga minimum Penawaran</span>
+		            <input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" style="margin-left : 50px" value='<?php echo $user['hargamin']?>' />
+		        </div>
+		        <div class = "form-group">
+		            <span style="color:#e30066">Harga maksimum Penawaran</span>
+		            <input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum"  style="margin-left : 50px" value='<?php echo $user['hargamax']?>'/>
+		        </div>
+		        <div class = "form-group">
+		            <span style="color:#e30066">Gambar</span>
+		            <input name="picture" class="form-control" type="file" accept="image/png,image/jpeg"/>
+		        </div>
+		        <div group = form-group>
+		            <input name="submit" type="submit" class="btn btn-general btn-white" value="Ubah Projek">
+		        </div>
+    		</form>
 
-	    	<div class = "pricing">
-	    		Harga Maximum : 
-	    		<input type="number" name="hargamax" class ="form-control" placeholder="Harga maximum" />
-	    	</div>
-	    	<div class = "price-submit">
-	    		
-		            <input type="submit" class="btn btn-general btn-white" value="Cari">
-		        
-	    	</div>
-	    </div>
-    </form>
+    		<?php
+	          if($_SERVER["REQUEST_METHOD"] == "POST"){
+	          	echo "ahi";
+	            $name = $user["nama"];
+	            $description = $_POST["description"];
+	            $tglbuka = $user["tglbuka"];
+	            $tgltutup = $_POST["tgltutup"];
+	            $hargamin = $_POST["hargamin"];
+	            $hargamax = $_POST["hargamax"];
+	            $kategori = $user["kategori"];
 
-    <div class = "wadah">
-    <?php
-     if($_SERVER["REQUEST_METHOD"] == "post"){
-	  	echo 'hai dalam';
-	  	$min = $_POST["hargamin"];
-	  	$max = $_POST["hargamax"];
-	  	$sql = 'CALL price_range($min, $max, "Web dan Pemrograman");';
-	  }
-	  else{
-	  	//echo 'hello';
-	  	$sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
-FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
-WHERE pekerjaan.kategori = 'Web dan Pemrograman' 
-AND pekerjaan.`tgltutup` >= NOW();";
-	  }
+	            if(isset($_FILES["picture"])){
+	            	//echo "ahi";
+	            	$picture = addslashes($_FILES["picture"]["name"]);
+	            	$temp = addslashes(file_get_contents($_FILES["picture"]["tmp_name"]));
+	    			$type = addslashes($_FILES["picture"]["type"]);
 
-      $result = mysqli_query($conn, $sql);
-      while($row = mysqli_fetch_array($result)){
-      	$s = "SELECT jumlah_penawar(".$row["k_id"].") AS jum;";
-      	$r = mysqli_query($conn, $s);
-      	while($baris = mysqli_fetch_array($r)){
-      		$jum = $baris["jum"];
-      	}
-        echo '
-          <div class = "box">';
-        if(!$row["picture"]){
-              echo '<img src = "foto/no_image_available.jpg" style="width : 296px; height : 296px">';
-          } else {
-              echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:296px;height:296px;">';
-          }
-          echo '
-              <div class = "description">
-                <p class = "judul">'.$row["nama"].'</p>
-                <p class = "jumlah">Penawar : '.$jum.'</p>
-                <p>'.$row["deskripsi"].'</p>
-              <p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
-              </div>
-          ';
-        if(isset($_SESSION["role"])&&$_SESSION["role"]=="freelancer"){
-          echo '<button class = "tombol"><a href = "tawar.php?id='.$id.'&k_id='.$row["k_id"].'"">Tawar</a></button>';
-        }else if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&$id == $row["pengusaha_id"]){
-          echo '<button class = "tombol" style="width : 100px;height : auto; padding-bottom : 3px;"><a href = "change-project.php?k_id='.$row["k_id"].'"">Ubah Detil Projek</a></button>';
-        }
-        echo'
+	    			$sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`, `picture`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori' , '$temp');";
+	            }
+	            else{
+	            	$sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori');";
+	            }
+	           // echo $sql;
+	            
+	            $result = mysqli_query($conn, $sql);
+	            if($result){
+	                echo '<div class = "berhasil">
+	                    Projek berhasil dipublish
+	                  </div>';
+	                echo '<br/><a href = "project.php">Kembali</a>';
+	              }
+	              else {
+	                echo '<div class = "gagal">
+	                    Projek gagal dipublish
+	                  </div>';
+	              }
+	          }
+	        ?>
+    	</div>
 
-        </div>
-        ';
-      }
-    ?>
     </div>
-    <!--====================================================
-                      FOOTER
-======================================================--> 
 
-        <!--<div id="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="footer-copyrights">
-                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        </div>
-        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
-            <i class="fa fa-angle-up"></i>
-        </a>
-    </footer>
 
-    <!--Global JavaScript -->
     <script src="js/jquery/jquery.min.js"></script>
     <script src="js/popper/popper.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
@@ -410,4 +319,4 @@ AND pekerjaan.`tgltutup` >= NOW();";
             });
     </script> 
    </body>
-</html>
+  </body>

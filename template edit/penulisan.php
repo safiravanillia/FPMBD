@@ -126,7 +126,32 @@
     }
 
       img {
-        border-radius: 15px;
+        border-top-left-radius: 15px;
+        border-top-right-radius : 15px;
+      }
+
+      .price-range{
+      	width : 900px;
+      	height : 100px;
+      	background-color : white;
+      	margin-top : 70px;
+        margin-left : 200px;
+      }
+
+      .pricing{
+      	width : 280px;
+      	height : 80px;
+      	background-color : white;
+      	float : left;
+      	padding-top : 10px;
+      	padding-left : 30px;
+      	margin-left : 80px;
+      }
+
+      .price-submit{
+      	margin-left : 60px;
+      	margin-top : 25px;
+      	float : left;
       }
     </style>
 
@@ -196,7 +221,7 @@
                     <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
                     <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
                     <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a>  
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -262,26 +287,83 @@
         </div>
       </nav>
     </header> 
-    <!--====================================================
+<!--====================================================
                        HOME-P
 ======================================================-->
     <div id="home-p" class="home-p pages-head4 text-center">
       <div class="container">
-        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Penulisan dan Penerjemahan</h1>
+        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Grafis dan Desain</h1>
       </div><!--/end container-->
     </div> 
 
+    <form method="post">
+	    <div class = "price-range">
+	    	<div class = "pricing">
+	    		Harga Minimum : 
+	    		<input type="number" name="hargamin" class ="form-control" placeholder="Harga minimum" />
+	    	</div>
+
+	    	<div class = "pricing">
+	    		Harga Maximum : 
+	    		<input type="number" name="hargamax" class ="form-control" placeholder="Harga maximum" />
+	    	</div>
+	    	<div class = "price-submit">
+	    		
+		            <input type="submit" class="btn btn-general btn-white" value="Cari">
+		        
+	    	</div>
+	    </div>
+    </form>
     <div class = "wadah">
     <?php
-      $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama,  COUNT(tawar.f_id) AS jum
+    /*Function : 
+    DELIMITER$$
+	CREATE FUNCTION jumlah_penawar ()
+	RETURNS INTEGER
+	DETERMINISTIC
+	BEGIN
+		DECLARE jumlah INTEGER;
+		SELECT COUNT(*) INTO jumlah
+		FROM customers;
+		RETURN jumlah;
+	END$$
+	DELIMITER$$
+
+	PROCEDURE : 
+	DELIMITER$$
+	CREATE PROCEDURE price_range (minimum INT, maximum INT, kategori VARCHAR(30))
+	BEGIN
+		SELECT *
+		FROM pekerjaan
+		WHERE pekerjaan.`hargamin` >= minimum AND
+			pekerjaan.`hargamax` <= maximum AND
+			pekerjaan.`kategori` = kategori;
+	END$$
+	DELIMITER$$
+	*/
+		//echo 'hai';
+	  if($_SERVER["REQUEST_METHOD"] == "post"){
+	  	echo 'hai dalam';
+	  	$min = $_POST["hargamin"];
+	  	$max = $_POST["hargamax"];
+	  	$sql = 'CALL price_range($min, $max, "Penulisan dan Penerjemahan");';
+	  }
+	  else{
+	  	//echo 'hello';
+	  	$sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
 FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
-LEFT JOIN tawar ON pekerjaan.k_id=tawar.k_id
-LEFT JOIN freelancer ON freelancer.id= tawar.f_id
 WHERE pekerjaan.kategori = 'Penulisan dan Penerjemahan' 
 AND pekerjaan.`tgltutup` >= NOW()
-GROUP BY pekerjaan.nama;";
+ORDER BY pekerjaan.k_id asc;";
+	  }
+
       $result = mysqli_query($conn, $sql);
       while($row = mysqli_fetch_array($result)){
+      	$s = "SELECT jumlah_penawar(".$row["k_id"].") AS jum;";
+      	$r = mysqli_query($conn, $s);
+      	while($baris = mysqli_fetch_array($r)){
+      		$jum = $baris["jum"];
+      	}
         echo '
           <div class = "box">';
         if(!$row["picture"]){
@@ -292,7 +374,7 @@ GROUP BY pekerjaan.nama;";
           echo '
               <div class = "description">
                 <p class = "judul">'.$row["nama"].'</p>
-                <p class = "jumlah">Penawar : '.$row["jum"].'</p>
+                <p class = "jumlah">Penawar : '.$jum.'</p>
                 <p>'.$row["deskripsi"].'</p>
               <p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
               </div>
@@ -313,21 +395,6 @@ GROUP BY pekerjaan.nama;";
                       FOOTER
 ======================================================--> 
 
-        <!--<div id="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="footer-copyrights">
-                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        </div>
-        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
-            <i class="fa fa-angle-up"></i>
-        </a>
-    </footer>
 
     <!--Global JavaScript -->
     <script src="js/jquery/jquery.min.js"></script>
