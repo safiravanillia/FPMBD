@@ -435,18 +435,24 @@
     </div>
     <?php
       $s = "SELECT freelancer.`f_nama` ,ROUND(AVG(review.`rating`),1) AS rating 
-           FROM review JOIN tawar 
-           ON review.`bid_id`=tawar.`bid_id` JOIN freelancer
-           ON tawar.`f_id`=freelancer.`id` JOIN pekerjaan
-           ON tawar.k_id=pekerjaan.k_id JOIN pengusaha
+           FROM review RIGHT JOIN tawar 
+           ON review.`bid_id`=tawar.`bid_id` RIGHT JOIN freelancer
+           ON tawar.`f_id`=freelancer.`id` RIGHT JOIN pekerjaan
+           ON tawar.k_id=pekerjaan.k_id RIGHT JOIN pengusaha
            ON pekerjaan.pengusaha_id=pengusaha.pengusaha_id
            WHERE freelancer.`id`= '$id'
            GROUP BY freelancer.`f_nama`";
       $q = mysqli_query($conn, $s);
       if($row = mysqli_fetch_array($q)){
-        echo ' <p style = "margin-top : 20px; margin-left : 80px;">Nilai Freelancer : '.$row["rating"].'</p>';
+        $rate=$row["rating"];
+      }
+      if($rate==null){
+        echo '<p style = "margin-top : 20px; margin-left : 115px;"><span class="fa fa-star tanda"></span> 0.0</p>';
+      } else {
+        echo '<p style = "margin-top : 20px; margin-left : 115px;"><span class="fa fa-star tanda"></span> '.$rate.'</p>';
       }
     ?>
+
     <p style = "margin-top : 20px; margin-left : 20px;">Nama : <?php echo $name;?></p> 
     <p style = "margin-left : 20px;">Usia : <?php echo $usia;?></p>
     <p style = "margin-left : 20px">Keahlian : <?php echo $master;?></p>
