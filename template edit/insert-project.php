@@ -78,7 +78,8 @@
     }
 
     .ha{
-    	color : #e30066;
+      text-align: center;
+      color : #e30066;
     }
     </style>
   </head>
@@ -215,10 +216,8 @@
       </nav>
     </header> 
 
-
-
     <div class = "tempat">
-    <h2 class="ha">Buat Projek Baru Perusahaanmu!</h2>
+    <h2 class="ha">Buat Projek Baru Perusahaanmu</h2>
       <div class = "form-container">
         <form method = "post" enctype='multipart/form-data'>
           <div class = "form-group">
@@ -245,26 +244,26 @@
             <span style="color:#e30066">Harga maksimum Penawaran</span>
             <input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum" />
           </div>
-          <label for="kategori" style="color:#e30066">Katgeori:</label>
+          <label for="kategori" style="color:#e30066">Kategori:</label>
                 <div class="checkbox"> 
-                	<label>
+                  <label>
                     <input type="radio" name ="kategori" value="Penulisan dan Penerjemahan" checked="checked"> Penulisan dan Penerjemahan
-                	</label>
+                  </label>
                 </div>
                 <div class="checkbox">
                     <label>
                     <input type="radio" name="kategori" value="Visual dan Audio"> Visual dan Audio
-                	</label>
+                  </label>
                 </div>
                 <div class="checkbox">
                     <label>
                     <input type="radio" name="kategori" value="Web dan Pemrograman"> Web dan Pemrograman
-                	</label>
+                  </label>
                 </div>
                 <div class="checkbox">
                     <label>
                     <input type="radio" name="kategori" value="Grafis dan Desain"> Grafis dan Desain
-                	</label>
+                  </label>
                 </div>
           <div class = "form-group">
             <span style="color:#e30066">Gambar</span>
@@ -286,17 +285,14 @@
             $kategori = $_POST["kategori"];
 
             if(isset($_FILES["picture"])){
-            	//echo "ahi";
-            	$picture = addslashes($_FILES["picture"]["name"]);
-            	$temp = addslashes(file_get_contents($_FILES["picture"]["tmp_name"]));
-    			$type = addslashes($_FILES["picture"]["type"]);
+              $picture = addslashes($_FILES["picture"]["name"]);
+              $temp = addslashes(file_get_contents($_FILES["picture"]["tmp_name"]));
+              $type = addslashes($_FILES["picture"]["type"]);
 
-    			$sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`, `picture`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori' , '$temp');";
+              $sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`, `picture`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori' , '$temp');";
+            }else{
+              $sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori');";
             }
-            else{
-            	$sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori');";
-            }
-           // echo $sql;
             
             $result = mysqli_query($conn, $sql);
             if($result){
@@ -310,8 +306,8 @@
                     Projek gagal dipublish
                   </div>';
               }
-          }
-        ?>
+            }
+            ?>
       </div>
     </div>
     <!--====================================================

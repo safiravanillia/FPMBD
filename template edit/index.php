@@ -104,18 +104,17 @@
                     <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
                     <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
                     <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a>  
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
                     echo '
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilfree.php">Profil</a></li> ';
-                  } elseif(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&isset($_SESSION["logged"])){
+                  } elseif(isset($_SESSION["peng"])&&isset($_SESSION["logged"])){
                     echo '
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>
                 </li>
-                
                 <?php
                   if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
                     echo '
@@ -127,6 +126,9 @@
                         </div>
                       </li>
                     ';
+                  }
+                  else{
+                    echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
                   }
                 ?>
                   <div class="top-menubar-nav">

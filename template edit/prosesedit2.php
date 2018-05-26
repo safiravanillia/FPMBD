@@ -25,22 +25,13 @@ if(isset($_POST['simpan'])){
       $foto_tmp = addslashes(file_get_contents($_FILES["foto"]["tmp_name"]));
       $foto_type = addslashes($_FILES["foto"]["type"]);
       if(!empty($foto)){      
-        /*move_uploaded_file($_FILES['foto']['tmp_name'],'foto/'.$foto);*/
         $sql = "UPDATE pengusaha SET nama = '$nama', alamat = '$alamat', telepon = '$telepon' , deskripsi = '$deskripsi', picture='$foto_tmp' WHERE pengusaha_id = '$id'";
-        //echo $sql;
         $query = mysqli_query($conn, $sql);
       }else{
         $sql = "UPDATE pengusaha SET nama = '$nama', alamat = '$alamat', telepon = '$telepon' , deskripsi = '$deskripsi' WHERE pengusaha_id = '$id'";
-        //echo $sql;
         $query = mysqli_query($conn, $sql);
       }
     }
-
-    /*if($query) {
-        header('Location: profilpeng.php');
-    } else {
-        die("Gagal menyimpan perubahan...");
-    }*/
 }
     header('Location: profilpeng.php');
 ?>

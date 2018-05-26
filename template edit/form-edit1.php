@@ -98,11 +98,11 @@ if( mysqli_num_rows($query) < 1 ){
           </div>
           <div class = "form-group" style="color:#e30066">
             Usia
-            <input type="text" name="umur" class ="form-control" placeholder="Masukkan usia" value="<?php echo $free['f_usia'] ?>" required/>
+            <input type="number" name="umur" class ="form-control" placeholder="Masukkan usia" value="<?php echo $free['f_usia'] ?>" required/>
           </div>
           <div class = "form-group" style="color:#e30066">
             No. Telepon
-            <input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $free['f_telepon'] ?>" required/>
+            <input type="number" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $free['f_telepon'] ?>" required/>
           </div>
           <div class = "form-group" style="color:#e30066">
             Keahlian
@@ -114,7 +114,7 @@ if( mysqli_num_rows($query) < 1 ){
           </div>
                 <div class = "form-group" style="color:#e30066">
                   Portofolio
-                  <input id="register_porto" name="porto" class="form-control" type="file" value="<?php echo $free['f_portofolio'];?>" />
+                  <input id="register_porto" name="porto" class="form-control" type="file" />
                   <span></span>
                 </div>
                 <div class = "form-group" style="color:#e30066">

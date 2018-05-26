@@ -335,17 +335,17 @@
     <?php
     /*Function : 
     DELIMITER$$
-	CREATE FUNCTION jumlah_penawar (id INT)
-	RETURNS INTEGER
-	DETERMINISTIC
-	BEGIN
-		DECLARE jumlah INTEGER;
-		SELECT COUNT(*) INTO jumlah
-		FROM pekerjaan
-		JOIN tawar ON pekerjaan.`k_id` = tawar.`k_id` AND pekerjaan.`k_id` = id;
-		RETURN jumlah;
-	END$$
-	DELIMITER$$
+  CREATE FUNCTION jumlah_penawar (id INT)
+  RETURNS INTEGER
+  DETERMINISTIC
+  BEGIN
+    DECLARE jumlah INTEGER;
+    SELECT COUNT(*) INTO jumlah
+    FROM pekerjaan
+    JOIN tawar ON pekerjaan.`k_id` = tawar.`k_id` AND pekerjaan.`k_id` = id;
+    RETURN jumlah;
+  END$$
+  DELIMITER$$
 
   PROCEDURE : 
   DELIMITER$$

@@ -117,7 +117,6 @@ if( mysqli_num_rows($query) < 1 ){
             <a href="profilpeng.php"><button class="btn btn-general btn-white">Kembali</button></a>
             <input type="submit" class="btn btn-general btn-white" name="simpan" value="Ubah Profil">
           </div>
-
           </form>
       </div>
     </div>

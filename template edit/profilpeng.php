@@ -286,16 +286,6 @@
                     echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
                   }
                 ?>
-                <li>
-                  <i class="search fa fa-search search-btn"></i>
-                  <div class="search-open">
-                    <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Ketikkan Pekerjaan" aria-describedby="basic-addon2">
-                      <span class="input-group-addon" id="basic-addon2">Cari</span>
-                    </div>
-                  </div>
-                </li> 
-                <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
                       <div class="container">

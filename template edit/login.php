@@ -1,6 +1,5 @@
 <?php 
 	session_start();
-
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -27,7 +26,6 @@
 				$_SESSION["logged"] = true;
 				$_SESSION["peng"] = false;
 			}
-
 			if(!empty($_POST["remember"]) && $_SESSION["logged"] == true)   
 			{  
 				setcookie ("member_login",$user,time()+ (10 * 365 * 24 * 60 * 60));
