@@ -1,6 +1,5 @@
 <?php
   session_start();
-
   $servername = "localhost";
   $username = "root";
   $password = "";
@@ -10,18 +9,15 @@
   if($conn->connect_error){
     die("Connection failed: ". $conn->connect_error);
   }
-
   $conns = new mysqli($servername, $username, $password, $dbname);
   if($conns->connect_error){
     die("Connection failed: ". $conns->connect_error);
   }
-
   $sql1 = "SELECT * FROM user where username = '".$_SESSION["name"]."' ";
   $query1 = mysqli_query($conn, $sql1);
   while($free1 = mysqli_fetch_array($query1)){
     $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
     $query = mysqli_query($conn, $sql);
-
     while($free = mysqli_fetch_array($query)){
            $email = $free1['email'];
            $id = $free['id'];
@@ -69,7 +65,6 @@
         color : white;
         border-radius : 15px;
     }
-
     .details{
         width : 750px;
         height : 450px;
@@ -79,7 +74,6 @@
         float : left;
         border-radius : 15px;
     }
-
     .photo{
         width : 150px;
         height : 150px;
@@ -88,11 +82,9 @@
         margin-top : 50px;
         border-radius : 50%;
     }
-
     .bar{
         height : 70px;
     }
-
     .bar-button{
         width : 150px;
         height : 100%;
@@ -108,23 +100,19 @@
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
     }
-
     .bio p{
         color : white;
     }
-
     .bar-button:hover{
         background-color : #f0f0f0;
         color : #e30066;
         border-bottom : 1px solid #e30066;
     }
-
     .active{
       background-color : #f0f0f0;
         color : #e30066;
         border-bottom : 1px solid #e30066;
     }
-
     .desc{
         width : 650px;
         height : 350px;
@@ -132,7 +120,6 @@
         margin-left : 30px;
         overflow : auto;
     }
-
     .edit{
         width : 120px;
         height : 50px;
@@ -150,34 +137,28 @@
         color : white;
         margin-bottom : 50px;
     }
-
     .edit:hover{
         background-color : #c57575;
     }
-
     .edit a{
         text-decoration: none;
         color: white;
         display: block;
     }
-
     .nama{
       font-weight : bold;
       font-size : 20px;
       color : #e30066 ;
     }
-
     .kategori{
       font-size : 12px;
       font-style : italic;
     }
-
     .job-progress{
       width : 635px;
       height : auto;
       border-bottom : 1px solid #e30066;
     }
-
     .status{
       width : 100px;
       height : auto;
@@ -191,28 +172,23 @@
       font-size : 14px;
       margin-bottom : 5px;
     }
-
     .status:hover{
       background-color : #8c3d3d;
     }
-
     .status a{
       text-decoration: none;
         color: white;
         display: block;
     }
-
     .komentar{
       width : 635px;
       height : auto;
       border-bottom : 1px solid #e30066;
     }
-
     .fromwho{
       font-size : 12px;
       font-style : italic;
     }
-
     .tanda {
     color: orange;
     }
@@ -305,7 +281,6 @@
                       </li>
                     ';
                   }
-
                 ?>
                 <li>
                   <i class="search fa fa-search search-btn"></i>
@@ -506,13 +481,11 @@
     RETURN jml;
     END$$
       DELIMITER$$*/
-
       $jumlah= "SELECT DISTINCT hitung_kerja($id) AS jum";
       $res = mysqli_query($conn, $jumlah);
       while($row = mysqli_fetch_array($res)){
         echo '<p style = "font-size : 20px; font-weight : bold;">Total '.$row["jum"].' pekerjaan selesai</p>';
       }
-
       //run di sql procedure di bawah
       /*$DELIMITER $$
         CREATE OR REPLACE PROCEDURE tampil_kerja(IN id INT)
@@ -526,7 +499,6 @@
       AND tawar.`b_status` = 'SELESAI';
         END$$
         DELIMITER$$*/
-
       $result = mysqli_query($conns, "CALL tampil_kerja($id)");
       while($row = mysqli_fetch_array($result)){
         echo '
@@ -599,7 +571,6 @@
       AND tawar.`k_id`=pekerjaan.`k_id`
       AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
       AND tawar.`b_status` = 'PROGRESS'";
-
       $result = mysqli_query($conn, $histori);
       while($row = mysqli_fetch_array($result)){
         echo '
@@ -673,7 +644,6 @@
       }
       document.getElementById(tabName).style.display = "block";
       evt.currentTarget.className += " active";
-
   }
   document.getElementById("defaultOpen").click();
     </script>

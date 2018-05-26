@@ -334,18 +334,18 @@
     <div class = "wadah">
     <?php
     /*Function : 
-    DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `jumlah_penawar`(id INT) RETURNS int(11)
-    DETERMINISTIC
-BEGIN
-  DECLARE jumlah INTEGER;
-  SELECT COUNT(*) into jumlah
-  FROM pekerjaan, tawar
-  where pekerjaan.`k_id` = tawar.`k_id` and
-    pekerjaan.`k_id` = id;
-  RETURN jumlah;
-END$$
-DELIMITER ;
+    DELIMITER$$
+	CREATE FUNCTION jumlah_penawar (id INT)
+	RETURNS INTEGER
+	DETERMINISTIC
+	BEGIN
+		DECLARE jumlah INTEGER;
+		SELECT COUNT(*) INTO jumlah
+		FROM pekerjaan
+		JOIN tawar ON pekerjaan.`k_id` = tawar.`k_id` AND pekerjaan.`k_id` = id;
+		RETURN jumlah;
+	END$$
+	DELIMITER$$
 
   PROCEDURE : 
   DELIMITER$$
