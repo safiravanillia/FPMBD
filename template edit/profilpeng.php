@@ -287,16 +287,6 @@
                     echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
                   }
                 ?>
-                <li>
-                  <i class="search fa fa-search search-btn"></i>
-                  <div class="search-open">
-                    <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Ketikkan Pekerjaan" aria-describedby="basic-addon2">
-                      <span class="input-group-addon" id="basic-addon2">Cari</span>
-                    </div>
-                  </div>
-                </li> 
-                <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
                       <div class="container">
@@ -369,26 +359,24 @@
   </div>
   <div class = "desc" id="projek">
     <?php
-    	/*
-			THIS IS VIEW : 
-			CREATE VIEW lihatlah AS
-			SELECT pekerjaan.`k_id`, pekerjaan.`nama`, pekerjaan.`deskripsi`, pekerjaan.`kategori`
-			FROM pengusaha, pekerjaan
-			WHERE pengusaha.`pengusaha_id` = pekerjaan.`pengusaha_id` AND
-				pengusaha.`pengusaha_id` = 2 AND
-				pekerjaan.tglbuka < SYSDATE() AND
-			    pekerjaan.tgltutup > SYSDATE() 
-    	*/
+      
+      $s1="CREATE OR REPLACE VIEW lihatlah AS
+      SELECT pekerjaan.`k_id`, pekerjaan.`nama`, pekerjaan.`deskripsi`, pekerjaan.`kategori`
+      FROM pengusaha, pekerjaan
+      WHERE pengusaha.`pengusaha_id` = pekerjaan.`pengusaha_id` AND
+        pengusaha.`pengusaha_id` = 2 AND
+        pekerjaan.tglbuka < SYSDATE() AND
+          pekerjaan.tgltutup > SYSDATE();"; 
+      $q1 = mysqli_query($conn, $s1);
       $s = "SELECT * FROM lihatlah";
-
       $q = mysqli_query($conn, $s);
       if(mysqli_num_rows($q) > 0){
         while ($row = mysqli_fetch_array($q)){
            $s = "SELECT jumlah_penawar(".$row["k_id"].") AS jum;";
-	       $r = mysqli_query($conn, $s);
-	       while($baris = mysqli_fetch_array($r)){
-	         $jum = $baris["jum"];
-	       }
+         $r = mysqli_query($conn, $s);
+         while($baris = mysqli_fetch_array($r)){
+           $jum = $baris["jum"];
+         }
           echo '<div class = "job-available">
               <p class = "nama">'.$row["nama"].'</p>
               <p>'.$row["deskripsi"].'</p>
