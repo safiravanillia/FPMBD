@@ -13,17 +13,18 @@
 
   if(isset($_SESSION["name"])){
     $name = $_SESSION["name"];
-  $sql = "SELECT id FROM user WHERE username = '".$name."'";
-  $result = mysqli_query($conn, $sql);
-  while($row = mysqli_fetch_array($result)){
-    $id = $row["id"];
-  }
+    $sql = "SELECT id FROM user WHERE username = '".$name."'";
+    $result = mysqli_query($conn, $sql);
+
+    while($row = mysqli_fetch_array($result)){
+      $id = $row["id"];
+    }
   }
 
   	$k_id = $_GET['k_id'];
   	$sql = "SELECT * FROM pekerjaan WHERE pengusaha_id=$id and k_id=$k_id";
-	$query = mysqli_query($conn, $sql);
-	$user = mysqli_fetch_assoc($query);
+    $query = mysqli_query($conn, $sql);
+    $kerja = mysqli_fetch_assoc($query);
 ?>
 
 <!DOCTYPE html>
@@ -62,13 +63,6 @@
     	padding-bottom : 50px;
     }
 
-    h2{
-    	color : #e30066;
-    	text-align : center;
-  		margin-top : 70px;
-  		margin-bottom : 50px;
-    }
-
     .berhasil{
       width : 300px;
       height : auto;
@@ -90,6 +84,13 @@
         border-color : #7a1c1c;
         padding : 15px 15px 15px 15px;
         margin-top : 10px;
+    }
+
+    h2{
+    	color : #e30066;
+    	text-align : center;
+  		margin-top : 70px;
+  		margin-bottom : 50px;
     }
 
     </style>
@@ -227,73 +228,65 @@
     		<form method = "post" enctype='multipart/form-data'>
     			<div class = "form-group">
            			<span style="color:#e30066">Nama Projek</span>
-            		<p style ="font-weight : bold; margin-left : 50px; font-size : 32px;"><?php echo $user['nama']?></p>
+            		<input type="text" name="nama" class="form-control col-8"  value='<?php echo $kerja['nama']?>' />
           		</div>
           		<div class = "form-group">
 		            <span style="color:#e30066">Deskripsi Projek</span> <br/>
-		            <textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" style="margin-left : 50px"><?php echo $user['deskripsi']?></textarea>
+		            <textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" ><?php echo $kerja['deskripsi']?></textarea>
 		        </div>
 		        <div class = "form-group">
 		            <span style="color:#e30066">Tanggal Penawaran ditutup</span>
-		            <input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" style="margin-left : 50px" value='<?php echo $user['tgltutup']?>'/>
+		            <input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" value='<?php echo $kerja['tgltutup']?>'/>
 		        </div>
 		        <div class = "form-group">
 		            <span style="color:#e30066">Harga minimum Penawaran</span>
-		            <input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" style="margin-left : 50px" value='<?php echo $user['hargamin']?>' />
+		            <input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" value='<?php echo $kerja['hargamin']?>' />
 		        </div>
 		        <div class = "form-group">
 		            <span style="color:#e30066">Harga maksimum Penawaran</span>
-		            <input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum"  style="margin-left : 50px" value='<?php echo $user['hargamax']?>'/>
+		            <input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum" value='<?php echo $kerja['hargamax']?>'/>
 		        </div>
 		        <div class = "form-group">
 		            <span style="color:#e30066">Gambar</span>
-		            <input name="picture" class="form-control" type="file" accept="image/png,image/jpeg"/>
+		            <input id="picture" name="picture" class="form-control col-8" type="file"/>
 		        </div>
 		        <div group = form-group>
-		            <input name="submit" type="submit" class="btn btn-general btn-white" value="Ubah Projek">
+		            <input type="submit" class="btn btn-general btn-white" value="Ubah Projek">
 		        </div>
     		</form>
+        <?php
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+          $nama = $_POST['nama'];
+          $description = $_POST['description'];
+          $tgltutup = $_POST['tgltutup'];
+          $hargamin = $_POST['hargamin'];
+          $hargamax = $_POST['hargamax'];
+          $picture = addslashes($_FILES["picture"]["name"]);
 
-    		<?php
-	          if($_SERVER["REQUEST_METHOD"] == "POST"){
-	          	echo "ahi";
-	            $name = $user["nama"];
-	            $description = $_POST["description"];
-	            $tglbuka = $user["tglbuka"];
-	            $tgltutup = $_POST["tgltutup"];
-	            $hargamin = $_POST["hargamin"];
-	            $hargamax = $_POST["hargamax"];
-	            $kategori = $user["kategori"];
+          if(isset($_FILES["picture"])){
+            $temp = addslashes(file_get_contents($_FILES["picture"]["tmp_name"]));
+            $type = addslashes($_FILES["picture"]["type"]);
+            if(!empty($picture)){
+              $sql = "UPDATE pekerjaan
+              SET nama='$nama', deskripsi='$description', tgltutup='$tgltutup', hargamin='$hargamin', hargamax='$hargamax', picture='$temp'
+              WHERE k_id='$k_id'";
+            }else{
+              $sql = "UPDATE pekerjaan
+              SET nama='$nama',deskripsi='$description', tgltutup='$tgltutup', hargamin='$hargamin', hargamax='$hargamax'
+              WHERE k_id='$k_id'";
+            }
+          }
 
-	            if(isset($_FILES["picture"])){
-	            	//echo "ahi";
-	            	$picture = addslashes($_FILES["picture"]["name"]);
-	            	$temp = addslashes(file_get_contents($_FILES["picture"]["tmp_name"]));
-	    			$type = addslashes($_FILES["picture"]["type"]);
-
-	    			$sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`, `picture`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori' , '$temp');";
-	            }
-	            else{
-	            	$sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori');";
-	            }
-	           // echo $sql;
-	            
-	            $result = mysqli_query($conn, $sql);
-	            if($result){
-	                echo '<div class = "berhasil">
-	                    Projek berhasil dipublish
-	                  </div>';
-	                echo '<br/><a href = "project.php">Kembali</a>';
-	              }
-	              else {
-	                echo '<div class = "gagal">
-	                    Projek gagal dipublish
-	                  </div>';
-	              }
-	          }
-	        ?>
+          $query = mysqli_query($conn, $sql);
+          if($query){
+            echo '<div class = "berhasil"> Projek berhasil dipublish </div>';
+            echo '<br/><a href = "project.php">Kembali</a>';
+          }else {
+                echo '<div class = "gagal">Projek gagal dipublish</div>';
+          }
+        }
+          ?>
     	</div>
-
     </div>
 
 
