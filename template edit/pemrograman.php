@@ -11,6 +11,11 @@
     die("Connection failed: ". $conn->connect_error);
   }
 
+   $conns = new mysqli($servername, $username, $password, $dbname);
+  if($conns->connect_error){
+    die("Connection failed: ". $conns->connect_error);
+  }
+
   if(isset($_SESSION["name"])){
     $name = $_SESSION["name"];
   $sql = "SELECT id FROM user WHERE username = '".$name."'";
@@ -45,9 +50,9 @@
 
     <style>
       .wadah{
-      	width : 1300px;
-      	height : auto;
-      	padding-bottom : 50px;
+        width : 1300px;
+        height : auto;
+        padding-bottom : 50px;
         margin-top : 70px;
         margin-left : 120px;
         margin-bottom : 70px;
@@ -133,27 +138,27 @@
       }
 
       .price-range{
-      	width : 900px;
-      	height : 100px;
-      	background-color : white;
-      	margin-top : 70px;
+        width : 900px;
+        height : 100px;
+        background-color : white;
+        margin-top : 70px;
         margin-left : 200px;
       }
 
       .pricing{
-      	width : 280px;
-      	height : 80px;
-      	background-color : white;
-      	float : left;
-      	padding-top : 10px;
-      	padding-left : 30px;
-      	margin-left : 80px;
+        width : 280px;
+        height : 80px;
+        background-color : white;
+        float : left;
+        padding-top : 10px;
+        padding-left : 30px;
+        margin-left : 80px;
       }
 
       .price-submit{
-      	margin-left : 60px;
-      	margin-top : 25px;
-      	float : left;
+        margin-left : 60px;
+        margin-top : 25px;
+        float : left;
       }
     </style>
 
@@ -294,54 +299,78 @@
 ======================================================-->
     <div id="home-p" class="home-p pages-head4 text-center">
       <div class="container">
-        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Penulisan dan Penerjemahan</h1>
+        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Web dan Pemrograman</h1>
       </div><!--/end container-->
     </div> 
 
      <form method="post">
-	    <div class = "price-range">
-	    	<div class = "pricing">
-	    		Harga Minimum : 
-	    		<input type="number" name="hargamin" class ="form-control" placeholder="Harga minimum" />
-	    	</div>
+      <div class = "price-range">
+        <div class = "pricing">
+          Harga Minimum : 
+          <input type="number" name="hargamin" class ="form-control" placeholder="Harga minimum" />
+        </div>
 
-	    	<div class = "pricing">
-	    		Harga Maximum : 
-	    		<input type="number" name="hargamax" class ="form-control" placeholder="Harga maximum" />
-	    	</div>
-	    	<div class = "price-submit">
-	    		
-		            <input type="submit" class="btn btn-general btn-white" value="Cari">
-		        
-	    	</div>
-	    </div>
+        <div class = "pricing">
+          Harga Maximum : 
+          <input type="number" name="hargamax" class ="form-control" placeholder="Harga maximum" />
+        </div>
+        <div class = "price-submit">
+          
+                <input type="submit" class="btn btn-general btn-white" value="Cari">
+            
+        </div>
+      </div>
     </form>
 
     <div class = "wadah">
     <?php
-     if($_SERVER["REQUEST_METHOD"] == "post"){
-	  	echo 'hai dalam';
-	  	$min = $_POST["hargamin"];
-	  	$max = $_POST["hargamax"];
-	  	$sql = 'CALL price_range($min, $max, "Web dan Pemrograman");';
-	  }
-	  else{
-	  	//echo 'hello';
-	  	$sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
-FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
-WHERE pekerjaan.kategori = 'Web dan Pemrograman' 
-AND pekerjaan.`tgltutup` >= NOW();";
-	  }
+    /*Function : 
+    DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `jumlah_penawar`(id INT) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+  DECLARE jumlah INTEGER;
+  SELECT COUNT(*) into jumlah
+  FROM pekerjaan, tawar
+  where pekerjaan.`k_id` = tawar.`k_id` and
+    pekerjaan.`k_id` = id;
+  RETURN jumlah;
+END$$
+DELIMITER ;
 
-      $result = mysqli_query($conn, $sql);
-      while($row = mysqli_fetch_array($result)){
-      	$s = "SELECT jumlah_penawar(".$row["k_id"].") AS jum;";
-      	$r = mysqli_query($conn, $s);
-      	while($baris = mysqli_fetch_array($r)){
-      		$jum = $baris["jum"];
-      	}
-        echo '
-          <div class = "box">';
+  PROCEDURE : 
+  DELIMITER$$
+  CREATE OR REPLACE PROCEDURE price_range (IN minimum INT, IN maximum INT, IN kategori VARCHAR(50))
+  BEGIN
+    SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
+    FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
+    WHERE pekerjaan.`hargamin` >= minimum AND
+      pekerjaan.`hargamax` <= maximum AND
+      pekerjaan.`kategori` = kategori;
+  END$$
+  DELIMITER$$
+  */
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+      //echo 'hai dalam';
+      $min = $_POST["hargamin"];
+      $max = $_POST["hargamax"];
+      $sql = "CALL price_range('$min', '$max', 'Web dan Pemrograman');";
+    }else{
+      $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
+      FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
+      WHERE pekerjaan.kategori = 'Web dan Pemrograman' 
+      AND pekerjaan.`tgltutup` >= NOW()
+      ORDER BY pekerjaan.k_id asc;";
+    }
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_array($result)){
+      $s = "SELECT jumlah_penawar(".$row["k_id"].") AS jum;";
+      $r = mysqli_query($conns, $s);
+      while($baris = mysqli_fetch_array($r)){
+        $jum = $baris["jum"];
+      }
+      echo '<div class = "box">';
         if(!$row["picture"]){
               echo '<img src = "foto/no_image_available.jpg" style="width : 296px; height : 296px">';
           } else {
@@ -360,32 +389,10 @@ AND pekerjaan.`tgltutup` >= NOW();";
         }else if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&$id == $row["pengusaha_id"]){
           echo '<button class = "tombol" style="width : 100px;height : auto; padding-bottom : 3px;"><a href = "change-project.php?k_id='.$row["k_id"].'"">Ubah Detil Projek</a></button>';
         }
-        echo'
-
-        </div>
-        ';
+        echo'</div>';
       }
     ?>
-    </div>
-    <!--====================================================
-                      FOOTER
-======================================================--> 
-
-        <!--<div id="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="footer-copyrights">
-                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        </div>
-        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
-            <i class="fa fa-angle-up"></i>
-        </a>
-    </footer>
+  </div>
 
     <!--Global JavaScript -->
     <script src="js/jquery/jquery.min.js"></script>
@@ -394,20 +401,5 @@ AND pekerjaan.`tgltutup` >= NOW();";
     <script src="js/wow/wow.min.js"></script>
     <script src="js/owl-carousel/owl.carousel.min.js"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="js/jquery-easing/jquery.easing.min.js"></script> 
-    <script src="js/custom.js"></script>
-    <script>
-        if( jQuery(".toggle .toggle-title").hasClass('active') ){
-                jQuery(".toggle .toggle-title.active").closest('.toggle').find('.toggle-inner').show();
-            }
-            jQuery(".toggle .toggle-title").click(function(){
-                if( jQuery(this).hasClass('active') ){
-                    jQuery(this).removeClass("active").closest('.toggle').find('.toggle-inner').slideUp(200);
-                }
-                else{   jQuery(this).addClass("active").closest('.toggle').find('.toggle-inner').slideDown(200);
-                }
-            });
-    </script> 
    </body>
 </html>
