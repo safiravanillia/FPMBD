@@ -18,11 +18,11 @@
 
   if(isset($_SESSION["name"])){
     $name = $_SESSION["name"];
-  $sql = "SELECT id FROM user WHERE username = '".$name."'";
-  $result = mysqli_query($conn, $sql);
-  while($row = mysqli_fetch_array($result)){
-    $id = $row["id"];
-  }
+    $sql = "SELECT id FROM user WHERE username = '".$name."'";
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_array($result)){
+      $id = $row["id"];
+    }
   }
 ?>
 
@@ -50,7 +50,7 @@
 
     <style>
       .wadah{
-        margin-top : 70px;
+        margin-top : 10px;
         margin-left : 120px;
         margin-bottom : 70px;
       }
@@ -139,7 +139,7 @@
         width : 900px;
         height : 100px;
         background-color : white;
-        margin-top : 70px;
+        margin-top : 1px;
         margin-left : 200px;
       }
 
@@ -148,16 +148,36 @@
         height : 80px;
         background-color : white;
         float : left;
-        padding-top : 10px;
+        padding-top : 1px;
         padding-left : 30px;
         margin-left : 80px;
       }
 
       .price-submit{
         margin-left : 60px;
-        margin-top : 25px;
         float : left;
       }
+
+      h2{
+      color : #e30066;
+      text-align : center;
+      margin-top : 18px;
+      margin-bottom : 18px;
+      font-size: 18px;
+    }
+
+    h1{
+      text-align : center;
+      margin-top : 18px;
+      font-size: 10px;
+    }
+
+    .form-container{
+      margin : auto;
+      width : 400px;
+      height : auto;
+      padding-bottom : 10px;
+    }
     </style>
 
   </head>
@@ -253,16 +273,6 @@
                     echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
                   }
                 ?>
-                <li>
-                  <i class="search fa fa-search search-btn"></i>
-                  <div class="search-open">
-                    <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Ketikkan Pekerjaan" aria-describedby="basic-addon2">
-                      <span class="input-group-addon" id="basic-addon2">Cari</span>
-                    </div>
-                  </div>
-                </li> 
-                <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
                       <div class="container">
@@ -299,23 +309,25 @@
       <div class="container">
         <h1 class="wow fadeInUp" data-wow-delay="0.1s">Grafis dan Desain</h1>
       </div><!--/end container-->
-    </div> 
+    </div>
 
+    <h2></h2>
     <form method="post">
+      <div class="form-container">
+      <div class = "form-group" >
+            <input type="text" name="nama_pk" class ="form-control" placeholder="Ketikkan nama pekerjaan"/>
+      </div>
+      <h1>atau</h1>
+      </div>
       <div class = "price-range">
         <div class = "pricing">
-          Harga Minimum : 
           <input type="number" name="hargamin" class ="form-control" placeholder="Harga minimum" />
         </div>
-
         <div class = "pricing">
-          Harga Maximum : 
           <input type="number" name="hargamax" class ="form-control" placeholder="Harga maximum" />
         </div>
-        <div class = "price-submit">
-          
-                <input type="submit" class="btn btn-general btn-white" value="Cari">
-            
+        <div class = "price-submit"> 
+         <input type="submit" class="btn btn-general btn-white" value="Cari"> 
         </div>
       </div>
     </form>
@@ -352,7 +364,30 @@ DELIMITER ;
       //echo 'hai dalam';
       $min = $_POST["hargamin"];
       $max = $_POST["hargamax"];
-      $sql = "CALL price_range('$min', '$max', 'Grafis dan Desain');";
+      $pk= $_POST["nama_pk"];
+      if (!empty($min)&&!empty($max)) {
+        $sql = "CALL price_range('$min', '$max', 'Grafis dan Desain');";
+      }elseif(!empty($pk)) {
+        $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
+      FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
+      WHERE pekerjaan.kategori = 'Grafis dan Desain' 
+      AND pekerjaan.`tgltutup` >= NOW()
+      AND pekerjaan.`nama` LIKE '$pk%'
+UNION      
+SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
+      FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
+      WHERE pekerjaan.kategori = 'Grafis dan Desain' 
+      AND pekerjaan.`tgltutup` >= NOW()
+      AND pekerjaan.`nama` LIKE '%$pk%'
+UNION
+SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
+      FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
+      WHERE pekerjaan.kategori = 'Grafis dan Desain' 
+      AND pekerjaan.`tgltutup` >= NOW()
+      AND pekerjaan.`nama` LIKE '%$pk'";
+      }else{
+        $sql = "CALL price_range('$min', '$max', 'Grafis dan Desain');";
+      }
     }else{
       $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
       FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
