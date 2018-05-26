@@ -157,7 +157,6 @@
     .job-available{
       width : 635px;
       height : auto;
-      padding-bottom : 15px;
       border-bottom : 1px solid #e30066;
     }
 
@@ -287,6 +286,16 @@
                     echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
                   }
                 ?>
+                <li>
+                  <i class="search fa fa-search search-btn"></i>
+                  <div class="search-open">
+                    <div class="input-group animated fadeInUp">
+                      <input type="text" class="form-control" placeholder="Ketikkan Pekerjaan" aria-describedby="basic-addon2">
+                      <span class="input-group-addon" id="basic-addon2">Cari</span>
+                    </div>
+                  </div>
+                </li> 
+                <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
                       <div class="container">
@@ -359,19 +368,17 @@
   </div>
   <div class = "desc" id="projek">
     <?php
-      
-      $s1="CREATE OR REPLACE VIEW lihatlah AS
-      SELECT pekerjaan.`k_id`, pekerjaan.`nama`, pekerjaan.`deskripsi`, pekerjaan.`kategori`
-      FROM pengusaha, pekerjaan
-      WHERE pengusaha.`pengusaha_id` = pekerjaan.`pengusaha_id` AND
-        pengusaha.`pengusaha_id` = 2 AND
+    $s = "CREATE OR REPLACE VIEW lihatlah AS SELECT pekerjaan.k_id, pekerjaan.nama, pekerjaan.deskripsi, pekerjaan.kategori
+      FROM pengusaha, pekerjaan 
+      WHERE pengusaha.pengusaha_id = pekerjaan.pengusaha_id AND 
         pekerjaan.tglbuka < SYSDATE() AND
-          pekerjaan.tgltutup > SYSDATE();"; 
+        pekerjaan.tgltutup > SYSDATE() AND
+        pengusaha.pengusaha_id = '$id'";
+        $q = mysqli_query($conn, $s);
+        $s1="SELECT * from lihatlah;";
       $q1 = mysqli_query($conn, $s1);
-      $s = "SELECT * FROM lihatlah";
-      $q = mysqli_query($conn, $s);
-      if(mysqli_num_rows($q) > 0){
-        while ($row = mysqli_fetch_array($q)){
+      if(mysqli_num_rows($q1) > 0){
+        while ($row = mysqli_fetch_array($q1)){
            $s = "SELECT jumlah_penawar(".$row["k_id"].") AS jum;";
          $r = mysqli_query($conn, $s);
          while($baris = mysqli_fetch_array($r)){
@@ -407,16 +414,16 @@
       }
 
       $kerja="SELECT freelancer.`f_nama` AS nm_free, pekerjaan.`nama` AS kerja, tawar.`bid_id` AS tawar, review.`komentar` as komen
-FROM tawar LEFT JOIN review
-ON tawar.`bid_id`=review.`bid_id`
-LEFT JOIN pekerjaan
-ON tawar.`k_id`=pekerjaan.`k_id`
-LEFT JOIN pengusaha
-ON pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
-LEFT JOIN freelancer
-ON freelancer.`id`=tawar.`f_id`
-WHERE pengusaha.`pengusaha_id`='$id'
-AND tawar.`b_status` = 'SELESAI';";
+      FROM tawar LEFT JOIN review
+      ON tawar.`bid_id`=review.`bid_id`
+      LEFT JOIN pekerjaan
+      ON tawar.`k_id`=pekerjaan.`k_id`
+      LEFT JOIN pengusaha
+      ON pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
+      LEFT JOIN freelancer
+      ON freelancer.`id`=tawar.`f_id`
+      WHERE pengusaha.`pengusaha_id`='$id'
+      AND tawar.`b_status` = 'SELESAI';";
 
       $result = mysqli_query($conn, $kerja);
       while($row = mysqli_fetch_array($result)){
