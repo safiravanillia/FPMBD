@@ -225,7 +225,7 @@
     <div class = "big">
     	<h2>Ubah Detil Projek</h2>
     	<div class = "form-container">
-    		<form method = "post" enctype='multipart/form-data'>
+    		<form method = "post" enctype="multipart/form-data">
     			<div class = "form-group">
            			<span style="color:#e30066">Nama Projek</span>
             		<input type="text" name="nama" class="form-control col-8"  value='<?php echo $kerja['nama']?>' />
@@ -251,7 +251,7 @@
 		            <input id="picture" name="picture" class="form-control col-8" type="file"/>
 		        </div>
 		        <div group = form-group>
-		            <input type="submit" class="btn btn-general btn-white" value="Ubah Projek">
+		            <input type="submit" name="simpan" class="btn btn-general btn-white" value="Ubah Projek">
 		        </div>
     		</form>
         <?php
@@ -264,52 +264,57 @@
           $picture = addslashes($_FILES["picture"]["name"]);
 
           if(isset($_FILES["picture"])){
-            $temp = addslashes(file_get_contents($_FILES["picture"]["tmp_name"]));
-            $type = addslashes($_FILES["picture"]["type"]);
             if(!empty($picture)){
-              $sql = "UPDATE pekerjaan
+              $temp = addslashes(file_get_contents($_FILES["picture"]["tmp_name"]));
+              $type = addslashes($_FILES["picture"]["type"]);
+              $sql1 = "UPDATE pekerjaan
               SET nama='$nama', deskripsi='$description', tgltutup='$tgltutup', hargamin='$hargamin', hargamax='$hargamax', picture='$temp'
               WHERE k_id='$k_id'";
+              $query1 = mysqli_query($conn, $sql1);
             }else{
-              $sql = "UPDATE pekerjaan
+              $sql1 = "UPDATE pekerjaan
               SET nama='$nama',deskripsi='$description', tgltutup='$tgltutup', hargamin='$hargamin', hargamax='$hargamax'
               WHERE k_id='$k_id'";
+              $query1 = mysqli_query($conn, $sql1);
             }
           }
 
-          $query = mysqli_query($conn, $sql);
-          if($query){
+          if($query1){
             echo '<div class = "berhasil"> Projek berhasil dipublish </div>';
             echo '<br/><a href = "project.php">Kembali</a>';
           }else {
-                echo '<div class = "gagal">Projek gagal dipublish</div>';
+            echo '<div class = "gagal">Projek gagal dipublish</div>';
           }
         }
           ?>
     	</div>
     </div>
 
+<!--====================================================
+                      FOOTER
+======================================================--> 
+    <footer> 
+        <div id="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="footer-copyrights">
+                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </footer>
 
+    </body>
+     <!--Global JavaScript -->
     <script src="js/jquery/jquery.min.js"></script>
     <script src="js/popper/popper.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/wow/wow.min.js"></script>
     <script src="js/owl-carousel/owl.carousel.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="js/jquery-easing/jquery.easing.min.js"></script> 
-    <script src="js/custom.js"></script>
-    <script>
-        if( jQuery(".toggle .toggle-title").hasClass('active') ){
-                jQuery(".toggle .toggle-title.active").closest('.toggle').find('.toggle-inner').show();
-            }
-            jQuery(".toggle .toggle-title").click(function(){
-                if( jQuery(this).hasClass('active') ){
-                    jQuery(this).removeClass("active").closest('.toggle').find('.toggle-inner').slideUp(200);
-                }
-                else{   jQuery(this).addClass("active").closest('.toggle').find('.toggle-inner').slideDown(200);
-                }
-            });
-    </script> 
-   </body>
-  </body>
+</html>
