@@ -129,16 +129,6 @@
                     ';
                   }
                 ?>
-                <li>
-                  <i class="search fa fa-search search-btn"></i>
-                  <div class="search-open">
-                    <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Ketikkan Pekerjaan" aria-describedby="basic-addon2">
-                      <span class="input-group-addon" id="basic-addon2">Cari</span>
-                    </div>
-                  </div>
-                </li> 
-                <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
                       <div class="container">
@@ -253,9 +243,9 @@
                   <hgroup class="wow fadeInUp">
                       <h1><span ><a href="" class="typewrite" data-period="2000" data-type='[ " Kami Hadir", " Membantu", " Kebutuhan Anda"]'>
                         <span class="wrap"></span></a></span> </h1>        
-                      <h3>Rasakan mudahnya kembangkan bisnis dengan bantuan freelancer profesional</h3>
+                      <h3>Rasakan mudahnya mendapat pekerjaan sesuai passion</h3>
                   </hgroup>
-                  <a href="project.php"> <button class="btn btn-general btn-green wow fadeInUp" role="button">Pekerjakan Kami</button></a>
+                  <a href="project.php"> <button class="btn btn-general btn-green wow fadeInUp" role="button">Mulai Bekerja</button></a>
                 </div>           
             </div> 
         </div> 
@@ -283,7 +273,7 @@
             <div class="about-content-box wow fadeInUp" data-wow-delay="0.3s">
               <i class="fa fa-snowflake-o"></i>
               <h5>Jangan Khawatir!</h5>
-              <p class="desc">Kami hanya memilih freelancer yang terpercaya</p>
+              <p class="desc">Kami hanya memilih pemberi kerja yang terpercaya</p>
             </div>
           </div> 
           <div class="col-md-4 bg-chathams">
@@ -322,7 +312,7 @@
               SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi , pengusaha.`picture` AS foto, pekerjaan.kategori AS kategori
               FROM pekerjaan, pengusaha
               WHERE pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
-              ORDER BY pekerjaan.tglbuka DESC
+              ORDER BY pekerjaan.tglbuka ASC
               LIMIT 3;
               END$$
               DELIMITER$$*/
@@ -425,13 +415,13 @@
         <div id="thought-desc" class="row title-bar title-bar-thought owl-carousel owl-theme">
           <div class="col-md-12 ">
             <div class="heading-border bg-white"></div>
-            <p class="wow fadeInUp" data-wow-delay="0.4s">Freelance mosv will deliver value to all the stakeholders and will attain excellence and leadership through such delivery of value. We will strive to support the stakeholders in all activities related to us. Freelance mosv provide great things.</p>
-            <h6>John doe</h6>
+            <p class="wow fadeInUp" data-wow-delay="0.4s">It doesn’t matter how many times you fail. It doesn’t matter how many times you almost get it right. No one is going to know or care about your failures, and neither should you. All you have to do is learn from them and those around you because all that matters in business is that you get it right once. Then everyone can tell you how lucky you are.</p>
+            <h6>Mark Cuban</h6>
           </div>
           <div class="col-md-12 thought-desc">
             <div class="heading-border bg-white"></div>
-            <p class="wow fadeInUp" data-wow-delay="0.4s">Ensuring quality in Freelance mosv is an obsession and the high quality standards set by us are achieved through a rigorous quality assurance process. Quality assurance is performed by an independent team of trained experts for each project. </p>
-            <h6>Tom John</h6>
+            <p class="wow fadeInUp" data-wow-delay="0.4s">Happiness does not come from doing easy work but from the afterglow of satisfaction that comes after the achievement of a difficult task that demanded our best. </p>
+            <h6>Theodore Isaac Rubin</h6>
           </div>
         </div>
       </div>         
@@ -454,18 +444,18 @@
             <div class="client-cont wow fadeInUp" data-wow-delay="0.1s">
               <img src="img/client/avatar-6.jpg" class="img-fluid" alt="">
               <h5>Leesa len</h5>
-              <h6>DSS CEO & Cofounder</h6>
+              <h6>Freelancer</h6>
               <i class="fa fa-quote-left"></i>
-              <p>The Businessbox service - it helps fill our Business, and increase our show up rate every single time.</p>
+              <p>Di freelance mosv saya mendapatkan part time sesuai dengan passion saya dengan harga yang pas. Keluhan juga dapat tertangani dengan cepat.</p>
             </div>
           </div>
           <div class="col-md-6 col-sm-12">
             <div class="client-cont wow fadeInUp" data-wow-delay="0.3s">
               <img src="img/client/avatar-2.jpg" class="img-fluid" alt="">
               <h5>Dec Bol</h5>
-              <h6>TEMS founder</h6>
+              <h6>Manager of IT Office</h6>
               <i class="fa fa-quote-left"></i>
-              <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece.</p>
+              <p>Penyelesaian project menjadi lebih terjangkau dengan adanya platform ini. Semoga kedepannya bisa semakin berkembang.</p>
             </div>
           </div>
         </div>
@@ -526,34 +516,14 @@
 
                 <!-- Recent News -->
                 <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Useful Links</h2></div>
                   <ul class="list-unstyled link-list">
-                    <li><a href="about.html">About us</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="project.html">Project</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="careers.html">Career</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="faq.php">FAQ</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="contact.html">Contact us</a><i class="fa fa-angle-right"></i></li> 
                   </ul>
                 </div>
                 <!-- End Recent list -->
 
                 <!-- Recent Blog Entries -->
                 <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Unggahan Terbaru</h2></div>
-                  <ul class="list-unstyled thumb-list">
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Praesent ut consectetur diam.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Maecenas pharetra tellus et fringilla.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                  </ul>
+                  
                 </div>
                 <!-- End Recent Blog Entries -->
 
