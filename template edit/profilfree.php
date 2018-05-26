@@ -540,16 +540,17 @@
     </div>
     <div class = "desc" id="review">
       <?php
-      $komen = "SELECT pengusaha.nama AS namapengusaha, pekerjaan.nama AS namapekerjaan, review.komentar AS komentar ,review.`tgl` AS tgl ,review.`rating` AS rating
+      $komen = "CREATE or REPLACE VIEW view_komen as SELECT pengusaha.nama AS namapengusaha, pekerjaan.nama AS namapekerjaan, review.komentar AS komentar ,review.`tgl` AS tgl ,review.`rating` AS rating
            FROM review JOIN tawar 
            ON review.`bid_id`=tawar.`bid_id` JOIN freelancer
            ON tawar.`f_id`=freelancer.`id` JOIN pekerjaan
            ON tawar.k_id=pekerjaan.k_id JOIN pengusaha
            ON pekerjaan.pengusaha_id=pengusaha.pengusaha_id
            WHERE freelancer.`id`= '$id'";
-
       $result = mysqli_query($conn, $komen);
-      while($row = mysqli_fetch_array($result)){
+      $komenview= "SELECT * from view_komen;";
+      $result2 = mysqli_query($conn, $komenview);
+      while($row = mysqli_fetch_array($result2)){
         $rate= $row["rating"];
         echo '<div class = "komentar">
               <div class = "nama">'.$row["namapekerjaan"].'</div>';
