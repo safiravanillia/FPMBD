@@ -377,6 +377,10 @@
       }elseif(!empty($pk)) {
         $q2="CREATE OR REPLACE INDEX index_kerja ON pekerjaan(nama);";
         $result2 = mysqli_query($conn, $q2);
+
+        $q3 = "CREATE OR REPLACE INDEX index_tawar ON tawar(status)";
+        $result3 = mysqli_query($conn, $q3);
+        
         $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
       FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
       WHERE pekerjaan.kategori = 'Penulisan dan Penerjemahan' 
