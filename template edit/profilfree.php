@@ -457,9 +457,7 @@
     </div>
     <div class = "desc" id="selesai">
       <?php
-      //run di sql function di bawah
-      /*DELIMITER $$
-      CREATE OR REPLACE FUNCTION hitung_kerja(id INT)
+      $q="CREATE OR REPLACE FUNCTION hitung_kerja(id INT)
     RETURNS INT
     DETERMINISTIC
     BEGIN
@@ -472,16 +470,14 @@
       AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
       AND tawar.`b_status` = 'SELESAI';
     RETURN jml;
-    END$$
-      DELIMITER$$*/
+    END";
+    $res1 = mysqli_query($conn, $q);
       $jumlah= "SELECT DISTINCT hitung_kerja($id) AS jum";
       $res = mysqli_query($conn, $jumlah);
       while($row = mysqli_fetch_array($res)){
         echo '<p style = "font-size : 20px; font-weight : bold;">Total '.$row["jum"].' pekerjaan selesai</p>';
       }
-      //run di sql procedure di bawah
-      /*$DELIMITER $$
-        CREATE OR REPLACE PROCEDURE tampil_kerja(IN id INT)
+      $q="CREATE OR REPLACE PROCEDURE tampil_kerja(IN id INT)
         BEGIN
         SELECT pengusaha.`nama` AS nm_peng, pekerjaan.`nama` AS kerja, tawar.`bid_id`
       FROM tawar, freelancer, pengusaha, pekerjaan
@@ -490,8 +486,8 @@
       AND tawar.`k_id`=pekerjaan.`k_id`
       AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
       AND tawar.`b_status` = 'SELESAI';
-        END$$
-        DELIMITER$$*/
+        END";
+      $result1 = mysqli_query($conns, $q);
       $result = mysqli_query($conns, "CALL tampil_kerja($id)");
       while($row = mysqli_fetch_array($result)){
         echo '

@@ -307,18 +307,15 @@
             <div class="heading-border-light"></div> 
           </div>
               <?php 
-              //query di run di mysql
-              /*DELIMITER$$
-              CREATE OR REPLACE PROCEDURE implicit_cursor()
+              $q=" CREATE OR REPLACE PROCEDURE implicit_cursor()
               BEGIN
               SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi , pengusaha.`picture` AS foto, pekerjaan.kategori AS kategori
               FROM pekerjaan, pengusaha
               WHERE pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
               ORDER BY pekerjaan.tglbuka ASC
               LIMIT 3;
-              END$$
-              DELIMITER$$*/
-
+              END";
+              $query1 = mysqli_query($conn, $q);
               $query = mysqli_query($conn, "CALL implicit_cursor()");
               while($baru = mysqli_fetch_array($query)){
         echo '
@@ -363,8 +360,7 @@
           </div>
               <?php 
               //query di run di mysql
-              /*DELIMITER$$
-              CREATE OR REPLACE PROCEDURE implicit_cursor1()
+              $q="CREATE OR REPLACE PROCEDURE implicit_cursor1()
               BEGIN
               SELECT DISTINCT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto, pekerjaan.kategori AS kategori
               FROM pekerjaan JOIN tawar ON pekerjaan.k_id=tawar.k_id
@@ -373,9 +369,8 @@
               GROUP BY pekerjaan.nama
               ORDER BY COUNT(tawar.f_id) DESC
               LIMIT 3;
-              END$$
-              DELIMITER$$*/
-
+              END";
+              $query1 = mysqli_query($conns, $q);
               $query = mysqli_query($conns, "CALL implicit_cursor1()");
               while($populer = mysqli_fetch_array($query)){
         echo '
@@ -444,8 +439,8 @@
         <div class="row">
           <div class="col-md-6 col-sm-12">
             <div class="client-cont wow fadeInUp" data-wow-delay="0.1s">
-              <img src="img/client/avatar-6.jpg" class="img-fluid" alt="">
-              <h5>Leesa len</h5>
+              <img src="img/client/11.png" class="img-fluid" alt="">
+              <h5>Rizvi Shobrina</h5>
               <h6>Freelancer</h6>
               <i class="fa fa-quote-left"></i>
               <p>Di freelance mosv saya mendapatkan part time sesuai dengan passion saya dengan harga yang pas. Keluhan juga dapat tertangani dengan cepat.</p>
@@ -453,9 +448,9 @@
           </div>
           <div class="col-md-6 col-sm-12">
             <div class="client-cont wow fadeInUp" data-wow-delay="0.3s">
-              <img src="img/client/avatar-2.jpg" class="img-fluid" alt="">
-              <h5>Dec Bol</h5>
-              <h6>Manager of IT Office</h6>
+              <img src="img/client/4.png" class="img-fluid" alt="">
+              <h5>PT ACE Hardware</h5>
+              <h6>Manager of Marketing</h6>
               <i class="fa fa-quote-left"></i>
               <p>Penyelesaian project menjadi lebih terjangkau dengan adanya platform ini. Semoga kedepannya bisa semakin berkembang.</p>
             </div>
@@ -463,93 +458,6 @@
         </div>
       </div>        
     </section>  
-
-<!--====================================================
-                    CONTACT HOME
-======================================================-->
-    <div class="overlay-contact-h"></div>
-    <section id="contact-h" class="bg-parallax contact-h-bg">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="contact-h-cont">
-              <h3 class="cl-white">Hubungi Kami</h3><br>
-              <form>
-                <div class="form-group cl-white">
-                  <label for="name">Nama</label>
-                  <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name"> 
-                </div>  
-                <div class="form-group cl-white">
-                  <label for="exampleInputEmail1">Email</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"> 
-                </div>  
-                <div class="form-group cl-white">
-                  <label for="subject">Subjek</label>
-                  <input type="text" class="form-control" id="subject" aria-describedby="subjectHelp" placeholder="Enter subject"> 
-                </div>  
-                <div class="form-group cl-white">
-                  <label for="message">Pesan</label>
-                  <textarea class="form-control" id="message" rows="3"></textarea>
-                </div>  
-                <button class="btn btn-general btn-white" role="button"><i fa fa-right-arrow></i>KIRIM</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>         
-    </section> 
-
-
-<!--====================================================
-                      FOOTER
-======================================================--> 
-    <footer> 
-        <div id="footer-s1" class="footer-s1">
-          <div class="footer">
-            <div class="container">
-              <div class="row">
-                <!-- About Us -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div><img src="img/logo-w.png" alt="" class="img-fluid"></div>
-                  <ul class="list-unstyled comp-desc-f">
-                  </ul><br> 
-                </div>
-                <!-- End About Us -->
-
-                <!-- Recent News -->
-                <div class="col-md-3 col-sm-6 ">
-                  <ul class="list-unstyled link-list">
-                  </ul>
-                </div>
-                <!-- End Recent list -->
-
-                <!-- Recent Blog Entries -->
-                <div class="col-md-3 col-sm-6 ">
-                  
-                </div>
-                <!-- End Recent Blog Entries -->
-
-                <!-- Latest Tweets -->
-                <div class="col-md-3 col-sm-6">
-                  <div class="heading-footer"><h2>Kunjungi Kami</h2></div>
-                  <address class="address-details-f">
-                    Jalan Teknik Kimia <br>
-                    Departemen Informatika <br>
-                    Institut Teknologi sepuluh Nopember <br>
-                    <i class="fa fa-phone"></i> (031) 3982200<br>
-                    <i class="fa fa-envelope"></i> <a href="mailto:imail@freelancemosv.id" class="">mail@freelancemosv.id</a>
-                  </address>  
-                  <ul class="list-inline social-icon-f top-data">
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-facebook"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-twitter"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-google-plus"></i></a></li> 
-                  </ul>
-                </div>
-                <!-- End Latest Tweets -->
-              </div>
-            </div><!--/container -->
-          </div> 
-        </div>
 
         <div id="footer-bottom">
             <div class="container">

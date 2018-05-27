@@ -333,38 +333,21 @@
     </form>
     <div class = "wadah">
     <?php
-    /*Function : 
-    DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `jumlah_penawar`(id INT) RETURNS int(11)
-    DETERMINISTIC
-BEGIN
-  DECLARE jumlah INTEGER;
-  SELECT COUNT(*) into jumlah
-  FROM pekerjaan, tawar
-  where pekerjaan.`k_id` = tawar.`k_id` and
-    pekerjaan.`k_id` = id;
-  RETURN jumlah;
-END$$
-DELIMITER ;
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+      //echo 'hai dalam';
+      $min = $_POST["hargamin"];
+      $max = $_POST["hargamax"];
+      $pk= $_POST["nama_pk"];
 
-  PROCEDURE : 
-  DELIMITER$$
-  CREATE OR REPLACE PROCEDURE price_range (IN minimum INT, IN maximum INT, IN kategori VARCHAR(50))
+      $q="CREATE OR REPLACE PROCEDURE price_range (IN minimum INT, IN maximum INT, IN kategori VARCHAR(50))
   BEGIN
     SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
     FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
     WHERE pekerjaan.`hargamin` >= minimum AND
       pekerjaan.`hargamax` <= maximum AND
       pekerjaan.`kategori` = kategori;
-  END$$
-  DELIMITER$$
-  */
-
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-      //echo 'hai dalam';
-      $min = $_POST["hargamin"];
-      $max = $_POST["hargamax"];
-      $pk= $_POST["nama_pk"];
+  END";
+      $result1 = mysqli_query($conn, $q);
       if (!empty($min)&&!empty($max)) {
         $sql = "CALL price_range('$min', '$max', 'Penulisan dan Penerjemahan');";
       }elseif(!empty($pk)) {
@@ -397,6 +380,17 @@ SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
     }
     $result = mysqli_query($conn, $sql);
     while($row = mysqli_fetch_array($result)){
+      $q="CREATE OR REPLACE FUNCTION jumlah_penawar (id INT)
+  RETURNS INTEGER
+  DETERMINISTIC
+  BEGIN
+    DECLARE jumlah INTEGER;
+    SELECT COUNT(*) INTO jumlah
+    FROM pekerjaan
+    JOIN tawar ON pekerjaan.`k_id` = tawar.`k_id` AND pekerjaan.`k_id` = id;
+    RETURN jumlah;
+  END";
+  $r1 = mysqli_query($conns, $q);
       $s = "SELECT jumlah_penawar(".$row["k_id"].") AS jum;";
       $r = mysqli_query($conns, $s);
       while($baris = mysqli_fetch_array($r)){
