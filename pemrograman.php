@@ -50,30 +50,30 @@
 
     <style>
     .overlay-container {
-	  position: relative;
-	  width: 260px;
-	}
+    position: relative;
+    width: 260px;
+  }
 
-	.overlay {
-	  position: absolute;
-	  bottom: 0;
-	  left: 0;
-	  right: 0;
-	  background-color: #e30066;
-	  overflow: hidden;
-	  width: 260px;
-	  height: 0;
-	  transition: .5s ease;
-	}
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #e30066;
+    overflow: hidden;
+    width: 260px;
+    height: 0;
+    transition: .5s ease;
+  }
 
-	.overlay-container:hover .overlay {
-	  height: 100%;
-	}
-	  .besar{
-      	width : 1300px;
-      	height : auto;
-      	padding-right : 20px;
-      	padding-bottom: 100px;
+  .overlay-container:hover .overlay {
+    height: 100%;
+  }
+    .besar{
+        width : 1300px;
+        height : auto;
+        padding-right : 20px;
+        padding-bottom: 100px;
       }
       .wadah{
         margin-top : 10px;
@@ -374,6 +374,8 @@
       if (!empty($min)&&!empty($max)) {
         $sql = "CALL price_range('$min', '$max', 'Web dan Pemrograman');";
       }elseif(!empty($pk)) {
+        $q2="CREATE OR REPLACE INDEX index_kerja ON pekerjaan(nama);";
+        $result2 = mysqli_query($conn, $q2);
         $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
       FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
       WHERE pekerjaan.kategori = 'Web dan Pemrograman' 
@@ -426,16 +428,16 @@ SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
                   <div class="overlay">
                     ';
                      if(isset($_SESSION["role"])&&$_SESSION["role"]=="freelancer"){
-			          echo '<button class = "tombol"><a href = "tawar.php?id='.$id.'&k_id='.$row["k_id"].'"">Tawar</a></button>';
-			        }else if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&$id == $row["pengusaha_id"]){
-			          echo '<button class = "tombol" style="width : 200px;height : auto; padding-bottom : 3px; margin-left : 30px; margin-top : 125px"><a href = "change-project.php?k_id='.$row["k_id"].'"">Ubah Detil Projek</a></button>';
-			        }
+                echo '<button class = "tombol"><a href = "tawar.php?id='.$id.'&k_id='.$row["k_id"].'"">Tawar</a></button>';
+              }else if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&$id == $row["pengusaha_id"]){
+                echo '<button class = "tombol" style="width : 200px;height : auto; padding-bottom : 3px; margin-left : 30px; margin-top : 125px"><a href = "change-project.php?k_id='.$row["k_id"].'"">Ubah Detil Projek</a></button>';
+              }
       echo '      </div>';
                   if(!$row["picture"]){
-		              echo '<img src = "foto/no_image_available.jpg" style="width : 260px; height : 260px">';
-		          } else {
-		              echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:260px;height:260px;">';
-		          }
+                  echo '<img src = "foto/no_image_available.jpg" style="width : 260px; height : 260px">';
+              } else {
+                  echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:260px;height:260px;">';
+              }
       echo '  </div>
               <h3>'.$row["nama"].'</h3>
               <p class="desc">'.$row["deskripsi"].'</p>
