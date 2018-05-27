@@ -14,14 +14,30 @@
 		$user = $_POST["user"];
 		$email = $_POST["email"];
 		$role = $_POST["role"];
-		$sql = "INSERT INTO user VALUES(null,'$user', '$email', '$pass', '$role');";
-		
-		$query = mysqli_query($conn, $sql);
-		if($query){
-			$_SESSION["logged"] = true;
-			$_SESSION["name"] = $user;
-			$_SESSION["role"] = $role;
-			header("location:getdata.php");	
+
+		$s = "SELECT * FROM user WHERE username = '$user'";
+		$q = mysqli_query($conn, $s);
+		if($q){
+			$r=mysqli_num_rows($q);
+			if($r > 0){
+				echo "<script>
+				alert('Pendaftaran gagal, username yang anda masukan sudah ada');
+				window.location.href='index.php';
+				</script>";
+			}
 		}
+		else{
+			$sql = "INSERT INTO user VALUES(null,'$user', '$email', '$pass', '$role');";
+		
+			$query = mysqli_query($conn, $sql);
+			if($query){
+				$_SESSION["logged"] = true;
+				$_SESSION["name"] = $user;
+				$_SESSION["role"] = $role;
+				header("location:getdata.php");	
+			}
+		}
+
+		
 	}
 ?>

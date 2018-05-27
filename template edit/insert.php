@@ -27,7 +27,7 @@
 		$bio = $_POST["bio"];
 		$foto = $_FILES['porto']['name'];
 
-		if(isset($_FILES["porto"])){
+		if($foto){
 			$foto_tmp = addslashes(file_get_contents($_FILES["porto"]["tmp_name"]));
 			$foto_type = addslashes($_FILES["porto"]["type"]);
 			if(!empty($foto)){
@@ -35,6 +35,11 @@
 				$s = "INSERT INTO freelancer(id,f_nama,f_usia,f_telepon,f_ahli,f_deskripsi,f_portofolio) values ('$id', '$nama', '$umur', '$telp', '$ahli', '$bio', '$foto_tmp');";
 				$q = mysqli_query($conn, $s);
 			}
+		} else{
+			//echo "hai";
+			$s = "INSERT INTO `freelancer` (`id`, `f_nama`, `f_usia`, `f_telepon`, `f_ahli`, `f_deskripsi`) VALUES ('$id', '$nama', '$umur', '$telp', '$ahli', '$bio');";
+			//$s = "INSERT INTO freelancer(id,f_nama,f_usia,f_telepon,f_ahli,f_deskripsi) values ('$id', '$nama', '$umur', '$telp', '$ahli', '$bio');";
+			$q = mysqli_query($conn, $s);
 		}
 		$sql = "SELECT * FROM user WHERE id = '".$id."'";
 		$rs = mysqli_query($conn, $sql);

@@ -48,6 +48,23 @@
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 		<style>
+		.badan{
+			position : relative;
+		}
+
+		.edit{
+			width : 300px;
+    		height : 220px;
+    		box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
+    		top : 200px;
+    		left : 500px;
+    		background-color : white;
+    		position :absolute;
+    		border : 2px solid #e30066;
+    		padding-top : 10px;
+    		padding-left : 100px;
+		}
+
 		.berhasil{
 			width : 300px;
 			height : auto;
@@ -58,6 +75,9 @@
    		 	border-color : #1c7a4c;
    		 	padding : 15px 15px 15px 15px;
    		 	margin-top : 10px;
+   		 	bottom : -170px;
+   		 	right : -500px;
+   		 	position : absolute;
 		}
 
 		.gagal{
@@ -70,59 +90,61 @@
    		 	border-color : #7a1c1c;
    		 	padding : 15px 15px 15px 15px;
    		 	margin-top : 10px;
+   		 	bottom : -170px;
+   		 	right : -500px;
+   		 	position : absolute;
 		}
 		</style>	
 	</head>
 
 	<body>
-
+	<div class = "badan">
+	<img src="img/2.jpg" style="width : 1349px; height : auto">
+		<div class = "edit">
 		<?php
 			if($_SESSION["role"]== "pengusaha"){
 				echo '
-					<div class = "edit">
+						
 						<form method = "post">	
-						<div class = "input-group">
-						Ubah Status <br />
-						<div class = "checkbox">
-							<label>
-						      <input type="radio" name ="role" value="TERIMA" checked="checked"> TERIMA
-						    </label>
-							</div>
-							<div class = "checkbox">
-								<label>
-							      <input type="radio" name ="role" value="TOLAK" checked="checked"> TOLAK
-						        </label>
-							</div>
-						</div>
+						<div class = "form-group">
+						<label for="kategori" style="color:#e30066">Ubah Status :</label>
+		                <div class="checkbox"> 
+		                  <label>
+		                    <input type="radio" name ="role" value="TERIMA" checked="checked"> TERIMA
+		                  </label>
+		                </div>
+		                <div class="checkbox">
+		                    <label>
+		                    <input type="radio" name="role" value="TOLAK"> TOLAK
+		                  </label>
+		                </div> <br/>
 						<div class = "input-group">
 							<button type="submit" class="btn btn-general btn-white">Ubah</button>
 						</div>
+						</div>
 						</form>
-					</div>
 				';
 			}
 			else{
 				echo '
-					<div class = "edit">
 						<form method = "post">	
-						<div class = "input-group">
-						Ubah Status <br />
-						<div class = "checkbox">
-							<label>
-						      <input type="radio" name ="role" value="PROGRESS" checked="checked"> PROGRESS
-						    </label>
-							</div>
-							<div class = "checkbox">
-								<label>
-							      <input type="radio" name ="role" value="SELESAI" checked="checked"> SELESAI
-						        </label>
-							</div>
-						</div>
+						<div class = "form-group">
+						<label for="kategori" style="color:#e30066">Ubah Status :</label>
+		                <div class="checkbox"> 
+		                  <label>
+		                    <input type="radio" name ="role" value="PROGRESS" checked="checked"> PROGRESS
+		                  </label>
+		                </div>
+		                <div class="checkbox">
+		                    <label>
+		                    <input type="radio" name="role" value="SELESAI"> SELESAI
+		                  </label>
+		                </div> <br/>
 						<div class = "input-group">
 							<button type="submit" class="btn btn-general btn-white">Ubah</button>
 						</div>
+						</div>
 						</form>
-					</div>
 				';
 			}
 		?>
@@ -148,5 +170,7 @@
 					}
 				}
 			?>
+		</div>	
+		</div>
 	</body>
 </html>

@@ -379,9 +379,14 @@
               <div class="thumbnail-blogs">
                   <div class="caption">
                     <i class="fa fa-chain"></i>
-                  </div>
-                  <img src ="data:image/jpeg;base64,'.base64_encode($populer["foto"]).'"class="img-fluid" alt="...">
-              </div>
+                  </div>';
+				if(!$populer["foto"]){
+		              echo '<img src = "foto/no_image_available.jpg" style="width : 310px; height : 277px">';
+		          } else {
+		              echo '<img src ="data:image/jpeg;base64,'.base64_encode($populer['foto']).'" style = "width:277px;height:277px;">';
+		          }
+                  
+        echo'      </div>
               <h3>'.$populer["kerja"].'</h3>
               <p class="desc">'.$populer["deskripsi"].'</p>';
               if($populer["kategori"]=="Visual dan Audio"){

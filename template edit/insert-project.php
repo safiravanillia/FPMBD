@@ -283,9 +283,10 @@
             $hargamin = $_POST["hargamin"];
             $hargamax = $_POST["hargamax"];
             $kategori = $_POST["kategori"];
+            $picture = addslashes($_FILES["picture"]["name"]);
 
-            if(isset($_FILES["picture"])){
-              $picture = addslashes($_FILES["picture"]["name"]);
+            if($picture){
+              //$picture = addslashes($_FILES["picture"]["name"]);
               $temp = addslashes(file_get_contents($_FILES["picture"]["tmp_name"]));
               $type = addslashes($_FILES["picture"]["type"]);
 

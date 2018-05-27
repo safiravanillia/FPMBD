@@ -46,11 +46,20 @@
 
     <style>
     	.tempat{
-    		width : 700px;
-    		height : 600px;
+    		width : 500px;
+    		height : 300px;
     		box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
-    		margin-top : 70px;
-    		margin-left : 130px;
+    		top : 150px;
+    		left : 450px;
+    		background-color : white;
+    		position :absolute;
+    		border : 2px solid #e30066;
+    		padding-top : 10px;
+    	}
+
+    	.badan{
+    		width : 100%;
+    		height : 100%;
     	}
 
     	.form-container{
@@ -99,6 +108,7 @@
 		}
 
 		.berhasil{
+			position : absolute;
 			width : 300px;
 			height : auto;
 			background-color : #229b60;
@@ -107,6 +117,8 @@
    		 	border-width: 1px;
    		 	border-color : #1c7a4c;
    		 	padding : 15px 15px 15px 15px;
+   		 	bottom : -130px;
+   		 	right : -370px;
 		}
 
 		.gagal{
@@ -118,6 +130,8 @@
    		 	border-width: 1px;
    		 	border-color : #7a1c1c;
    		 	padding : 15px 15px 15px 15px;
+   		 	bottom : -130px;
+   		 	right : -370px;
 		}
 
     </style>
@@ -125,6 +139,8 @@
   </head>
 
   <body>
+  	<div class ="badan">
+  	<img src = "img/1.jpg" style="width:1366px; height:100%; position : relative">
   		<div class = "tempat">
   			<h3>Penawaran</h3>
   			<div class = "form-container">
@@ -150,7 +166,7 @@
 		  					echo '<div class = "berhasil">
 		  							Penawaran berhasil, silahkan tunggu sampai perusahaan bersangkutan mengubah status penawaran anda.
 		  						</div>';
-		  					echo '<br/><a href = "project.php">Kembali</a>';
+		  					echo '<a href = "project.php">Kembali</a>';
 		  				}
 		  				else {
 		  					echo '<div class = "gagal">
@@ -160,6 +176,7 @@
 		  			}
 		  		?>
 		  	</div>
+	  	</div>
 	  	</div>
 
   		<script>

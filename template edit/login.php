@@ -42,7 +42,9 @@
 			}
 			header('Location:index.php');
 		}
-		$_SESSION["gagal"] = true; 
-		header('Location:index.php');
+		echo "<script>
+			alert('Login gagal, Username atau Password salah');
+			window.location.href='index.php';
+			</script>";
 	}
  ?>

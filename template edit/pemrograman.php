@@ -49,6 +49,32 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
+    .overlay-container {
+	  position: relative;
+	  width: 260px;
+	}
+
+	.overlay {
+	  position: absolute;
+	  bottom: 0;
+	  left: 0;
+	  right: 0;
+	  background-color: #e30066;
+	  overflow: hidden;
+	  width: 260px;
+	  height: 0;
+	  transition: .5s ease;
+	}
+
+	.overlay-container:hover .overlay {
+	  height: 100%;
+	}
+	  .besar{
+      	width : 1300px;
+      	height : auto;
+      	padding-right : 20px;
+      	padding-bottom: 100px;
+      }
       .wadah{
         margin-top : 10px;
         margin-left : 120px;
@@ -75,9 +101,10 @@
         width : 70px;
         height : 35px;
         background-color : #e08a8a;
-        border-radius : 5%;
+        border-radius : 5px;
         margin-bottom : 10px;
-        margin-left : 100px;
+        margin-left : 95px;
+        margin-top : 120px;
         text-align: center;
         text-decoration: none;
         border: none;
@@ -129,11 +156,6 @@
       font-size : 12px;
       font-style : italic;
     }
-
-      img {
-        border-top-left-radius: 15px;
-        border-top-right-radius : 15px;
-      }
 
       .price-range{
         width : 900px;
@@ -331,7 +353,7 @@
         </div>
       </div>
     </form>
-
+    <div class = "besar">
     <div class = "wadah">
     <?php
     if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -352,8 +374,6 @@
       if (!empty($min)&&!empty($max)) {
         $sql = "CALL price_range('$min', '$max', 'Web dan Pemrograman');";
       }elseif(!empty($pk)) {
-        $q2="CREATE OR REPLACE INDEX index_kerja ON pekerjaan(nama);";
-        $result2 = mysqli_query($conn, $q2);
         $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
       FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
       WHERE pekerjaan.kategori = 'Web dan Pemrograman' 
@@ -399,7 +419,33 @@ SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
       while($baris = mysqli_fetch_array($r)){
         $jum = $baris["jum"];
       }
-      echo '<div class = "box">';
+      echo '
+        <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s" style="float:left">
+            <div class="desc-comp-offer-cont">
+              <div class="overlay-container">
+                  <div class="overlay">
+                    ';
+                     if(isset($_SESSION["role"])&&$_SESSION["role"]=="freelancer"){
+			          echo '<button class = "tombol"><a href = "tawar.php?id='.$id.'&k_id='.$row["k_id"].'"">Tawar</a></button>';
+			        }else if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&$id == $row["pengusaha_id"]){
+			          echo '<button class = "tombol" style="width : 200px;height : auto; padding-bottom : 3px; margin-left : 30px; margin-top : 125px"><a href = "change-project.php?k_id='.$row["k_id"].'"">Ubah Detil Projek</a></button>';
+			        }
+      echo '      </div>';
+                  if(!$row["picture"]){
+		              echo '<img src = "foto/no_image_available.jpg" style="width : 260px; height : 260px">';
+		          } else {
+		              echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:260px;height:260px;">';
+		          }
+      echo '  </div>
+              <h3>'.$row["nama"].'</h3>
+              <p class="desc">'.$row["deskripsi"].'</p>
+              <p class = "jumlah">Jumlah Penawar '.$jum.'</p>
+              <p class = "italic">dibuat oleh <span style="font-weight : bold">'.$row["p_nama"].'</span> berakhir pada <span style = "color:blue">'.$row["tgltutup"].'</span></p>
+              ';
+        echo '</div>';
+  echo '</div> 
+        ';
+      /*echo '<div class = "box">';
         if(!$row["picture"]){
               echo '<img src = "foto/no_image_available.jpg" style="width : 296px; height : 296px">';
           } else {
@@ -418,9 +464,10 @@ SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
         }else if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&$id == $row["pengusaha_id"]){
           echo '<button class = "tombol" style="width : 100px;height : auto; padding-bottom : 3px;"><a href = "change-project.php?k_id='.$row["k_id"].'"">Ubah Detil Projek</a></button>';
         }
-        echo'</div>';
+        echo'</div>';*/
       }
     ?>
+  </div>
   </div>
 
     <!--Global JavaScript -->
