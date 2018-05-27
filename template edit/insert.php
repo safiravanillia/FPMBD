@@ -63,7 +63,7 @@
 				$_SESSION["role"] = "pengusaha";
 				$_SESSION["name"] = $row["username"];
 				$_SESSION["logged"] = true;
-				$_SESSION["peng"] = false;
+				$_SESSION["peng"] = true;
 			}
 		}
 		$q = mysqli_query($conn, $s);

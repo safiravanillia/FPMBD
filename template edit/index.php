@@ -110,7 +110,7 @@
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
                     echo '
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilfree.php">Profil</a></li> ';
-                  } elseif(isset($_SESSION["peng"])&&isset($_SESSION["logged"])){
+                  } elseif(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"&&isset($_SESSION["logged"])){
                     echo '
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>

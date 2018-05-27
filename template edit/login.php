@@ -24,7 +24,7 @@
 				$_SESSION["role"] = "pengusaha";
 				$_SESSION["name"] = $user;
 				$_SESSION["logged"] = true;
-				$_SESSION["peng"] = false;
+				$_SESSION["peng"] = true;
 			}
 			if(!empty($_POST["remember"]) && $_SESSION["logged"] == true)   
 			{  
