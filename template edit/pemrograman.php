@@ -352,6 +352,8 @@
       if (!empty($min)&&!empty($max)) {
         $sql = "CALL price_range('$min', '$max', 'Web dan Pemrograman');";
       }elseif(!empty($pk)) {
+        $q2="CREATE OR REPLACE INDEX index_kerja ON pekerjaan(nama);";
+        $result2 = mysqli_query($conn, $q2);
         $sql = "SELECT DISTINCT pekerjaan.* , pengusaha.nama AS p_nama
       FROM pekerjaan LEFT JOIN pengusaha ON pekerjaan.pengusaha_id = pengusaha.pengusaha_id 
       WHERE pekerjaan.kategori = 'Web dan Pemrograman' 
