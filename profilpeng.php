@@ -18,7 +18,6 @@
           $query = mysqli_query($conn, $sql);
 
           while($peng = mysqli_fetch_array($query)){
-              
               $id = $peng['pengusaha_id'];
               $compname = $peng['nama'];
               $address = $peng['alamat'];
@@ -27,7 +26,6 @@
               $deskripsi = $peng['deskripsi'];
           }
   }
-  //echo 'ahsjah';  echo $id;
 ?>
 
 <!DOCTYPE html>
@@ -59,19 +57,21 @@
       height : 450px;
       background-color : #a34e4e;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      margin-left : 130px;
+      margin-left : 80px;
       margin-top : 40px;
       float : left;
       color : white;
+      border-radius : 15px;
     }
 
     .details{
-      width : 700px;
+      width : 750px;
       height : 450px;
-      margin-left : 90px;
+      margin-left : 50px;
       margin-top : 40px;
       box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
       float : left;
+      border-radius : 15px;
     }
 
     .photo{
@@ -88,7 +88,7 @@
     }
 
     .bar-button{
-      width : 200px;
+      width : 150px;
       height : 100%;
       background-color : white;
       float : right;
@@ -96,6 +96,7 @@
       margin : center;
       font-weight : bold;
       text-align : center;
+      border-radius : 15px;
       cursor : pointer;
       padding-top :25px;
       -webkit-transition-duration: 0.4s; /* Safari */
@@ -131,10 +132,11 @@
       height : 50px;
       background-color : #e08a8a;
       margin-top : 10px;
-      margin-left : 130px;
+      margin-left : 160px;
       text-align: center;
       text-decoration: none;
       border: none;
+      border-radius: 15px;
       outline: none;
       cursor: pointer;
       -webkit-transition-duration: 0.4s; /* Safari */
@@ -170,27 +172,27 @@
     }
 
     .penawar{
-    	width : 100px;
-    	height : auto;
-    	padding : 5px 5px 5px 5px;
-    	text-align : center;
-	    cursor : pointer;
-	    border-radius : 5px;
-	    -webkit-transition-duration: 0.4s; /* Safari */
-	    transition-duration: 0.4s;
-	    background-color : #bc5454;
-	    font-size : 14px;
-	    margin-bottom : 5px;
+      width : 100px;
+      height : auto;
+      padding : 5px 5px 5px 5px;
+      text-align : center;
+      cursor : pointer;
+      border-radius : 5px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      background-color : #bc5454;
+      font-size : 14px;
+      margin-bottom : 5px;
     }
 
     .penawar:hover{
-    	background-color : #8c3d3d;
+      background-color : #8c3d3d;
     }
 
     .penawar a{
-    	text-decoration: none;
-      	color: white;
-      	display: block;
+      text-decoration: none;
+        color: white;
+        display: block;
     }
     </style>
   </head>
@@ -274,7 +276,7 @@
                       <li class="nav-item dropdown" >
                         <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
                         <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-                          <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
+                          <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
                           <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
                         </div>
                       </li>
@@ -284,16 +286,6 @@
                     echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
                   }
                 ?>
-                <li>
-                  <i class="search fa fa-search search-btn"></i>
-                  <div class="search-open">
-                    <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Ketikkan Pekerjaan" aria-describedby="basic-addon2">
-                      <span class="input-group-addon" id="basic-addon2">Cari</span>
-                    </div>
-                  </div>
-                </li> 
-                <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
                       <div class="container">
@@ -335,7 +327,7 @@
           echo '<img src = "foto/default-user-image.png">';
         }
         else{
-        	echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:150px;height:150px;">';
+          echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:150px;height:150px;">';
         }
       }
     ?>
@@ -347,8 +339,11 @@
 </div>
 <div class = "details">
   <div class = "bar">
-    <div class = "bar-button" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
+    <div class = "bar-button" onclick="openTab('trigger2', this, event)"><b>Log Tawar</b></div>    
+    <div class = "bar-button" onclick="openTab('trigger1', this, event)"><b>Log Review</b></div>
+    <div class = "bar-button" style="padding-top : 10px" onclick="openTab('selesai', this, event)"><b>Projek Terselesaikan oleh Freelancer</b></div>
     <div class = "bar-button" onclick="openTab('projek', this,event)">Projek Aktif</div>
+    <div class = "bar-button" style="padding-top : 10px;" onclick="openTab('deskripsi', this,event)"  id="defaultOpen"><b>Deskripsi Perusahaan</b></div>
   </div>
   <div class = "desc" id="deskripsi">
     <?php
@@ -363,22 +358,28 @@
   </div>
   <div class = "desc" id="projek">
     <?php
-      $s = "SELECT pekerjaan.k_id, pekerjaan.nama, pekerjaan.deskripsi, pekerjaan.kategori
+    $s = "CREATE OR REPLACE VIEW lihatlah AS SELECT pekerjaan.k_id, pekerjaan.nama, pekerjaan.deskripsi, pekerjaan.kategori
       FROM pengusaha, pekerjaan 
       WHERE pengusaha.pengusaha_id = pekerjaan.pengusaha_id AND 
         pekerjaan.tglbuka < SYSDATE() AND
         pekerjaan.tgltutup > SYSDATE() AND
-        pengusaha.pengusaha_id = ".$id;
-
-      $q = mysqli_query($conn, $s);
-      if(mysqli_num_rows($q) > 0){
-        while ($row = mysqli_fetch_array($q)){
+        pengusaha.pengusaha_id = '$id'";
+        $q = mysqli_query($conn, $s);
+        $s1="SELECT * from lihatlah;";
+      $q1 = mysqli_query($conn, $s1);
+      if(mysqli_num_rows($q1) > 0){
+        while ($row = mysqli_fetch_array($q1)){
+           $s = "SELECT jumlah_penawar(".$row["k_id"].") AS jum;";
+         $r = mysqli_query($conn, $s);
+         while($baris = mysqli_fetch_array($r)){
+           $jum = $baris["jum"];
+         }
           echo '<div class = "job-available">
               <p class = "nama">'.$row["nama"].'</p>
               <p>'.$row["deskripsi"].'</p>
-              <p class = "kategori">Kategori : '.$row["kategori"].'</p>
+              <p class = "kategori">Kategori : '.$row["kategori"].' <span style="padding-left : 60px">Jumlah Penawar : '.$jum.'</span></p>
               <div class = "penawar">
-              	<a href = "penawar.php?k_id='.$row["k_id"].'">Lihat Penawar</a>
+                <a href = "penawar.php?k_id='.$row["k_id"].'">Lihat Penawar</a>
               </div>
               </div>';
         }
@@ -388,9 +389,217 @@
       }
     ?>
   </div>
+  <div class = "desc" id="selesai">
+      <?php
+      $jumlah= "SELECT COUNT(tawar.`bid_id`) AS jum
+      FROM tawar, freelancer, pengusaha, pekerjaan
+      WHERE pengusaha.`pengusaha_id`='$id'
+      AND freelancer.`id`=tawar.`f_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+      AND tawar.`b_status` = 'SELESAI';";
+      $res = mysqli_query($conn, $jumlah);
+      while($row = mysqli_fetch_array($res)){
+        echo '<p style = "font-size : 20px; font-weight : bold;">Total '.$row["jum"].' pekerjaan selesai</p>';
+      }
+
+      $kerja="SELECT freelancer.`f_nama` AS nm_free, pekerjaan.`nama` AS kerja, tawar.`bid_id` AS tawar, review.`komentar` as komen
+      FROM tawar LEFT JOIN review
+      ON tawar.`bid_id`=review.`bid_id`
+      LEFT JOIN pekerjaan
+      ON tawar.`k_id`=pekerjaan.`k_id`
+      LEFT JOIN pengusaha
+      ON pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
+      LEFT JOIN freelancer
+      ON freelancer.`id`=tawar.`f_id`
+      WHERE pengusaha.`pengusaha_id`='$id'
+      AND tawar.`b_status` = 'SELESAI';";
+
+      $result = mysqli_query($conn, $kerja);
+      while($row = mysqli_fetch_array($result)){
+        $nm_pk=$row["kerja"];
+        $free=$row["nm_free"];
+        $idtawar=$row["tawar"];
+        $komen=$row["komen"];
+
+        if($komen== NULL){
+        echo '
+          <div class = "job-available">
+            <div class = "nama">'.$nm_pk.'</div>
+            <p class = "kategori">Freelancer : <span style = "font-weight : bold; color : blue;">'.$free.'</span></p>
+            <div class = "penawar">
+                <a href = "review.php?bid_id='.$idtawar.'">Beri Review</a>
+              </div>
+          </div>
+          ';
+        } else{
+          echo '
+           <div class = "job-available">
+            <div class = "nama">'.$nm_pk.'</div>
+            <p class = "kategori">Freelancer : <span style = "font-weight : bold; color : blue;">'.$free.'</span></p>
+            <div class = "penawar">
+                <a href = "hapus.php?bid_id='.$idtawar.'">Hapus Review</a>
+              </div>
+            </div>
+          ';
+        }
+      }
+      ?>
+    </div>
+    <div class = "desc" id="trigger1">
+      <?php
+      //run di sql yang komen
+      /*CREATE TABLE `log_review` (
+  `r_id` INT(11),
+  `bid_id` INT(11),
+  `komentar` VARCHAR(500) ,
+  `tgl` DATE,
+  `rating` INT(11),
+  `tgl_perubahan` DATE,
+  `status` VARCHAR(10)
+);
+
+-- Insert new data
+DELIMITER$$
+CREATE OR REPLACE TRIGGER log_insert_review
+AFTER INSERT ON review
+FOR EACH ROW
+BEGIN
+  INSERT INTO log_review VALUES (new.r_id, new.bid_id, new.komentar,new.tgl,new.rating, SYSDATE(), 'INSERT');
+END$$
+DELIMITER$$
+
+-- delete data
+DELIMITER$$
+CREATE OR REPLACE TRIGGER log_del_review
+AFTER DELETE ON review
+FOR EACH ROW
+BEGIN
+  INSERT INTO log_review VALUES (old.r_id, old.bid_id, old.komentar,old.tgl,old.rating, SYSDATE(), 'DELETE');
+END$$
+DELIMITER$$*/
+
+      $jumlah= "SELECT r_id AS ID_review, komentar AS Review, tgl AS Dikirim, tgl_perubahan AS Diubah, STATUS AS Tindakan
+      FROM log_review, tawar, pekerjaan
+      WHERE tawar.`bid_id`=log_review.`bid_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`='$id';";
+      $res = mysqli_query($conn, $jumlah);
+      while($row = mysqli_fetch_array($res)){
+        echo '
+          <div class = "job-available">
+            <div class = "nama">'.$row["Review"].'</div>
+            <p class = "kategori">ID Review : <span style = "font-weight : bold; color : blue;">'.$row["ID_review"].'</span></p>
+            <p>Tanggal kirim: '.$row["Dikirim"].'<br>
+            Tanggal ubah: '.$row["Diubah"].'<br>
+            Tindakan: '.$row["Tindakan"].'</p>
+          </div>
+          ';
+      }
+      ?>
+    </div>
+    <div class = "desc" id="trigger2">
+      <?php
+      //run di sql yang komen
+      /*CREATE TABLE `log_tawar` (
+  `bid_id` INT(11) ,
+  `k_id` INT(11) ,
+  `f_id` INT(11) ,
+  `harga` INT(11) ,
+  `b_status` VARCHAR(30) ,
+  `tgl_perubahan` DATE,
+  `status` VARCHAR(200)
+);
+
+-- insert data
+DELIMITER$$
+CREATE OR REPLACE TRIGGER log_insert_tawar
+AFTER INSERT ON tawar
+FOR EACH ROW
+BEGIN
+  INSERT INTO log_tawar VALUES (new.bid_id, new.k_id, new.f_id,new.harga,new.b_status, SYSDATE(), 'INSERT');
+END$$
+DELIMITER$$
+
+INSERT INTO `tawar` VALUES (31, 4, 6, 'TUNGGU');
+
+-- update data
+DELIMITER$$
+CREATE OR REPLACE TRIGGER log_update_tawar
+AFTER UPDATE ON tawar
+FOR EACH ROW
+BEGIN
+  INSERT INTO log_tawar VALUES (old.bid_id, old.k_id, old.f_id,old.harga,old.b_status, SYSDATE(), 'OLD UPDATE');
+  INSERT INTO log_tawar VALUES (new.bid_id, new.k_id, new.f_id,new.harga,new.b_status, SYSDATE(), 'NEW UPDATE');
+END$$
+DELIMITER$$*/
+
+      $jumlah= "SELECT log_tawar.bid_id AS id, pekerjaan.`nama` AS kerja, log_tawar.`harga` AS harga, log_tawar.`b_status` 
+      AS status, log_tawar.`tgl_perubahan` AS tgl, log_tawar.`status` AS tindakan
+      FROM log_tawar, pekerjaan, pengusaha
+      WHERE log_tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+      AND pengusaha.`pengusaha_id`='$id';";
+      $res = mysqli_query($conn, $jumlah);
+      while($row = mysqli_fetch_array($res)){
+        echo '
+          <div class = "job-available">
+            <div class = "nama">'.$row["kerja"].'</div>
+            <p class = "kategori">ID Tawar : <span style = "font-weight : bold; color : blue;">'.$row["id"].'</span></p>
+            <p>Permintaan bayaran: '.$row["harga"].'<br>
+            Status: '.$row["status"].'<br>
+            Tanggal ubah: '.$row["tgl"].'<br>
+            Tindakan: '.$row["tindakan"].'</p>
+          </div>
+          ';
+      }
+      ?>
+    </div>
 </div>
 <br />
-<button class = "edit"><?php echo '<a href ="form-edit2.php?id='.$id.'">';?>Ubah Profil</a></button>
+<button class = "btn btn-general edit"><?php echo '<a href ="form-edit2.php?id='.$id.'">';?>Ubah Profil</a></button>
+<!--====================================================
+                      FOOTER
+======================================================--> 
+    <footer> 
+        <div id="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="footer-copyrights">
+                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </footer>
+
+    <!--Global JavaScript -->
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/popper/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/wow/wow.min.js"></script>
+    <script src="js/owl-carousel/owl.carousel.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery-easing/jquery.easing.min.js"></script> 
+    <script src="js/custom.js"></script>
+    <script>
+        if( jQuery(".toggle .toggle-title").hasClass('active') ){
+                jQuery(".toggle .toggle-title.active").closest('.toggle').find('.toggle-inner').show();
+            }
+            jQuery(".toggle .toggle-title").click(function(){
+                if( jQuery(this).hasClass('active') ){
+                    jQuery(this).removeClass("active").closest('.toggle').find('.toggle-inner').slideUp(200);
+                }
+                else{   jQuery(this).addClass("active").closest('.toggle').find('.toggle-inner').slideDown(200);
+                }
+            });
+    </script> 
     </body>
 
     <script>

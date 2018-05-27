@@ -23,7 +23,7 @@
     <meta name="author" content="">
 
     <title>Business Bootstrap Responsive Template</title>
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="img/favicon-01.png">
 
     <!-- Global Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -99,10 +99,10 @@
                 <li class="nav-item dropdown" >
                   <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a> 
                   <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-                    <a class="dropdown-item"  target="_empty" href="#">Grafis dan Desain</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Web dan Pemograman</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="#">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
+                    <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
+                    <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -114,31 +114,21 @@
                   }?>
                 </li>
                 <?php
-                	if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
-                		echo '
-                			<li class="nav-item dropdown" >
-			                  <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
-			                  <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-			                    <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
-			                    <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
-			                  </div>
-			                </li>
-                		';
-                	}
-                	else{
-                		echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
-                	}
+                  if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
+                    echo '
+                      <li class="nav-item dropdown" >
+                        <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
+                        <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
+                          <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
+                          <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
+                        </div>
+                      </li>
+                    ';
+                  }
+                  else{
+                    echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
+                  }
                 ?>
-                <li>
-                  <i class="search fa fa-search search-btn"></i>
-                  <div class="search-open">
-                    <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Ketikkan Kategori" aria-describedby="basic-addon2">
-                      <span class="input-group-addon" id="basic-addon2">Cari</span>
-                    </div>
-                  </div>
-                </li> 
-                <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
                       <div class="container">
@@ -210,7 +200,7 @@
                               <label for="username">Username</label> 
                               <input id="register_username" class="form-control" type="text" placeholder="Masukkan username" name="user" required>
                               <label for="register_email">E-mail</label> 
-                              <input id="register_email" name="email" class="form-control" type="text" placeholder="Masukkan E-mail" required>
+                              <input id="register_email" name="email" class="form-control" type="email" placeholder="Masukkan E-mail" required>
                               <label for="register_password">Kata Sandi</label> 
                               <input id="register_password" name="passwd" class="form-control" type="password" placeholder="Masukkan kata sandi" required>
                               <label for="register_password">Pilih peran:</label>
@@ -246,7 +236,7 @@
     <div id="home-p" class="home-p pages-head2 text-center">
       <div class="container">
         <h1 class="wow fadeInUp" data-wow-delay="0.1s"> Semua Kategori</h1>
-        <p>Pilih kategori pekerjaan yang dibutuhkan dan mulai mempekerjakan freelancer</p>
+        <p>Pilih pekerjaan yang sesuai dan mulai bekerja</p>
       </div><!--/end container-->
     </div> 
 
@@ -259,25 +249,25 @@
               <div class="col-md-3 col-sm-6 col-xs-12 bg-matisse">
               <div class="project-p1-cont wow fadeInUp  text-center" data-wow-delay="0.3s">
                 <i class="fa fa-line-chart fa-2x"></i>
-                <p>It is a long established fact</p>
+                <p>cepat</p>
               </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 bg-chathams">
               <div class="project-p1-cont wow fadeInUp  text-center" data-wow-delay="0.6s">
                 <i class="fa fa-leaf fa-2x"></i>
-                <p>It is a long established fact</p>
+                <p>mudah</p>
               </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 bg-atlis">
               <div class="project-p1-cont wow fadeInUp  text-center" data-wow-delay="0.9s">
                 <i class="fa fa-soccer-ball-o fa-2x"></i>
-                <p>It is a long established fact</p>
+                <p>efisien</p>
               </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 bg-starship">
               <div class="project-p1-cont wow fadeInUp  text-center" data-wow-delay="1.2s">
                 <i class="fa fa-ticket fa-2x"></i>
-                <p>It is a long established fact</p>
+                <p>terjamin</p>
               </div>
             </div>
         </div>
@@ -295,7 +285,7 @@
                 <div class="col-md-5 col-sm-6">
                   <div class="project-p2-desc">
                     <h4>Penulisan dan penerjemahan</h4>
-                    <a href="penulisan.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
+                    <a href="penulisan.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
                   </div>
                 </div>
                 <img src="img/project/pro-8.jpg" class="img-fluid" alt="...">
@@ -306,7 +296,7 @@
                 <div class="col-md-5 col-sm-6">
                   <div class="project-p2-desc">
                     <h4>Visual dan audio</h4>
-                    <a href="visual.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
+                    <a href="visual.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
                   </div>
                 </div>
                 <img src="img/project/pro-6.jpg" class="img-fluid" alt="...">
@@ -317,7 +307,7 @@
                 <div class="col-md-5 col-sm-6">
                   <div class="project-p2-desc wow fadeInUp" data-wow-delay="0.6s">
                     <h4>Web dan Pemograman</h4>
-                    <a href="pemrograman.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
+                    <a href="pemrograman.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
                   </div>
                 </div>
                 <img src="img/project/pro-7.jpg" class="img-fluid" alt="...">
@@ -328,7 +318,7 @@
                 <div class="col-md-5 col-sm-6">
                   <div class="project-p2-desc wow fadeInUp" data-wow-delay="0.3s">
                     <h4>Grafis dan desain</h4>
-                    <a href="desain.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> See More</a>
+                    <a href="desain.php" class="text-right"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
                   </div>
                 </div>
                 <img src="img/project/pro-3.jpg" class="img-fluid" alt="...">
@@ -343,73 +333,6 @@
                       FOOTER
 ======================================================--> 
     <footer> 
-        <div id="footer-s1" class="footer-s1">
-          <div class="footer">
-            <div class="container">
-              <div class="row">
-                <!-- About Us -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div><img src="img/logo-w.png" alt="" class="img-fluid"></div>
-                  <ul class="list-unstyled comp-desc-f">
-                  </ul><br> 
-                </div>
-                <!-- End About Us -->
-
-                <!-- Recent News -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Useful Links</h2></div>
-                  <ul class="list-unstyled link-list">
-                    <li><a href="about.html">About us</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="project.html">Project</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="careers.html">Career</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="faq.html">FAQ</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="contact.html">Contact us</a><i class="fa fa-angle-right"></i></li> 
-                  </ul>
-                </div>
-                <!-- End Recent list -->
-
-                <!-- Recent Blog Entries -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Unggahan Terbaru</h2></div>
-                  <ul class="list-unstyled thumb-list">
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Praesent ut consectetur diam.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Maecenas pharetra tellus et fringilla.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <!-- End Recent Blog Entries -->
-
-                <!-- Latest Tweets -->
-                <div class="col-md-3 col-sm-6">
-                  <div class="heading-footer"><h2>Kunjungi Kami</h2></div>
-                  <address class="address-details-f">
-                    Jalan Teknik Kimia <br>
-                    Departemen Informatika <br>
-                    Institut Teknologi sepuluh Nopember <br>
-                    <i class="fa fa-phone"></i> (031) 3982200<br>
-                    <i class="fa fa-envelope"></i> <a href="mailto:imail@freelancemosv.id" class="">mail@freelancemosv.id</a>
-                  </address>  
-                  <ul class="list-inline social-icon-f top-data">
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-facebook"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-twitter"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-google-plus"></i></a></li> 
-                  </ul>
-                </div>
-                <!-- End Latest Tweets -->
-              </div>
-            </div><!--/container -->
-          </div> 
-        </div>
-
         <div id="footer-bottom">
             <div class="container">
                 <div class="row">

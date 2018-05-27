@@ -1,6 +1,5 @@
 <?php 
 	session_start();
-
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -25,9 +24,8 @@
 				$_SESSION["role"] = "pengusaha";
 				$_SESSION["name"] = $user;
 				$_SESSION["logged"] = true;
-				$_SESSION["peng"] = false;
+				$_SESSION["peng"] = true;
 			}
-
 			if(!empty($_POST["remember"]) && $_SESSION["logged"] == true)   
 			{  
 				setcookie ("member_login",$user,time()+ (10 * 365 * 24 * 60 * 60));
@@ -44,7 +42,9 @@
 			}
 			header('Location:index.php');
 		}
-		$_SESSION["gagal"] = true; 
-		header('Location:index.php');
+		echo "<script>
+			alert('Login gagal, Username atau Password salah');
+			window.location.href='index.php';
+			</script>";
 	}
  ?>

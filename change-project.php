@@ -1,5 +1,6 @@
 <?php
   session_start();
+
   $servername = "localhost";
   $username = "root";
   $password = "";
@@ -9,14 +10,21 @@
   if($conn->connect_error){
     die("Connection failed: ". $conn->connect_error);
   }
+
   if(isset($_SESSION["name"])){
     $name = $_SESSION["name"];
-  $sql = "SELECT id FROM user WHERE username = '".$name."'";
-  $result = mysqli_query($conn, $sql);
-  while($row = mysqli_fetch_array($result)){
-    $id = $row["id"];
+    $sql = "SELECT id FROM user WHERE username = '".$name."'";
+    $result = mysqli_query($conn, $sql);
+
+    while($row = mysqli_fetch_array($result)){
+      $id = $row["id"];
+    }
   }
-  }
+
+  	$k_id = $_GET['k_id'];
+  	$sql = "SELECT * FROM pekerjaan WHERE pengusaha_id=$id and k_id=$k_id";
+    $query = mysqli_query($conn, $sql);
+    $kerja = mysqli_fetch_assoc($query);
 ?>
 
 <!DOCTYPE html>
@@ -42,19 +50,20 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-      .tempat{
-        width : 700px;
-        height : auto;
-        padding-bottom : 30px;
-        box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
-        margin-top : 70px;
-        margin-left : 130px;
-      }
-      .form-container{
-        margin-left: 50px;
-        padding-top : 30px;
-      }
-      .berhasil{
+    .big{
+    	width : 100%;
+    	height : auto;
+    	padding-bottom : 100px;
+    }
+
+    .form-container{
+    	margin : auto;
+    	width : 800px;
+    	height : auto;
+    	padding-bottom : 50px;
+    }
+
+    .berhasil{
       width : 300px;
       height : auto;
       background-color : #229b60;
@@ -77,20 +86,18 @@
         margin-top : 10px;
     }
 
-    .ha{
-      text-align: center;
-      color : #e30066;
+    h2{
+    	color : #e30066;
+    	text-align : center;
+  		margin-top : 70px;
+  		margin-bottom : 50px;
     }
+
     </style>
   </head>
 
-  <body id="page-top">
-
-<!--====================================================
-                         HEADER
-======================================================--> 
-
-    <header>
+  <body>
+  <header>
 
       <!-- Top Navbar  -->
       <div class="top-menubar">
@@ -148,7 +155,7 @@
                     <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
                     <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
                     <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a>  
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -159,7 +166,6 @@
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>
                 </li>
-                
                 <?php
                   if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
                     echo '
@@ -216,102 +222,75 @@
       </nav>
     </header> 
 
-    <div class = "tempat">
-    <h2 class="ha">Buat Projek Baru Perusahaanmu</h2>
-      <div class = "form-container">
-        <form method = "post" enctype='multipart/form-data'>
-          <div class = "form-group">
-            <span style="color:#e30066">Nama Projek</span>
-            <input type="text" name="nama" class ="form-control col-5" placeholder="Masukkan nama projek" />
-          </div>
-          <div class = "form-group">
-            <span style="color:#e30066">Deskripsi Projek</span>
-            <textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" ></textarea>
-          </div>
-          <div class = "form-group">
-            <span style="color:#e30066">Tanggal Penawaran dibuka</span>
-            <input type="date" name="tglbuka" class ="form-control col-3" placeholder="Masukkan deskripsi projek" />
-          </div>
-          <div class = "form-group">
-            <span style="color:#e30066">Tanggal Penawaran ditutup</span>
-            <input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" />
-          </div>
-          <div class = "form-group">
-            <span style="color:#e30066">Harga minimum Penawaran</span>
-            <input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" />
-          </div>
-          <div class = "form-group">
-            <span style="color:#e30066">Harga maksimum Penawaran</span>
-            <input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum" />
-          </div>
-          <label for="kategori" style="color:#e30066">Kategori:</label>
-                <div class="checkbox"> 
-                  <label>
-                    <input type="radio" name ="kategori" value="Penulisan dan Penerjemahan" checked="checked"> Penulisan dan Penerjemahan
-                  </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                    <input type="radio" name="kategori" value="Visual dan Audio"> Visual dan Audio
-                  </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                    <input type="radio" name="kategori" value="Web dan Pemrograman"> Web dan Pemrograman
-                  </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                    <input type="radio" name="kategori" value="Grafis dan Desain"> Grafis dan Desain
-                  </label>
-                </div>
-          <div class = "form-group">
-            <span style="color:#e30066">Gambar</span>
-            <input name="picture" class="form-control" type="file" accept="image/png,image/jpeg"/>
-          </div>
-          <div group = form-group>
-            <input type="submit" class="btn btn-general btn-white" value="Buat Projek">
-          </div>
-        </form>
-
+    <div class = "big">
+    	<h2>Ubah Detil Projek</h2>
+    	<div class = "form-container">
+    		<form method = "post" enctype="multipart/form-data">
+    			<div class = "form-group">
+           			<span style="color:#e30066">Nama Projek</span>
+            		<input type="text" name="nama" class="form-control col-8"  value='<?php echo $kerja['nama']?>' />
+          		</div>
+          		<div class = "form-group">
+		            <span style="color:#e30066">Deskripsi Projek</span> <br/>
+		            <textarea name="description" rows="10" cols="70" placeholder="Paparkan deskripsi Projek" ><?php echo $kerja['deskripsi']?></textarea>
+		        </div>
+		        <div class = "form-group">
+		            <span style="color:#e30066">Tanggal Penawaran ditutup</span>
+		            <input type="date" name="tgltutup" class ="form-control col-3" placeholder="Masukkan deskripsi projek" value='<?php echo $kerja['tgltutup']?>'/>
+		        </div>
+		        <div class = "form-group">
+		            <span style="color:#e30066">Harga minimum Penawaran</span>
+		            <input type="number" name="hargamin" class ="form-control col-3" placeholder="Harga minimum" value='<?php echo $kerja['hargamin']?>' />
+		        </div>
+		        <div class = "form-group">
+		            <span style="color:#e30066">Harga maksimum Penawaran</span>
+		            <input type="number" name="hargamax" class ="form-control col-3" placeholder="Harga maksimum" value='<?php echo $kerja['hargamax']?>'/>
+		        </div>
+		        <div class = "form-group">
+		            <span style="color:#e30066">Gambar</span>
+		            <input id="picture" name="picture" class="form-control col-8" type="file"/>
+		        </div>
+		        <div group = form-group>
+		            <input type="submit" name="simpan" class="btn btn-general btn-white" value="Ubah Projek">
+		        </div>
+    		</form>
         <?php
-          if($_SERVER["REQUEST_METHOD"] == "POST"){
-            $name = $_POST["nama"];
-            $description = $_POST["description"];
-            $tglbuka = $_POST["tglbuka"];
-            $tgltutup = $_POST["tgltutup"];
-            $hargamin = $_POST["hargamin"];
-            $hargamax = $_POST["hargamax"];
-            $kategori = $_POST["kategori"];
-            $picture = addslashes($_FILES["picture"]["name"]);
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+          $nama = $_POST['nama'];
+          $description = $_POST['description'];
+          $tgltutup = $_POST['tgltutup'];
+          $hargamin = $_POST['hargamin'];
+          $hargamax = $_POST['hargamax'];
+          $picture = addslashes($_FILES["picture"]["name"]);
 
-            if($picture){
-              //$picture = addslashes($_FILES["picture"]["name"]);
+          if(isset($_FILES["picture"])){
+            if(!empty($picture)){
               $temp = addslashes(file_get_contents($_FILES["picture"]["tmp_name"]));
               $type = addslashes($_FILES["picture"]["type"]);
-
-              $sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`, `picture`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori' , '$temp');";
+              $sql1 = "UPDATE pekerjaan
+              SET nama='$nama', deskripsi='$description', tgltutup='$tgltutup', hargamin='$hargamin', hargamax='$hargamax', picture='$temp'
+              WHERE k_id='$k_id'";
+              $query1 = mysqli_query($conn, $sql1);
             }else{
-              $sql = "INSERT INTO `pekerjaan` (`k_id`, `pengusaha_id`, `nama`, `deskripsi`, `tglbuka`, `tgltutup`, `hargamin`, `hargamax`, `kategori`) VALUES ('', '$id', '$name', '$description', '$tglbuka', '$tgltutup', '$hargamin', '$hargamax', '$kategori');";
+              $sql1 = "UPDATE pekerjaan
+              SET nama='$nama',deskripsi='$description', tgltutup='$tgltutup', hargamin='$hargamin', hargamax='$hargamax'
+              WHERE k_id='$k_id'";
+              $query1 = mysqli_query($conn, $sql1);
             }
-            
-            $result = mysqli_query($conn, $sql);
-            if($result){
-                echo '<div class = "berhasil">
-                    Projek berhasil dipublish
-                  </div>';
-                echo '<br/><a href = "project.php">Kembali</a>';
-              }
-              else {
-                echo '<div class = "gagal">
-                    Projek gagal dipublish
-                  </div>';
-              }
-            }
-            ?>
-      </div>
+          }
+
+          if($query1){
+            echo '<div class = "berhasil"> Projek berhasil dipublish </div>';
+            echo '<br/><a href = "project.php">Kembali</a>';
+          }else {
+            echo '<div class = "gagal">Projek gagal dipublish</div>';
+          }
+        }
+          ?>
+    	</div>
     </div>
-    <!--====================================================
+
+<!--====================================================
                       FOOTER
 ======================================================--> 
     <footer> 

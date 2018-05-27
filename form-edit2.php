@@ -92,32 +92,31 @@ if( mysqli_num_rows($query) < 1 ){
       <div class="col-md-6">
           <form method="post" action="prosesedit2.php?role=pengusaha" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $peng['pengusaha_id'] ?>" />
-          <div class = "form-group">
+          <div class = "form-group" style="color:#e30066">
             Nama Perusahaan
             <input type="text" name="nama" class ="form-control" placeholder="Masukkan nama" value="<?php echo $peng['nama'] ?>" required/>
           </div>
-          <div class = "form-group">
+          <div class = "form-group" style="color:#e30066">
             Alamat
             <input type="text" name="alamat" class ="form-control" placeholder="Masukkan alamat lengkap" value="<?php echo $peng['alamat'] ?>" required/>
           </div>
-          <div class = "form-group">
+          <div class = "form-group" style="color:#e30066">
             No. Telepon
             <input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $peng['telepon'] ?>"  required/>
           </div>
-          <div class = "form-group">
+          <div class = "form-group" style="color:#e30066">
               Deskripsi <br />
-        <textarea name="deskripsi" rows="10" cols="70" placeholder="Paparkan deskripsi perusahaan Anda"></textarea>
+            <textarea name="deskripsi" rows="10" cols="70" placeholder="Paparkan deskripsi perusahaan Anda"><?php echo $peng['deskripsi']?></textarea>
+           
           </div>
-          <div class = "form-group">
+          <div class = "form-group" style="color:#e30066">
             Gambar Profil (Ukuran 150x150 px)
             <input id="foto" name="foto" class="form-control" type="file" placeholder="Ukuran 150x150 px"/>
-            <span><?php echo $peng['picture'];?></span>
           </div>
           <div class = "form-group">
             <a href="profilpeng.php"><button class="btn btn-general btn-white">Kembali</button></a>
             <input type="submit" class="btn btn-general btn-white" name="simpan" value="Ubah Profil">
           </div>
-
           </form>
       </div>
     </div>

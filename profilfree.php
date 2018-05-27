@@ -1,6 +1,5 @@
 <?php
   session_start();
-
   $servername = "localhost";
   $username = "root";
   $password = "";
@@ -10,18 +9,15 @@
   if($conn->connect_error){
     die("Connection failed: ". $conn->connect_error);
   }
-
   $conns = new mysqli($servername, $username, $password, $dbname);
   if($conns->connect_error){
     die("Connection failed: ". $conns->connect_error);
   }
-
   $sql1 = "SELECT * FROM user where username = '".$_SESSION["name"]."' ";
   $query1 = mysqli_query($conn, $sql1);
   while($free1 = mysqli_fetch_array($query1)){
     $sql = "SELECT * FROM freelancer where id = '".$free1['id']."' ";
     $query = mysqli_query($conn, $sql);
-
     while($free = mysqli_fetch_array($query)){
            $email = $free1['email'];
            $id = $free['id'];
@@ -67,8 +63,8 @@
         margin-top : 40px;
         float : left;
         color : white;
+        border-radius : 15px;
     }
-
     .details{
         width : 750px;
         height : 450px;
@@ -76,8 +72,8 @@
         margin-top : 40px;
         box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
         float : left;
+        border-radius : 15px;
     }
-
     .photo{
         width : 150px;
         height : 150px;
@@ -86,11 +82,9 @@
         margin-top : 50px;
         border-radius : 50%;
     }
-
     .bar{
         height : 70px;
     }
-
     .bar-button{
         width : 150px;
         height : 100%;
@@ -98,6 +92,7 @@
         float : right;
         color : #808282;
         margin : center;
+        border-radius : 15px;
         font-weight : bold;
         text-align : center;
         cursor : pointer;
@@ -105,23 +100,19 @@
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
     }
-
     .bio p{
         color : white;
     }
-
     .bar-button:hover{
         background-color : #f0f0f0;
         color : #e30066;
         border-bottom : 1px solid #e30066;
     }
-
     .active{
       background-color : #f0f0f0;
         color : #e30066;
         border-bottom : 1px solid #e30066;
     }
-
     .desc{
         width : 650px;
         height : 350px;
@@ -129,50 +120,45 @@
         margin-left : 30px;
         overflow : auto;
     }
-
     .edit{
         width : 120px;
         height : 50px;
         background-color : #e08a8a;
         margin-top : 10px;
-        margin-left : 130px;
+        margin-left : 160px;
         text-align: center;
         text-decoration: none;
         border: none;
+        border-radius : 15px;
         outline: none;
         cursor: pointer;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
         color : white;
+        margin-bottom : 50px;
     }
-
     .edit:hover{
         background-color : #c57575;
     }
-
     .edit a{
         text-decoration: none;
         color: white;
         display: block;
     }
-
     .nama{
       font-weight : bold;
       font-size : 20px;
       color : #e30066 ;
     }
-
     .kategori{
       font-size : 12px;
       font-style : italic;
     }
-
     .job-progress{
       width : 635px;
       height : auto;
       border-bottom : 1px solid #e30066;
     }
-
     .status{
       width : 100px;
       height : auto;
@@ -186,28 +172,23 @@
       font-size : 14px;
       margin-bottom : 5px;
     }
-
     .status:hover{
       background-color : #8c3d3d;
     }
-
     .status a{
       text-decoration: none;
         color: white;
         display: block;
     }
-
     .komentar{
       width : 635px;
       height : auto;
       border-bottom : 1px solid #e30066;
     }
-
     .fromwho{
       font-size : 12px;
       font-style : italic;
     }
-
     .tanda {
     color: orange;
     }
@@ -277,7 +258,7 @@
                     <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
                     <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
                     <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a>  
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -294,24 +275,16 @@
                       <li class="nav-item dropdown" >
                         <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projek</a> 
                         <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink"> 
-                          <a class="dropdown-item"  target="_empty" href="#">Tambah Projek</a> 
+                          <a class="dropdown-item"  target="_empty" href="insert-project.php">Tambah Projek</a> 
                           <a class="dropdown-item"  target="_empty" href="project.php">Lihat Projek Aktif</a>
                         </div>
                       </li>
                     ';
                   }
-
+                  else{
+                    echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
+                  }
                 ?>
-                <li>
-                  <i class="search fa fa-search search-btn"></i>
-                  <div class="search-open">
-                    <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Ketikkan Pekerjaan" aria-describedby="basic-addon2">
-                      <span class="input-group-addon" id="basic-addon2">Cari</span>
-                    </div>
-                  </div>
-                </li> 
-                <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
                       <div class="container">
@@ -420,7 +393,7 @@
       $s = "SELECT picture FROM freelancer WHERE id = '".$id."'";
       $q = mysqli_query($conn, $s);
       if($row = mysqli_fetch_array($q)){
-        if(empty($row["picture"])){
+        if(!$row["picture"]){
           echo '<img src = "foto/default-user-image.png">';
         } else {
           echo '<img src ="data:image/jpeg;base64,'.base64_encode($row['picture']).'" style = "width:150px;height:150px;">';
@@ -428,6 +401,29 @@
       }
     ?>
     </div>
+    <?php
+      $s = "SELECT freelancer.`f_nama` ,ROUND(AVG(review.`rating`),1) AS rating 
+           FROM review RIGHT JOIN tawar 
+           ON review.`bid_id`=tawar.`bid_id` RIGHT JOIN freelancer
+           ON tawar.`f_id`=freelancer.`id` RIGHT JOIN pekerjaan
+           ON tawar.k_id=pekerjaan.k_id RIGHT JOIN pengusaha
+           ON pekerjaan.pengusaha_id=pengusaha.pengusaha_id
+           WHERE freelancer.`id`= '$id'
+           GROUP BY freelancer.`f_nama`";
+      $q = mysqli_query($conn, $s);
+      if($row = mysqli_fetch_array($q)){
+        $rate=$row["rating"];
+      }
+      else{
+      	$rate=null;
+      }
+      if($rate==null){
+        echo '<p style = "margin-top : 20px; margin-left : 115px;"><span class="fa fa-star tanda"></span> 0.0</p>';
+      } else {
+        echo '<p style = "margin-top : 20px; margin-left : 115px;"><span class="fa fa-star tanda"></span> '.$rate.'</p>';
+      }
+    ?>
+
     <p style = "margin-top : 20px; margin-left : 20px;">Nama : <?php echo $name;?></p> 
     <p style = "margin-left : 20px;">Usia : <?php echo $usia;?></p>
     <p style = "margin-left : 20px">Keahlian : <?php echo $master;?></p>
@@ -457,16 +453,19 @@
     <?php
       $s = "SELECT * FROM freelancer WHERE id = '".$id."'";
       $q = mysqli_query($conn, $s);
-      if($row = mysqli_fetch_array($q)){
-        echo '<span><img src ="data:image/jpeg;base64,'.base64_encode($row['f_portofolio']).'"></span>';
+      while($row = mysqli_fetch_array($q)){
+      	if(!$row["f_portofolio"]){
+      		echo '<div class = "nama">Portofolio belum dimasukan</div>';
+      	}
+        else{
+      		echo '<span><img src ="data:image/jpeg;base64,'.base64_encode($row['f_portofolio']).'"></span>';
+      }
       }
     ?>
     </div>
     <div class = "desc" id="selesai">
       <?php
-      //run di sql procedure di bawah
-      /*DELIMITER $$
-      CREATE OR REPLACE FUNCTION hitung_kerja(id INT)
+      $q="CREATE OR REPLACE FUNCTION hitung_kerja(id INT)
     RETURNS INT
     DETERMINISTIC
     BEGIN
@@ -479,18 +478,14 @@
       AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
       AND tawar.`b_status` = 'SELESAI';
     RETURN jml;
-    END$$
-      DELIMITER$$*/
-
+    END";
+    $res1 = mysqli_query($conn, $q);
       $jumlah= "SELECT DISTINCT hitung_kerja($id) AS jum";
       $res = mysqli_query($conn, $jumlah);
       while($row = mysqli_fetch_array($res)){
         echo '<p style = "font-size : 20px; font-weight : bold;">Total '.$row["jum"].' pekerjaan selesai</p>';
       }
-
-      //run di sql procedure di bawah
-      /*$DELIMITER $$
-        CREATE OR REPLACE PROCEDURE tampil_kerja(IN id INT)
+      $q="CREATE OR REPLACE PROCEDURE tampil_kerja(IN id INT)
         BEGIN
         SELECT pengusaha.`nama` AS nm_peng, pekerjaan.`nama` AS kerja, tawar.`bid_id`
       FROM tawar, freelancer, pengusaha, pekerjaan
@@ -499,9 +494,8 @@
       AND tawar.`k_id`=pekerjaan.`k_id`
       AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
       AND tawar.`b_status` = 'SELESAI';
-        END$$
-        DELIMITER$$*/
-
+        END";
+      $result1 = mysqli_query($conns, $q);
       $result = mysqli_query($conns, "CALL tampil_kerja($id)");
       while($row = mysqli_fetch_array($result)){
         echo '
@@ -515,16 +509,17 @@
     </div>
     <div class = "desc" id="review">
       <?php
-      $komen = "SELECT pengusaha.nama AS namapengusaha, pekerjaan.nama AS namapekerjaan, review.komentar AS komentar ,review.`tgl` AS tgl ,review.`rating` AS rating
+      $komen = "CREATE or REPLACE VIEW view_komen as SELECT pengusaha.nama AS namapengusaha, pekerjaan.nama AS namapekerjaan, review.komentar AS komentar ,review.`tgl` AS tgl ,review.`rating` AS rating
            FROM review JOIN tawar 
            ON review.`bid_id`=tawar.`bid_id` JOIN freelancer
            ON tawar.`f_id`=freelancer.`id` JOIN pekerjaan
            ON tawar.k_id=pekerjaan.k_id JOIN pengusaha
            ON pekerjaan.pengusaha_id=pengusaha.pengusaha_id
            WHERE freelancer.`id`= '$id'";
-
       $result = mysqli_query($conn, $komen);
-      while($row = mysqli_fetch_array($result)){
+      $komenview= "SELECT * from view_komen;";
+      $result2 = mysqli_query($conn, $komenview);
+      while($row = mysqli_fetch_array($result2)){
         $rate= $row["rating"];
         echo '<div class = "komentar">
               <div class = "nama">'.$row["namapekerjaan"].'</div>';
@@ -564,8 +559,15 @@
       AND freelancer.`id`=tawar.`f_id`
       AND tawar.`k_id`=pekerjaan.`k_id`
       AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
-      AND tawar.`b_status` = 'TERIMA'";
-
+      AND tawar.`b_status` = 'TERIMA'
+      UNION
+      SELECT pengusaha.`nama` AS nm_peng, pekerjaan.`nama` AS kerja, tawar.`bid_id`
+      FROM tawar, freelancer, pengusaha, pekerjaan
+      WHERE freelancer.`id`='$id'
+      AND freelancer.`id`=tawar.`f_id`
+      AND tawar.`k_id`=pekerjaan.`k_id`
+      AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id` 
+      AND tawar.`b_status` = 'PROGRESS'";
       $result = mysqli_query($conn, $histori);
       while($row = mysqli_fetch_array($result)){
         echo '
@@ -583,7 +585,48 @@
 </div>
 <br />
 <button class = "edit"><?php echo '<a href ="form-edit1.php?id='.$id.'">';?>Ubah Profil</a></button>
+<!--====================================================
+                      FOOTER
+======================================================--> 
+    <footer> 
+        <div id="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="footer-copyrights">
+                            <p>&copy; Hak Cipta dilindungi. Freelance mosv co., Ltd.</p>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </footer>
 
+    <!--Global JavaScript -->
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/popper/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/wow/wow.min.js"></script>
+    <script src="js/owl-carousel/owl.carousel.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery-easing/jquery.easing.min.js"></script> 
+    <script src="js/custom.js"></script>
+    <script>
+        if( jQuery(".toggle .toggle-title").hasClass('active') ){
+                jQuery(".toggle .toggle-title.active").closest('.toggle').find('.toggle-inner').show();
+            }
+            jQuery(".toggle .toggle-title").click(function(){
+                if( jQuery(this).hasClass('active') ){
+                    jQuery(this).removeClass("active").closest('.toggle').find('.toggle-inner').slideUp(200);
+                }
+                else{   jQuery(this).addClass("active").closest('.toggle').find('.toggle-inner').slideDown(200);
+                }
+            });
+    </script> 
     </body>
     <script>
   function openTab(tabName,elmnt, evt) {
@@ -598,7 +641,6 @@
       }
       document.getElementById(tabName).style.display = "block";
       evt.currentTarget.className += " active";
-
   }
   document.getElementById("defaultOpen").click();
     </script>

@@ -73,6 +73,10 @@
       font-size : 20px;
       color : #e30066 ;
     }
+
+    .tanda {
+    color: orange;
+    }
 		</style>
 	</head>
 
@@ -94,49 +98,82 @@
       <div class="col-md-6">
 					<?php
 						$kerja = $_GET["k_id"];
-						$sql = "SELECT tawar.*, freelancer.`f_nama`, freelancer.`f_ahli`, freelancer.`f_deskripsi`
-							FROM pekerjaan, freelancer, tawar
-							WHERE pekerjaan.`k_id` = tawar.`k_id` AND
-								tawar.`f_id` = freelancer.`id` AND
-								pekerjaan.`pengusaha_id` = ".$id." AND
-								tawar.`k_id` = ".$kerja;
+						$sql = "SELECT  tawar.`bid_id`,freelancer.`f_nama`,freelancer.`f_ahli`,freelancer.`f_deskripsi`,freelancer.`f_portofolio` ,tawar.`harga`,tawar.`b_status`,r.rate as rating
+						FROM (SELECT freelancer.`id` AS idf, ROUND(AVG(review.`rating`),1) AS rate
+						FROM review RIGHT JOIN tawar 
+						ON review.`bid_id`=tawar.`bid_id` RIGHT JOIN freelancer
+						ON tawar.`f_id`=freelancer.`id` RIGHT JOIN pekerjaan
+						ON tawar.k_id=pekerjaan.k_id RIGHT JOIN pengusaha
+						ON pekerjaan.pengusaha_id=pengusaha.pengusaha_id
+						WHERE freelancer.`id` IN (SELECT freelancer.`id`
+						FROM pekerjaan, freelancer, tawar
+						WHERE pekerjaan.`k_id` = tawar.`k_id` 
+						AND tawar.`f_id` = freelancer.`id` 
+						AND pekerjaan.`pengusaha_id` = '$id'
+						AND tawar.`k_id` = '$kerja')
+						GROUP BY freelancer.`f_nama`)AS r, pekerjaan, freelancer, tawar
+						WHERE pekerjaan.`k_id` = tawar.`k_id` 
+						AND tawar.`f_id` = freelancer.`id` 
+						AND pekerjaan.`pengusaha_id` = '$id'
+						AND tawar.`k_id` = '$kerja'
+						AND r.idf=freelancer.`id`;";
 						
 						$result = mysqli_query($conn, $sql);
 						if($result){
 							while($row = mysqli_fetch_array($result)){
-								
+								$nama=$row["f_nama"];
+								$ahli=$row["f_ahli"];
+								$desk=$row["f_deskripsi"];
+								$harga=$row["harga"];
+								$status=$row["b_status"];
+								$bid=$row["bid_id"];
+								$porto=$row["f_portofolio"];
+								$rating=$row["rating"];
 								echo '
 								<div class = "penawar">
-									<div class="nama">'.$row["f_nama"].'</div>
+									<div class="nama">'.$nama.'</div>
 									<table class="table">
 									<tr>
+									<td>Penilaian </td>';
+									if($rating==null){
+									echo' <td><span class="fa fa-star tanda"></span> 0.0  </td>';
+								}else{
+									echo' <td><span class="fa fa-star tanda"></span> '.$rating.'  </td>';
+								}
+								echo'
+									<tr>
 									<td>Keahlian </td>
-									<td> '.$row["f_ahli"].' </td>
-									
+									<td> '.$ahli.' </td>
 									</tr>
 
 									<tr>
 									<td>Deskripsi Penawar</td>
-									<td>'.$row["f_deskripsi"].' </td>
+									<td>'.$desk.' </td>
+									</tr>
+
+									<tr>
+									<td>Portofolio </td>
+									<td> <img src ="data:image/jpeg;base64,'.base64_encode($row['f_portofolio']).'" style = "width:50% ;height:50%;"> </td>
 									</tr>
 
 
 									<tr>
 									<td>Permintaan Bayaran</td>
-									<td>'.$row["harga"].' </td>
+									<td>'.$harga.' </td>
 									</tr>
 
 									<tr>
 									<td>Status</td>
-									<td>'.$row["b_status"].' </td>
+									<td>'.$status.' </td>
 									</tr>
 
 									</table>
-									<br><a href="status.php?bid_id='.$row["bid_id"].'" class="btn btn-general btn-white">Ubah Status</a>
+									<br><a href="status.php?bid_id='.$bid.'" class="btn btn-general btn-white">Ubah Status</a>
 								</div>
-								';
+								';		
 							}
-						}		
+						}
+						
 					?>
 				<div class = "modal-footer">
             <a href="profilpeng.php"><button class="btn btn-general btn-white">Kembali</button></a>

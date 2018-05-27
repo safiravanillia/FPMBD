@@ -92,35 +92,34 @@ if( mysqli_num_rows($query) < 1 ){
       <div class="col-md-6">
           <form method="post" action="prosesedit1.php?role=freelancer" enctype="multipart/form-data">
           <input type="hidden" name="id" value="<?php echo $free['id'] ?>" />
-          <div class = "form-group">
+          <div class = "form-group" style="color:#e30066">
             Nama Terang
             <input type="text" name="nama" class ="form-control" placeholder="Masukkan nama" value="<?php echo $free['f_nama'] ?>" required/>
           </div>
-          <div class = "form-group">
+          <div class = "form-group" style="color:#e30066">
             Usia
-            <input type="text" name="umur" class ="form-control" placeholder="Masukkan usia" value="<?php echo $free['f_usia'] ?>" required/>
+            <input type="number" name="umur" class ="form-control" placeholder="Masukkan usia" value="<?php echo $free['f_usia'] ?>" required/>
           </div>
-          <div class = "form-group">
+          <div class = "form-group" style="color:#e30066">
             No. Telepon
-            <input type="text" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $free['f_telepon'] ?>" required/>
+            <input type="number" name="telp" class ="form-control" placeholder="Masukkan nomor telepon" value="<?php echo $free['f_telepon'] ?>" required/>
           </div>
-          <div class = "form-group">
+          <div class = "form-group" style="color:#e30066">
             Keahlian
             <input type="text" name="ahli" class ="form-control" placeholder="Masukkan gelar" value="<?php echo $free['f_ahli'] ?>" required/>
           </div>
-          <div class = "form-group">
+          <div class = "form-group" style="color:#e30066">
             Deskripsi <br />
             <textarea name="bio" rows="10" cols="70" placeholder="Paparkan pengalaman Anda" required><?php echo $free['f_deskripsi'] ?></textarea>
           </div>
-                <div class = "form-group">
+                <div class = "form-group" style="color:#e30066">
                   Portofolio
                   <input id="register_porto" name="porto" class="form-control" type="file" />
-                  <span><?php echo $free['f_portofolio'];?></span>
+                  <span></span>
                 </div>
-                <div class = "form-group">
+                <div class = "form-group" style="color:#e30066">
                   Gambar Profil (Ukuran 150x150 px)
                   <input id="register_foto" name="foto" class="form-control" type="file" placeholder="Ukuran 150x150 px"/>
-                  <span><?php echo $free['picture'];?></span>
                 </div>
           <div class = "modal-footer">
             <a href="profilfree.php"><button class="btn btn-general btn-white">Kembali</button></a>

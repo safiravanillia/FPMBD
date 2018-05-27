@@ -104,7 +104,7 @@
                     <a class="dropdown-item"  target="_empty" href="desain.php">Grafis dan Desain</a> 
                     <a class="dropdown-item"  target="_empty" href="pemrograman.php">Web dan Pemograman</a> 
                     <a class="dropdown-item"  target="_empty" href="penulisan.php">Penulisan dan Penerjemahan</a> 
-                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a> 
+                    <a class="dropdown-item"  target="_empty" href="visual.php">Visual dan Audio</a>  
                   </div>
                   <?php
                   if(isset($_SESSION["free"])&&isset($_SESSION["logged"])){
@@ -115,7 +115,6 @@
                     <li class="nav-item" ><a class="nav-link smooth-scroll" href="profilpeng.php">Profil</a></li> ';
                   }?>
                 </li>
-                
                 <?php
                   if(isset($_SESSION["role"])&&$_SESSION["role"]=="pengusaha"){
                     echo '
@@ -128,17 +127,10 @@
                       </li>
                     ';
                   }
+                  else{
+                    echo '<li class="nav-item" ><a class="nav-link smooth-scroll" href="project.php">Projek</a></li>';
+                  }
                 ?>
-                <li>
-                  <i class="search fa fa-search search-btn"></i>
-                  <div class="search-open">
-                    <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Ketikkan Pekerjaan" aria-describedby="basic-addon2">
-                      <span class="input-group-addon" id="basic-addon2">Cari</span>
-                    </div>
-                  </div>
-                </li> 
-                <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
                       <div class="container">
@@ -208,11 +200,11 @@
                           <h3 class="text-center">Daftar</h3>
                           <div class="modal-body"> 
                               <label for="username">Username</label> 
-                              <input id="register_username" class="form-control" type="text" placeholder="Masukkan username" name="user" required>
+                              <input id="register_username" class="form-control" type="text" placeholder="Masukkan username" name="user" required/>
                               <label for="register_email">E-mail</label> 
-                              <input id="register_email" name="email" class="form-control" type="text" placeholder="Masukkan E-mail" required>
+                              <input id="register_email" name="email" class="form-control" type="email" placeholder="Masukkan E-mail" required/>
                               <label for="register_password">Kata Sandi</label> 
-                              <input id="register_password" name="passwd" class="form-control" type="password" placeholder="Masukkan kata sandi" required>
+                              <input id="register_password" name="passwd" class="form-control" type="password" placeholder="Masukkan kata sandi" required/>
                               <label for="register_password">Pilih peran:</label>
                               <div class="checkbox"> 
                                 <label>
@@ -253,9 +245,9 @@
                   <hgroup class="wow fadeInUp">
                       <h1><span ><a href="" class="typewrite" data-period="2000" data-type='[ " Kami Hadir", " Membantu", " Kebutuhan Anda"]'>
                         <span class="wrap"></span></a></span> </h1>        
-                      <h3>Rasakan mudahnya kembangkan bisnis dengan bantuan freelancer profesional</h3>
+                      <h3>Rasakan mudahnya mendapat pekerjaan sesuai passion</h3>
                   </hgroup>
-                  <a href="project.php"> <button class="btn btn-general btn-green wow fadeInUp" role="button">Pekerjakan Kami</button></a>
+                  <a href="project.php"> <button class="btn btn-general btn-green wow fadeInUp" role="button">Mulai Bekerja</button></a>
                 </div>           
             </div> 
         </div> 
@@ -283,7 +275,7 @@
             <div class="about-content-box wow fadeInUp" data-wow-delay="0.3s">
               <i class="fa fa-snowflake-o"></i>
               <h5>Jangan Khawatir!</h5>
-              <p class="desc">Kami hanya memilih freelancer yang terpercaya</p>
+              <p class="desc">Kami hanya memilih pemberi kerja yang terpercaya</p>
             </div>
           </div> 
           <div class="col-md-4 bg-chathams">
@@ -315,18 +307,15 @@
             <div class="heading-border-light"></div> 
           </div>
               <?php 
-              //query di run di mysql
-              /*DELIMITER$$
-              CREATE OR REPLACE PROCEDURE implicit_cursor()
+              $q=" CREATE OR REPLACE PROCEDURE implicit_cursor()
               BEGIN
-              SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi , pengusaha.`picture` AS foto
+              SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi , pengusaha.`picture` AS foto, pekerjaan.kategori AS kategori
               FROM pekerjaan, pengusaha
               WHERE pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
-              ORDER BY pekerjaan.tglbuka DESC
+              ORDER BY pekerjaan.tglbuka ASC
               LIMIT 3;
-              END$$
-              DELIMITER$$*/
-
+              END";
+              $query1 = mysqli_query($conn, $q);
               $query = mysqli_query($conn, "CALL implicit_cursor()");
               while($baru = mysqli_fetch_array($query)){
         echo '
@@ -336,13 +325,21 @@
                   <div class="caption">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img src= "images/'.$baru["foto"].'" class="img-fluid" alt="...">
+                  <img src ="data:image/jpeg;base64,'.base64_encode($baru["foto"]).'"class="img-fluid" alt="...">
               </div>
               <h3>'.$baru["kerja"].'</h3>
-              <p class="desc">'.$baru["deskripsi"].'</p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
-            </div>
-          </div> 
+              <p class="desc">'.$baru["deskripsi"].'</p>';
+              if($baru["kategori"]=="Visual dan Audio"){
+                echo '<a href="visual.php"><i class="fa fa-arrow-circle-o-right"></i> '.$baru["kategori"].'</a>';
+              }elseif($baru["kategori"]=="Penulisan dan Penerjemahan"){
+                echo '<a href="penulisan.php"><i class="fa fa-arrow-circle-o-right"></i> '.$baru["kategori"].'</a>';
+              }elseif($baru["kategori"]=="Web dan Pemrograman"){
+                echo '<a href="pemrograman.php"><i class="fa fa-arrow-circle-o-right"></i> '.$baru["kategori"].'</a>';
+              }else{
+                echo '<a href="desain.php"><i class="fa fa-arrow-circle-o-right"></i> '.$baru["kategori"].'</a>';
+              }
+            echo '</div>';
+          echo '</div> 
         ';
       }
             ?>
@@ -363,20 +360,17 @@
           </div>
               <?php 
               //query di run di mysql
-              /*DELIMITER$$
-              CREATE OR REPLACE PROCEDURE implicit_cursor1()
+              $q="CREATE OR REPLACE PROCEDURE implicit_cursor1()
               BEGIN
-              SELECT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto
+              SELECT DISTINCT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto, pekerjaan.kategori AS kategori
               FROM pekerjaan JOIN tawar ON pekerjaan.k_id=tawar.k_id
               JOIN freelancer ON freelancer.id= tawar.f_id, pengusaha
-              WHERE tawar.b_status ='TERIMA'
-              AND pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
+              WHERE pekerjaan.`pengusaha_id`=pengusaha.`pengusaha_id`
               GROUP BY pekerjaan.nama
               ORDER BY COUNT(tawar.f_id) DESC
               LIMIT 3;
-              END$$
-              DELIMITER$$*/
-
+              END";
+              $query1 = mysqli_query($conns, $q);
               $query = mysqli_query($conns, "CALL implicit_cursor1()");
               while($populer = mysqli_fetch_array($query)){
         echo '
@@ -385,14 +379,27 @@
               <div class="thumbnail-blogs">
                   <div class="caption">
                     <i class="fa fa-chain"></i>
-                  </div>
-                  <img src= "images/'.$populer["foto"].'" class="img-fluid" alt="...">
-              </div>
+                  </div>';
+				if(!$populer["foto"]){
+		              echo '<img src = "foto/no_image_available.jpg" style="width : 310px; height : 277px">';
+		          } else {
+		              echo '<img src ="data:image/jpeg;base64,'.base64_encode($populer['foto']).'" style = "width:277px;height:277px;">';
+		          }
+                  
+        echo'      </div>
               <h3>'.$populer["kerja"].'</h3>
-              <p class="desc">'.$populer["deskripsi"].'</p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Lihat lebih</a>
-            </div>
-          </div> 
+              <p class="desc">'.$populer["deskripsi"].'</p>';
+              if($populer["kategori"]=="Visual dan Audio"){
+                echo '<a href="visual.php"><i class="fa fa-arrow-circle-o-right"></i> '.$populer["kategori"].'</a>';
+              }elseif($populer["kategori"]=="Penulisan dan Penerjemahan"){
+                echo '<a href="penulisan.php"><i class="fa fa-arrow-circle-o-right"></i> '.$populer["kategori"].'</a>';
+              }elseif($populer["kategori"]=="Web dan Pemrograman"){
+                echo '<a href="pemrograman.php"><i class="fa fa-arrow-circle-o-right"></i> '.$populer["kategori"].'</a>';
+              }else{
+                echo '<a href="desain.php"><i class="fa fa-arrow-circle-o-right"></i> '.$populer["kategori"].'</a>';
+              }
+            echo '</div>';
+          echo '</div> 
         ';
       }   
             ?>
@@ -410,13 +417,13 @@
         <div id="thought-desc" class="row title-bar title-bar-thought owl-carousel owl-theme">
           <div class="col-md-12 ">
             <div class="heading-border bg-white"></div>
-            <p class="wow fadeInUp" data-wow-delay="0.4s">Freelance mosv will deliver value to all the stakeholders and will attain excellence and leadership through such delivery of value. We will strive to support the stakeholders in all activities related to us. Freelance mosv provide great things.</p>
-            <h6>John doe</h6>
+            <p class="wow fadeInUp" data-wow-delay="0.4s">It doesn’t matter how many times you fail. It doesn’t matter how many times you almost get it right. No one is going to know or care about your failures, and neither should you. All you have to do is learn from them and those around you because all that matters in business is that you get it right once. Then everyone can tell you how lucky you are.</p>
+            <h6>Mark Cuban</h6>
           </div>
           <div class="col-md-12 thought-desc">
             <div class="heading-border bg-white"></div>
-            <p class="wow fadeInUp" data-wow-delay="0.4s">Ensuring quality in Freelance mosv is an obsession and the high quality standards set by us are achieved through a rigorous quality assurance process. Quality assurance is performed by an independent team of trained experts for each project. </p>
-            <h6>Tom John</h6>
+            <p class="wow fadeInUp" data-wow-delay="0.4s">Happiness does not come from doing easy work but from the afterglow of satisfaction that comes after the achievement of a difficult task that demanded our best. </p>
+            <h6>Theodore Isaac Rubin</h6>
           </div>
         </div>
       </div>         
@@ -437,132 +444,25 @@
         <div class="row">
           <div class="col-md-6 col-sm-12">
             <div class="client-cont wow fadeInUp" data-wow-delay="0.1s">
-              <img src="img/client/avatar-6.jpg" class="img-fluid" alt="">
-              <h5>Leesa len</h5>
-              <h6>DSS CEO & Cofounder</h6>
+              <img src="img/client/11.png" class="img-fluid" alt="">
+              <h5>Rizvi Shobrina</h5>
+              <h6>Freelancer</h6>
               <i class="fa fa-quote-left"></i>
-              <p>The Businessbox service - it helps fill our Business, and increase our show up rate every single time.</p>
+              <p>Di freelance mosv saya mendapatkan part time sesuai dengan passion saya dengan harga yang pas. Keluhan juga dapat tertangani dengan cepat.</p>
             </div>
           </div>
           <div class="col-md-6 col-sm-12">
             <div class="client-cont wow fadeInUp" data-wow-delay="0.3s">
-              <img src="img/client/avatar-2.jpg" class="img-fluid" alt="">
-              <h5>Dec Bol</h5>
-              <h6>TEMS founder</h6>
+              <img src="img/client/4.png" class="img-fluid" alt="">
+              <h5>PT ACE Hardware</h5>
+              <h6>Manager of Marketing</h6>
               <i class="fa fa-quote-left"></i>
-              <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece.</p>
+              <p>Penyelesaian project menjadi lebih terjangkau dengan adanya platform ini. Semoga kedepannya bisa semakin berkembang.</p>
             </div>
           </div>
         </div>
       </div>        
     </section>  
-
-<!--====================================================
-                    CONTACT HOME
-======================================================-->
-    <div class="overlay-contact-h"></div>
-    <section id="contact-h" class="bg-parallax contact-h-bg">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="contact-h-cont">
-              <h3 class="cl-white">Hubungi Kami</h3><br>
-              <form>
-                <div class="form-group cl-white">
-                  <label for="name">Nama</label>
-                  <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name"> 
-                </div>  
-                <div class="form-group cl-white">
-                  <label for="exampleInputEmail1">Email</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"> 
-                </div>  
-                <div class="form-group cl-white">
-                  <label for="subject">Subjek</label>
-                  <input type="text" class="form-control" id="subject" aria-describedby="subjectHelp" placeholder="Enter subject"> 
-                </div>  
-                <div class="form-group cl-white">
-                  <label for="message">Pesan</label>
-                  <textarea class="form-control" id="message" rows="3"></textarea>
-                </div>  
-                <button class="btn btn-general btn-white" role="button"><i fa fa-right-arrow></i>KIRIM</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>         
-    </section> 
-
-
-<!--====================================================
-                      FOOTER
-======================================================--> 
-    <footer> 
-        <div id="footer-s1" class="footer-s1">
-          <div class="footer">
-            <div class="container">
-              <div class="row">
-                <!-- About Us -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div><img src="img/logo-w.png" alt="" class="img-fluid"></div>
-                  <ul class="list-unstyled comp-desc-f">
-                  </ul><br> 
-                </div>
-                <!-- End About Us -->
-
-                <!-- Recent News -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Useful Links</h2></div>
-                  <ul class="list-unstyled link-list">
-                    <li><a href="about.html">About us</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="project.html">Project</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="careers.html">Career</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="faq.php">FAQ</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="contact.html">Contact us</a><i class="fa fa-angle-right"></i></li> 
-                  </ul>
-                </div>
-                <!-- End Recent list -->
-
-                <!-- Recent Blog Entries -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Unggahan Terbaru</h2></div>
-                  <ul class="list-unstyled thumb-list">
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Praesent ut consectetur diam.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Maecenas pharetra tellus et fringilla.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <!-- End Recent Blog Entries -->
-
-                <!-- Latest Tweets -->
-                <div class="col-md-3 col-sm-6">
-                  <div class="heading-footer"><h2>Kunjungi Kami</h2></div>
-                  <address class="address-details-f">
-                    Jalan Teknik Kimia <br>
-                    Departemen Informatika <br>
-                    Institut Teknologi sepuluh Nopember <br>
-                    <i class="fa fa-phone"></i> (031) 3982200<br>
-                    <i class="fa fa-envelope"></i> <a href="mailto:imail@freelancemosv.id" class="">mail@freelancemosv.id</a>
-                  </address>  
-                  <ul class="list-inline social-icon-f top-data">
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-facebook"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-twitter"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-google-plus"></i></a></li> 
-                  </ul>
-                </div>
-                <!-- End Latest Tweets -->
-              </div>
-            </div><!--/container -->
-          </div> 
-        </div>
 
         <div id="footer-bottom">
             <div class="container">
