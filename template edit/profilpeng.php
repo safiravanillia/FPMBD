@@ -391,6 +391,8 @@
   </div>
   <div class = "desc" id="selesai">
       <?php
+      $q2="CREATE OR REPLACE INDEX index_tawar ON tawar(b_status);";
+      $result2 = mysqli_query($conn, $q2);
       $jumlah= "SELECT COUNT(tawar.`bid_id`) AS jum
       FROM tawar, freelancer, pengusaha, pekerjaan
       WHERE pengusaha.`pengusaha_id`='$id'
@@ -458,27 +460,21 @@
   `tgl_perubahan` DATE,
   `status` VARCHAR(10)
 );
-
--- Insert new data
-DELIMITER$$
-CREATE OR REPLACE TRIGGER log_insert_review
+*/
+      $t1="CREATE OR REPLACE TRIGGER log_insert_review
 AFTER INSERT ON review
 FOR EACH ROW
 BEGIN
   INSERT INTO log_review VALUES (new.r_id, new.bid_id, new.komentar,new.tgl,new.rating, SYSDATE(), 'INSERT');
-END$$
-DELIMITER$$
-
--- delete data
-DELIMITER$$
-CREATE OR REPLACE TRIGGER log_del_review
+END";
+$res1 = mysqli_query($conn, $t1);
+$t2="CREATE OR REPLACE TRIGGER log_del_review
 AFTER DELETE ON review
 FOR EACH ROW
 BEGIN
   INSERT INTO log_review VALUES (old.r_id, old.bid_id, old.komentar,old.tgl,old.rating, SYSDATE(), 'DELETE');
-END$$
-DELIMITER$$*/
-
+END";
+$res2 = mysqli_query($conn, $t2);
       $jumlah= "SELECT r_id AS ID_review, komentar AS Review, tgl AS Dikirim, tgl_perubahan AS Diubah, STATUS AS Tindakan
       FROM log_review, tawar, pekerjaan
       WHERE tawar.`bid_id`=log_review.`bid_id`
@@ -510,29 +506,22 @@ DELIMITER$$*/
   `tgl_perubahan` DATE,
   `status` VARCHAR(200)
 );
-
--- insert data
-DELIMITER$$
-CREATE OR REPLACE TRIGGER log_insert_tawar
+*/
+$t1="CREATE OR REPLACE TRIGGER log_insert_tawar
 AFTER INSERT ON tawar
 FOR EACH ROW
 BEGIN
   INSERT INTO log_tawar VALUES (new.bid_id, new.k_id, new.f_id,new.harga,new.b_status, SYSDATE(), 'INSERT');
-END$$
-DELIMITER$$
-
-INSERT INTO `tawar` VALUES (31, 4, 6, 'TUNGGU');
-
--- update data
-DELIMITER$$
-CREATE OR REPLACE TRIGGER log_update_tawar
+END";
+$res1 = mysqli_query($conn, $t1);
+$t2="CREATE OR REPLACE TRIGGER log_update_tawar
 AFTER UPDATE ON tawar
 FOR EACH ROW
 BEGIN
   INSERT INTO log_tawar VALUES (old.bid_id, old.k_id, old.f_id,old.harga,old.b_status, SYSDATE(), 'OLD UPDATE');
   INSERT INTO log_tawar VALUES (new.bid_id, new.k_id, new.f_id,new.harga,new.b_status, SYSDATE(), 'NEW UPDATE');
-END$$
-DELIMITER$$*/
+END";
+$res2 = mysqli_query($conn, $t2);
 
       $jumlah= "SELECT log_tawar.bid_id AS id, pekerjaan.`nama` AS kerja, log_tawar.`harga` AS harga, log_tawar.`b_status` 
       AS status, log_tawar.`tgl_perubahan` AS tgl, log_tawar.`status` AS tindakan

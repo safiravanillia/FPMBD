@@ -359,7 +359,6 @@
             <div class="heading-border-light"></div> 
           </div>
               <?php 
-              //query di run di mysql
               $q="CREATE OR REPLACE PROCEDURE implicit_cursor1()
               BEGIN
               SELECT DISTINCT pekerjaan.nama AS kerja, pekerjaan.`deskripsi` AS deskripsi, pengusaha.`picture` AS foto, pekerjaan.kategori AS kategori
@@ -380,11 +379,11 @@
                   <div class="caption">
                     <i class="fa fa-chain"></i>
                   </div>';
-				if(!$populer["foto"]){
-		              echo '<img src = "foto/no_image_available.jpg" style="width : 310px; height : 277px">';
-		          } else {
-		              echo '<img src ="data:image/jpeg;base64,'.base64_encode($populer['foto']).'" style = "width:277px;height:277px;">';
-		          }
+        if(!$populer["foto"]){
+                  echo '<img src = "foto/no_image_available.jpg" style="width : 310px; height : 277px">';
+              } else {
+                  echo '<img src ="data:image/jpeg;base64,'.base64_encode($populer['foto']).'" style = "width:277px;height:277px;">';
+              }
                   
         echo'      </div>
               <h3>'.$populer["kerja"].'</h3>

@@ -415,7 +415,7 @@
         $rate=$row["rating"];
       }
       else{
-      	$rate=null;
+        $rate=null;
       }
       if($rate==null){
         echo '<p style = "margin-top : 20px; margin-left : 115px;"><span class="fa fa-star tanda"></span> 0.0</p>';
@@ -454,11 +454,11 @@
       $s = "SELECT * FROM freelancer WHERE id = '".$id."'";
       $q = mysqli_query($conn, $s);
       while($row = mysqli_fetch_array($q)){
-      	if(!$row["f_portofolio"]){
-      		echo '<div class = "nama">Portofolio belum dimasukan</div>';
-      	}
+        if(!$row["f_portofolio"]){
+          echo '<div class = "nama">Portofolio belum dimasukan</div>';
+        }
         else{
-      		echo '<span><img src ="data:image/jpeg;base64,'.base64_encode($row['f_portofolio']).'"></span>';
+          echo '<span><img src ="data:image/jpeg;base64,'.base64_encode($row['f_portofolio']).'"></span>';
       }
       }
     ?>

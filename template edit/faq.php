@@ -251,7 +251,6 @@
               <div class="service-h-tab"> 
                 <nav class="nav nav-tabs" id="myTab" role="tablist">
                   <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-dasar" role="tab" aria-controls="nav-home" aria-expanded="true">Dasar</a>
-                  <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-guna" role="tab" aria-controls="nav-profile">Masalah Penggunaan</a> 
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                   <div class="tab-pane fade show active" id="nav-dasar" role="tabpanel" aria-labelledby="nav-home-tab">      
@@ -263,150 +262,46 @@
                         </h3>
                       </div>
                       <div class="toggle-inner">
-                        <p>Mendaftar di Freelance mosv tidak dikenakan biaya. Pemberi kerja dapat mempekerjakan freelancer dalam website kami tanpa tambahan biaya dari harga yang ditawarkan freelancer.</p>
+                        <p>Mendaftar di Freelance mosv tidak dikenakan biaya. Pemberi kerja dapat mempekerjakan freelancer dalam website kami tanpa tambahan biaya.</p>
                       </div>
                     </div> 
                     <div class="toggle">
                       <div class="toggle-title  ">
                           <h3>
                           <i></i>
-                          <span class="title-name">Bagaimana cara mempekerjakan freelancer?</span>
+                          <span class="title-name">Bagaimana cara mengambil pekerjaan?</span>
                           </h3>
                       </div>
                       <div class="toggle-inner">
                           <p>Langkah mudah bagi freelancer untuk menggunakan website: <br>
-                          1. Klik tombol "Pekerjakan Saya".<br>
-                          2. Freelancer akan mendapatkan notifikasi bahwa mendapatkan tawaran pekerjaan dari Anda.<br>
-                          3. Tunggu 1-2 hari untuk mendapat e-mail dari freelancer yang Anda pekerjakan.<br>
-                          4. Apabila melebihi dari batas waktunya tidak mendapat balasan, secara otomatis freelancer yang dipilih akan dibatalkan.</p>
+                          1. Klik tombol "Mulai Bekerja" atau "Projek" pada navigation bar.<br>
+                          2. Pilih kategori pekerjaan yang sesuai.<br>
+                          3. Baca deskripsi pekerjaan.<br>
+                          4. Klik tawar.<br>
+                          5. Atur bayaran yang diinginkan<br>
+                          6. Tunggu konfirmasi dari perusahaan apakah menerima atau menolak tawaran Anda.<br>
+                          7. Apabila diterima, maka pekerjaan yang Anda ambil akan muncul di Profil>>Tab Pekerjaan OnProgress</p>
+                      </div>
+                    </div> 
+                    <div class="toggle">
+                      <div class="toggle-title  ">
+                          <h3>
+                          <i></i>
+                          <span class="title-name">Bagaimana cara mengambil hasil pembayaran?</span>
+                          </h3>
+                      </div>
+                      <div class="toggle-inner">
+                        Setelah mengubah status pekerjaan menjadi "SELESAI", kamu akan mendapat bayaran via transfer sesuai penawaran diawal dari perusahaan tersebut. Selain itu, perusahaan akan memberikan feedback kepada kamu untuk menambah rating mu sebagai kualitas hasil kerja.<br>
                       </div>
                     </div> 
                   </div>
-                  <div class="tab-pane fade" id="nav-guna" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <div class="toggle">
-                      <div class="toggle-title ">
-                        <h3>
-                        <i></i>
-                        <span class="title-name"> Can I have an invoice for my subscription?</span>
-                        </h3>
-                      </div>
-                      <div class="toggle-inner">
-                        <p>Four billion years ago, something started stirring in the primordial soup. A few simple chemicals got together and made biology – the first molecules capable of replicating themselves appeared. We humans are linked by evolution to those early biological molecules. But how did the basic chemicals present on early Earth spontaneously arrange themselves into something resembling life? How did we get DNA? What did the first cells look like? More than half a century after the chemist Stanley Miller proposed his "primordial soup" theory, we still can't agree about what happened. Some say life began in hot pools near volcanoes, others that it was kick-started by meteorites hitting the sea.</p>
-                      </div>
-                    </div> 
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>      
-    </section>  
-
-<!--====================================================
-                    CONTACT HOME
-======================================================-->
-    <div class="overlay-contact-h"></div>
-    <section id="contact-h" class="bg-parallax contact-h-bg">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="contact-h-cont">
-              <h3 class="cl-white">Hubungi Kami</h3><br>
-              <form>
-                <div class="form-group cl-white">
-                  <label for="name">Nama</label>
-                  <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name"> 
-                </div>  
-                <div class="form-group cl-white">
-                  <label for="exampleInputEmail1">Email</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"> 
-                </div>  
-                <div class="form-group cl-white">
-                  <label for="subject">Subjek</label>
-                  <input type="text" class="form-control" id="subject" aria-describedby="subjectHelp" placeholder="Enter subject"> 
-                </div>  
-                <div class="form-group cl-white">
-                  <label for="message">Pesan</label>
-                  <textarea class="form-control" id="message" rows="3"></textarea>
-                </div>  
-                <button class="btn btn-general btn-white" role="button"><i fa fa-right-arrow></i>KIRIM</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>         
     </section> 
-
-<!--====================================================
-                      FOOTER
-======================================================--> 
-    <footer> 
-        <div id="footer-s1" class="footer-s1">
-          <div class="footer">
-            <div class="container">
-              <div class="row">
-                <!-- About Us -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div><img src="img/logo-w.png" alt="" class="img-fluid"></div>
-                  <ul class="list-unstyled comp-desc-f">
-                  </ul><br> 
-                </div>
-                <!-- End About Us -->
-
-                <!-- Recent News -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Useful Links</h2></div>
-                  <ul class="list-unstyled link-list">
-                    <li><a href="about.html">About us</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="project.html">Project</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="careers.html">Career</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="faq.html">FAQ</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="contact.html">Contact us</a><i class="fa fa-angle-right"></i></li> 
-                  </ul>
-                </div>
-                <!-- End Recent list -->
-
-                <!-- Recent Blog Entries -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Unggahan Terbaru</h2></div>
-                  <ul class="list-unstyled thumb-list">
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Praesent ut consectetur diam.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Maecenas pharetra tellus et fringilla.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <!-- End Recent Blog Entries -->
-
-                <!-- Latest Tweets -->
-                <div class="col-md-3 col-sm-6">
-                  <div class="heading-footer"><h2>Kunjungi Kami</h2></div>
-                  <address class="address-details-f">
-                    Jalan Teknik Kimia <br>
-                    Departemen Informatika <br>
-                    Institut Teknologi sepuluh Nopember <br>
-                    <i class="fa fa-phone"></i> (031) 3982200<br>
-                    <i class="fa fa-envelope"></i> <a href="mailto:imail@freelancemosv.id" class="">mail@freelancemosv.id</a>
-                  </address>  
-                  <ul class="list-inline social-icon-f top-data">
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-facebook"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-twitter"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-google-plus"></i></a></li> 
-                  </ul>
-                </div>
-                <!-- End Latest Tweets -->
-              </div>
-            </div><!--/container -->
-          </div> 
-        </div>
 
         <div id="footer-bottom">
             <div class="container">
