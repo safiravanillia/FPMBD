@@ -25,18 +25,19 @@
 				window.location.href='index.php';
 				</script>";
 			}
-		}
-		else{
-			$sql = "INSERT INTO user VALUES(null,'$user', '$email', '$pass', '$role');";
-		
-			$query = mysqli_query($conn, $sql);
-			if($query){
-				$_SESSION["logged"] = true;
-				$_SESSION["name"] = $user;
-				$_SESSION["role"] = $role;
-				header("location:getdata.php");	
+			else{
+				$sql = "INSERT INTO user VALUES(null,'$user', '$email', '$pass', '$role');";
+			
+				$query = mysqli_query($conn, $sql);
+				if($query){
+					$_SESSION["logged"] = true;
+					$_SESSION["name"] = $user;
+					$_SESSION["role"] = $role;
+					header("location:getdata.php");	
+				}
 			}
 		}
+		
 
 		
 	}
